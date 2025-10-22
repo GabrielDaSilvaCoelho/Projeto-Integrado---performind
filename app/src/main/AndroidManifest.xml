@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Necessário para Retrofit/OkHttp e Supabase -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,32 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
 
-        <!-- Ajuste os nomes dos packages/classe conforme seu código real -->
+        <!-- COLOQUE O NOME COMPLETO das classes que EXISTEM no seu projeto -->
         <activity
-            android:name=".QuizActivity"
-            android:exported="false" />
-
-        <!-- Provável typo anterior 'profiel' -> revise o package real do seu projeto -->
-        <activity
-            android:name="perfil.CriarUsuarioActivity"
-            android:exported="false"
-            tools:replace="android:name"
-            tools:ignore="MissingClass" />
-
-        <activity
-            android:name="enquete.CriarEnqueteActivity"
-            android:exported="false"
-            tools:ignore="MissingClass" />
-
-        <!-- Activity inicial: EditorActivity (como estava no seu arquivo atual) -->
-        <activity
-            android:name=".EditorActivity"
+            android:name="com.seuapp.quiz.EditorActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.seuapp.quiz.QuizActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="profiel.CriarUsuarioActivity"
+            android:exported="false" />
     </application>
 </manifest>
