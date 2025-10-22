@@ -3,7 +3,7 @@ package banco;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.seu.pacote.BuildConfig;
+import com.example.performind.BuildConfig;
 
 import java.io.IOException;
 import java.util.HashMap;
