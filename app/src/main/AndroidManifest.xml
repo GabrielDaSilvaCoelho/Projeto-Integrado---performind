@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Necessário para Retrofit/OkHttp e Supabase -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:label="Quiz App"
         android:icon="@android:drawable/ic_menu_info_details"
         android:roundIcon="@android:drawable/ic_menu_info_details"
+        android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
 
-        <!-- Outras Activities -->
+        <!-- Ajuste os nomes dos packages/classe conforme seu código real -->
         <activity
             android:name=".QuizActivity"
             android:exported="false" />
 
+        <!-- Provável typo anterior 'profiel' -> revise o package real do seu projeto -->
+        <activity
+            android:name="perfil.CriarUsuarioActivity"
+            android:exported="false"
+            tools:replace="android:name"
+            tools:ignore="MissingClass" />
+
+        <activity
+            android:name="enquete.CriarEnqueteActivity"
+            android:exported="false"
+            tools:ignore="MissingClass" />
+
+        <!-- Activity inicial: EditorActivity (como estava no seu arquivo atual) -->
         <activity
             android:name=".EditorActivity"
-            android:exported="false" />
-
-        <!-- ✅ Activity inicial alterada para CriarUsuarioActivity -->
-        <activity
-            android:name="profiel.CriarUsuarioActivity"
-            android:exported="true"
-            tools:ignore="MissingClass">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
