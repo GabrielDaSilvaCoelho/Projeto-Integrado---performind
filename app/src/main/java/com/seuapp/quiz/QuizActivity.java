@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.seu.pacote.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

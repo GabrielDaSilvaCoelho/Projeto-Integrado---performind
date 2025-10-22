@@ -1,5 +1,6 @@
 package profiel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.seuapp.quiz.R;
+import com.seu.pacote.R;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class CriarUsuarioActivity extends AppCompatActivity {
 
     enum TipoUsuario { RH, COLABORADOR, SUPERVISOR }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
