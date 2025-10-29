@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título do Questionário -->
+        <EditText
+            android:id="@+id/etTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o título do questionário"
+            android:inputType="text"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Enunciado da questão -->
+        <EditText
+            android:id="@+id/etQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o enunciado da questão"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Alternativas -->
+        <EditText
+            android:id="@+id/etAlt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 1"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 2"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 3"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 4"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etCorrect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número da alternativa correta (1-4)"
+            android:inputType="number"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botões -->
+        <Button
+            android:id="@+id/btnProxima"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Questão"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar Questionário"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:elevation="4dp"/>
+
+    </LinearLayout>
+</ScrollView>

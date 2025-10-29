@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <EditText
+        android:id="@+id/editAlternativa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Digite a alternativa"
+        android:inputType="text" />
+
+    <RadioButton
+        android:id="@+id/rbCorreta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Correta" />
+</LinearLayout>
