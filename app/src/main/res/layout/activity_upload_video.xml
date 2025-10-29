@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título do vídeo -->
+    <EditText
+        android:id="@+id/etTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Título do vídeo"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Botão selecionar vídeo -->
+    <Button
+        android:id="@+id/btnSelecionar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecionar vídeo"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Botão upload -->
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar vídeo"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- RecyclerView para feed de vídeos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVideos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
