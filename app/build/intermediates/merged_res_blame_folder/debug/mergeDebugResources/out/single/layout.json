@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.example.performind.app-mergeDebugResources-34:/layout/activity_quiz.xml",
+        "source": "com.example.performind.app-main-37:/layout/activity_quiz.xml"
+    },
+    {
+        "merged": "com.example.performind.app-mergeDebugResources-34:/layout/activity_editor.xml",
+        "source": "com.example.performind.app-main-37:/layout/activity_editor.xml"
+    },
+    {
+        "merged": "com.example.performind.app-mergeDebugResources-34:/layout/activity_rh_creator.xml",
+        "source": "com.example.performind.app-main-37:/layout/activity_rh_creator.xml"
+    },
+    {
+        "merged": "com.example.performind.app-mergeDebugResources-34:/layout/item_usuario.xml",
+        "source": "com.example.performind.app-main-37:/layout/item_usuario.xml"
+    },
+    {
+        "merged": "com.example.performind.app-mergeDebugResources-34:/layout/item_created_question.xml",
+        "source": "com.example.performind.app-main-37:/layout/item_created_question.xml"
+    }
+]
