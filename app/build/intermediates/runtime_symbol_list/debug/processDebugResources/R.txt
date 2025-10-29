@@ -4003,10 +4003,12 @@ int id bounceEnd 0x7f0a0068
 int id bounceStart 0x7f0a0069
 int id btnAbrirPlayer 0x7f0a006a
 int id btnCancelar 0x7f0a006b
+int id btnCriarVideo 0x7f0a0287
 int id btnLogin 0x7f0a006c
 int id btnNext 0x7f0a006d
 int id btnProxima 0x7f0a006e
 int id btnSalvar 0x7f0a006f
+int id btnSelecionar 0x7f0a0288
 int id buttonPanel 0x7f0a0070
 int id cache_measures 0x7f0a0071
 int id callMeasure 0x7f0a0072
@@ -4108,6 +4110,7 @@ int id etCargo 0x7f0a00d1
 int id etContato 0x7f0a00d2
 int id etCorrect 0x7f0a00d3
 int id etCpf 0x7f0a00d4
+int id etDescricao 0x7f0a0289
 int id etMatricula 0x7f0a00d5
 int id etNome 0x7f0a00d6
 int id etQuestion 0x7f0a00d7
@@ -4508,6 +4511,7 @@ int id transition_position 0x7f0a0261
 int id transition_scene_layoutid_cache 0x7f0a0262
 int id transition_transform 0x7f0a0263
 int id triangle 0x7f0a0264
+int id tvArquivo 0x7f0a028a
 int id tvDetalhe 0x7f0a0265
 int id tvQuestion 0x7f0a0266
 int id tvTitulo 0x7f0a0267
@@ -4662,6 +4666,7 @@ int layout abc_search_view 0x7f0d0019
 int layout abc_select_dialog_material 0x7f0d001a
 int layout abc_tooltip 0x7f0d001b
 int layout activity_criar_usuario 0x7f0d001c
+int layout activity_criar_video 0x7f0d008c
 int layout activity_editor 0x7f0d001d
 int layout activity_login 0x7f0d001e
 int layout activity_main 0x7f0d001f

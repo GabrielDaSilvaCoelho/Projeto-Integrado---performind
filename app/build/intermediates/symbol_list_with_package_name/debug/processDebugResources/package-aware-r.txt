@@ -4004,10 +4004,12 @@ id bounceEnd
 id bounceStart
 id btnAbrirPlayer
 id btnCancelar
+id btnCriarVideo
 id btnLogin
 id btnNext
 id btnProxima
 id btnSalvar
+id btnSelecionar
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -4109,6 +4111,7 @@ id etCargo
 id etContato
 id etCorrect
 id etCpf
+id etDescricao
 id etMatricula
 id etNome
 id etQuestion
@@ -4509,6 +4512,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvArquivo
 id tvDetalhe
 id tvQuestion
 id tvTitulo
@@ -4663,6 +4667,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_criar_usuario
+layout activity_criar_video
 layout activity_editor
 layout activity_login
 layout activity_main

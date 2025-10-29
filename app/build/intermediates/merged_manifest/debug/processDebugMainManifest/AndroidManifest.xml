@@ -8,7 +8,6 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="36" />
 
-    <!-- Rede (Supabase / streaming) -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -16,8 +15,8 @@
         android:name="com.example.minhaparte.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.minhaparte.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- Opcional: manter CPU acordada durante playback em background com Service (não obrigatório se só usa Activity) -->
-    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+    <uses-permission android:name="com.example.minhaparte.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -32,26 +31,16 @@
         android:testOnly="true"
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="false" >
-
-        <!-- Player (Media3/ExoPlayer) -->
+        <activity
+            android:name="com.example.minhaparte.CriarVideoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode"
+            android:exported="false" />
         <activity
             android:name="com.example.minhaparte.PlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode"
             android:exported="false"
             android:resizeableActivity="true"
-            android:supportsPictureInPicture="true" >
-
-            <!--
-            Se quiser permitir abrir vídeos via intent ACTION_VIEW, descomente:
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            -->
-        </activity>
-
-        <!-- 🔹 Tela inicial -->
+            android:supportsPictureInPicture="true" />
         <activity
             android:name="com.example.minhaparte.CriarUsuarioActivity"
             android:exported="true" >
@@ -61,8 +50,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- 🔹 Login -->
         <activity
             android:name="com.example.minhaparte.LoginActivity"
             android:exported="true" />

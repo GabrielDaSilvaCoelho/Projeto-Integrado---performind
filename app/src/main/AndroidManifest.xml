@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Rede (Supabase / streaming) -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Opcional: manter CPU acordada durante playback em background com Service (não obrigatório se só usa Activity) -->
-    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
 
     <application
         android:allowBackup="true"
@@ -20,23 +16,20 @@
         android:usesCleartextTraffic="false"
         tools:targetApi="31">
 
-        <!-- Player (Media3/ExoPlayer) -->
+        <activity
+            android:name=".CriarVideoActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode" />
+
+
         <activity
             android:name=".PlayerActivity"
             android:exported="false"
-            android:supportsPictureInPicture="true"
             android:resizeableActivity="true"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode">
-            <!-- Se quiser permitir abrir vídeos via intent ACTION_VIEW, descomente:
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            -->
-        </activity>
+            android:supportsPictureInPicture="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode" />
 
-        <!-- 🔹 Tela inicial -->
+
         <activity
             android:name=".CriarUsuarioActivity"
             android:exported="true">
@@ -46,7 +39,6 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔹 Login -->
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
