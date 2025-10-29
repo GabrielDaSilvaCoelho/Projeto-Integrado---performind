@@ -1,0 +1,21 @@
+* [33m1a2b396[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mVideoPlayer[m[33m, [m[1;31morigin/VideoPlayer[m[33m)[m WIP: alterações locais antes do rebase
+* [33m08c95ef[m Criação do player usando exoplayer e algusn ajustes de intents
+* [33m0afcc60[m Criação do player usando exoplayer e algusn ajustes de intents
+*   [33me7433ec[m[33m ([m[1;35mrefs/stash[m[33m)[m On main: !!GitHub_Desktop<main>
+[32m|[m[33m\[m  
+[32m|[m * [33m8d31388[m index on main: f613734 Create workspace.xml
+[32m|[m[32m/[m  
+* [33mf613734[m[33m ([m[1;32mmain[m[33m)[m Create workspace.xml
+[33m|[m * [33me693168[m[33m ([m[1;31morigin/editor-activity[m[33m, [m[1;32meditor-activity[m[33m)[m Adiciona todo o projeto Android com EditorActivity e QuestaoService
+[33m|[m *   [33mad560be[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #5
+[33m|[m [34m|[m[35m\[m  
+[33m|[m [34m|[m * [33ma454b59[m[33m ([m[1;31morigin/frederico-profiel[m[33m, [m[1;32mfrederico-profiel[m[33m)[m Correção banco
+[33m|[m [34m|[m * [33m5343122[m Correção banco
+[33m|[m * [35m|[m [33mf40b5f2[m Merge pull request #4
+[33m|[m [36m|[m[35m\[m[35m|[m 
+[33m|[m [36m|[m * [33m73f2445[m teste banco 1
+[33m|[m * [1;31m|[m [33mec1ea1f[m Merge pull request #3
+[33m|[m [1;32m|[m[1;31m\[m[1;31m|[m 
+[33m|[m [1;32m|[m * [33m2d2acf2[m Testes banco
+[33m|[m * [1;33m|[m [33m8ac78c3[m Merge pull request #2
+[33m|[m [1;34m|[m[1;33m\[m[1;33m|[m 
