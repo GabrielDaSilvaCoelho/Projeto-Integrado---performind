@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.performind",
+  "applicationId": "com.example.minhaparte",
   "variantName": "debug",
   "elements": []
 }

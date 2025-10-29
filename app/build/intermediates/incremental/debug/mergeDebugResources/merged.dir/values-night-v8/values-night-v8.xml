@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Base.Theme.Minhaparte" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
     <style name="Theme.AppCompat.DayNight" parent="Theme.AppCompat"/>
     <style name="Theme.AppCompat.DayNight.DarkActionBar" parent="Theme.AppCompat"/>
     <style name="Theme.AppCompat.DayNight.Dialog" parent="Theme.AppCompat.Dialog"/>
@@ -33,7 +37,6 @@
     <style name="Theme.MaterialComponents.DayNight.DialogWhenLarge" parent="Theme.MaterialComponents.DialogWhenLarge"/>
     <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="Theme.MaterialComponents.NoActionBar"/>
     <style name="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" parent="Theme.MaterialComponents.NoActionBar.Bridge"/>
-    <style name="Theme.MyApp" parent="Theme.Material3.DayNight.NoActionBar"/>
     <style name="ThemeOverlay.AppCompat.DayNight" parent="ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.Material3.DynamicColors.DayNight" parent="ThemeOverlay.Material3.DynamicColors.Dark"/>
     <style name="Widget.MaterialComponents.ActionBar.PrimarySurface" parent="Widget.MaterialComponents.ActionBar.Surface"/>

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.performind.app-mergeDebugResources-33:/values-v24/values-v24.xml",
+            "outputFile": "com.example.minhaparte.app-mergeDebugResources-40:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\b9569027972cf119464f82b0af30a48a\\transformed\\media-1.6.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.11.1\\transforms\\268fb2c3f2a6e7fb77796f1d607c71df\\transformed\\media-1.7.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\a4c2826af20560727cd4589f34557b5c\\transformed\\appcompat-1.7.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.11.1\\transforms\\2956ec14d563ef90b9ea096fa08d7c50\\transformed\\appcompat-1.7.1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -31,7 +31,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\b7ba419eb023263f2523c4082d5a4a92\\transformed\\material-1.12.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.11.1\\transforms\\507c019214c8fd542d26c76a53d48bdf\\transformed\\material-1.13.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",

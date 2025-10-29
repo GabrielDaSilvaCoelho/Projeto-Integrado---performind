@@ -51,7 +51,6 @@
     <string name="bottomsheet_action_collapse">Az alsó lap összecsukása</string>
     <string name="bottomsheet_action_expand">Az alsó lap kibontása</string>
     <string name="bottomsheet_action_expand_halfway">Kibontás félig</string>
-    <string name="bottomsheet_drag_handle_clicked">Duplán koppintott a csúszkára</string>
     <string name="bottomsheet_drag_handle_content_description">Csúszka</string>
     <string msgid="881409763997275156" name="call_notification_answer_action">"Fogadás"</string>
     <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Videó"</string>
@@ -109,22 +108,25 @@
     <string name="exo_track_selection_auto">Automatikus</string>
     <string name="exo_track_selection_none">Nincs</string>
     <string name="exo_track_selection_title_audio">Hang</string>
-    <string name="exo_track_selection_title_text">Szöveg</string>
-    <string name="exo_track_selection_title_video">Videó</string>
     <string name="exo_track_stereo">Sztereó</string>
     <string name="exo_track_surround">Térhatású hangzás</string>
     <string name="exo_track_surround_5_point_1">5.1-es térhatású hangzás</string>
     <string name="exo_track_surround_7_point_1">7.1-es térhatású hangzás</string>
     <string name="exo_track_unknown">Ismeretlen</string>
+    <string name="exo_track_unknown_name">Ismeretlen (%1$s)</string>
     <string name="exposed_dropdown_menu_content_description">Legördülő menü megjelenítése</string>
     <string name="icon_content_description">Párbeszédpanel ikonja</string>
     <string name="item_view_role_description">Lap</string>
+    <string name="m3_loading_indicator_content_description">Betöltés</string>
     <string name="material_clock_toggle_content_description">Válassza ki, hogy délelőtt vagy délután</string>
     <string name="material_hour_24h_suffix">%1$s óra</string>
     <string name="material_hour_selection">Óra kiválasztása</string>
     <string name="material_hour_suffix">%1$s óra</string>
     <string name="material_minute_selection">Perc kiválasztása</string>
     <string name="material_minute_suffix">%1$s perc</string>
+    <string name="material_slider_range_end">Tartomány vége</string>
+    <string name="material_slider_range_start">Tartomány kezdete</string>
+    <string name="material_slider_value">Érték</string>
     <string name="material_timepicker_am">de.</string>
     <string name="material_timepicker_clock_mode_description">Időbevitelhez váltson óramódba.</string>
     <string name="material_timepicker_hour">Óra</string>
@@ -172,9 +174,11 @@
     <string name="mtrl_picker_text_input_year_abbr">É</string>
     <string name="mtrl_picker_today_description">Ma %1$s</string>
     <string name="mtrl_picker_toggle_to_calendar_input_mode">Váltás naptárbeviteli módra</string>
-    <string name="mtrl_picker_toggle_to_day_selection">Koppintson a naptárnézetre való váltáshoz</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Váltás naptárnézetre</string>
     <string name="mtrl_picker_toggle_to_text_input_mode">Váltás szövegbeviteli módra</string>
-    <string name="mtrl_picker_toggle_to_year_selection">Koppintson az éves nézetre való váltáshoz</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Váltás éves nézetre</string>
+    <string name="mtrl_picker_toggled_to_day_selection">Átváltott a naptárnézetre</string>
+    <string name="mtrl_picker_toggled_to_year_selection">Átváltott az éves nézetre</string>
     <string name="mtrl_timepicker_cancel">Mégse</string>
     <string name="mtrl_timepicker_confirm">OK</string>
     <string name="password_toggle_content_description">Jelszó megjelenítése</string>
