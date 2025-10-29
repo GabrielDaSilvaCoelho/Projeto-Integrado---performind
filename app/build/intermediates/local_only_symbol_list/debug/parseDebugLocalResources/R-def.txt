@@ -43,10 +43,12 @@ drawable ic_launcher_foreground
 drawable ic_logo
 id btnAbrirPlayer
 id btnCancelar
+id btnCriarVideo
 id btnLogin
 id btnNext
 id btnProxima
 id btnSalvar
+id btnSelecionar
 id editAlternativa
 id editMatricula
 id editSenha
@@ -58,6 +60,7 @@ id etCargo
 id etContato
 id etCorrect
 id etCpf
+id etDescricao
 id etMatricula
 id etNome
 id etQuestion
@@ -67,6 +70,7 @@ id etSupervisor
 id etTitulo
 id main
 id player_view
+id progress
 id radioGroup
 id rb1
 id rb2
@@ -79,10 +83,12 @@ id spTipo
 id tilSetor
 id tilSupervisor
 id topBar
+id tvArquivo
 id tvDetalhe
 id tvQuestion
 id tvTitulo
 layout activity_criar_usuario
+layout activity_criar_video
 layout activity_editor
 layout activity_login
 layout activity_main

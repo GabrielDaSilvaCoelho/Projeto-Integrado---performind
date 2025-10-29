@@ -148,7 +148,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Barra superior fixa com botão de abrir player -->
+    <!-- Barra superior fixa com dois botões -->
     <LinearLayout
         android:id="@+id/topBar"
         android:orientation="horizontal"
@@ -166,5 +166,18 @@
             android:backgroundTint="?attr/colorPrimaryVariant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnCriarVideo"
+            android:text="Criar Vídeo"
+            android:textColor="@android:color/white"
+            android:backgroundTint="?attr/colorPrimaryVariant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
 </FrameLayout>
