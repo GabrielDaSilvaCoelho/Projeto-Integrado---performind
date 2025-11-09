@@ -1,108 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#F5F5F5">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <!-- Título do Questionário -->
+        <EditText
+            android:id="@+id/etTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enunciado da pergunta">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEnunciado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="4"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resposta CORRETA">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCorreta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resposta errada 1">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etErrada1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resposta errada 2">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etErrada2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resposta errada 3">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etErrada3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resposta errada 4">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etErrada4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdd"
-            style="@style/Widget.Material3.Button"
-            android:text="Adicionar pergunta"
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tvCount"
-            android:text="0/10 perguntas"
+            android:hint="Digite o título do questionário"
+            android:inputType="text"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="16dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPerguntas"
-            android:layout_marginTop="8dp"
+        <!-- Enunciado da questão -->
+        <EditText
+            android:id="@+id/etQuestion"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:hint="Digite o enunciado da questão"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnStartQuiz"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:text="Iniciar Quiz"
-            android:enabled="false"
-            android:layout_marginTop="12dp"
+        <!-- Alternativas -->
+        <EditText
+            android:id="@+id/etAlt1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 1"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 2"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 3"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etAlt4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternativa 4"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etCorrect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número da alternativa correta (1-4)"
+            android:inputType="number"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botões -->
+        <Button
+            android:id="@+id/btnProxima"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Questão"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar Questionário"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:elevation="4dp"/>
 
     </LinearLayout>
 </ScrollView>

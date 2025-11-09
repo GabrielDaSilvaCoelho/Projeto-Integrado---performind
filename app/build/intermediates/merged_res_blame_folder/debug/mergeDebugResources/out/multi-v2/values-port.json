@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.performind.app-mergeDebugResources-33:/values-port/values-port.xml",
+            "outputFile": "com.example.minhaparte.app-mergeDebugResources-41:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\a4c2826af20560727cd4589f34557b5c\\transformed\\appcompat-1.7.0\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\5ed9fe4352a0906927e825f7164c2f4b\\transformed\\appcompat-1.7.1\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

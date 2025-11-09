@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Rede (Supabase / streaming) -->
+    <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Opcional: manter CPU acordada durante playback em background com Service (não obrigatório se só usa Activity) -->
-    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -17,28 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Minhaparte"
-        android:usesCleartextTraffic="false"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <!-- Player (Media3/ExoPlayer) -->
+        <!-- Tela inicial: Feed de vídeos -->
         <activity
-            android:name=".PlayerActivity"
-            android:exported="false"
-            android:supportsPictureInPicture="true"
-            android:resizeableActivity="true"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode">
-            <!-- Se quiser permitir abrir vídeos via intent ACTION_VIEW, descomente:
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="video/*" />
-            </intent-filter>
-            -->
-        </activity>
-
-        <!-- 🔹 Tela inicial -->
-        <activity
-            android:name=".CriarUsuarioActivity"
+            android:name=".UploadVideoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,9 +32,24 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔹 Login -->
+        <!-- Tela de login -->
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
+
+        <!-- Tela de criação de conta -->
+        <activity
+            android:name=".CriarUsuarioActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true" />
+
+
+        <!-- Player de vídeos -->
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="false" />
+
     </application>
 </manifest>

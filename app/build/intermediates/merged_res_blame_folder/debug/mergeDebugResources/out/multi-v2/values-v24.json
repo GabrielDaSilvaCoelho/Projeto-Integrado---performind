@@ -1,10 +1,20 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.performind.app-mergeDebugResources-33:/values-v24/values-v24.xml",
+            "outputFile": "com.example.minhaparte.app-mergeDebugResources-41:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\b9569027972cf119464f82b0af30a48a\\transformed\\media-1.6.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\5ed9fe4352a0906927e825f7164c2f4b\\transformed\\appcompat-1.7.1\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\d0c2c96452091e66b1265e7d151a7c2f\\transformed\\media-1.7.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,17 +31,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\a4c2826af20560727cd4589f34557b5c\\transformed\\appcompat-1.7.0\\res\\values-v24\\values-v24.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,212",
-                        "endColumns": "156,134",
-                        "endOffsets": "207,342"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.12\\transforms\\b7ba419eb023263f2523c4082d5a4a92\\transformed\\material-1.12.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\720aff740de26fc6c858b7f8ef8494ab\\transformed\\material-1.13.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",

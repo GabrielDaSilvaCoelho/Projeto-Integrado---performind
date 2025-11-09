@@ -9,7 +9,7 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:text="Login no Quiz"
+        android:text=""
         android:textSize="26sp"
         android:textStyle="bold"
         android:layout_marginBottom="24dp"

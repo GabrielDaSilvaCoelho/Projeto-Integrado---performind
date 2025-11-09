@@ -1,74 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardRoot"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal"
+    android:background="#FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="16dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:text="Pergunta"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_marginBottom="24dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvProgress"
-            android:text="Pergunta 1/10"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvQuestion"
-            android:text="Enunciado da pergunta..."
-            android:textSize="18sp"
-            android:layout_marginTop="8dp"
+        <RadioButton
+            android:id="@+id/rb1"
+            android:text="Alternativa 1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <RadioGroup
-            android:id="@+id/rgOptions"
+        <RadioButton
+            android:id="@+id/rb2"
+            android:text="Alternativa 2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_height="wrap_content" />
 
-            <RadioButton android:id="@+id/rb0" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp"/>
-            <RadioButton android:id="@+id/rb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp"/>
-            <RadioButton android:id="@+id/rb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp"/>
-            <RadioButton android:id="@+id/rb3" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp"/>
-            <RadioButton android:id="@+id/rb4" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp"/>
-        </RadioGroup>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnConfirm"
-            style="@style/Widget.Material3.Button"
-            android:text="Confirmar"
-            android:enabled="false"
-            android:layout_marginTop="12dp"
+        <RadioButton
+            android:id="@+id/rb3"
+            android:text="Alternativa 3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnNext"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:text="Próxima"
-            android:enabled="false"
-            android:layout_marginTop="8dp"
+        <RadioButton
+            android:id="@+id/rb4"
+            android:text="Alternativa 4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvFeedback"
-            android:text=""
-            android:visibility="gone"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"
+        <RadioButton
+            android:id="@+id/rb5"
+            android:text="Alternativa 5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:text="Próxima"
+        android:textAllCaps="false"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

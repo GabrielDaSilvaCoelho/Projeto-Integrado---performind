@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.performind"
+    package="com.example.minhaparte"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="24"
-        android:targetSdkVersion="35" />
+        android:targetSdkVersion="36" />
 
+    <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
-        android:name="com.example.performind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.example.minhaparte.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.performind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.example.minhaparte.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:debuggable="true"
         android:extractNativeLibs="false"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:label="Performind"
-        android:roundIcon="@android:drawable/ic_menu_info_details"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.MyApp" >
+        android:theme="@style/Theme.Minhaparte"
+        android:usesCleartextTraffic="true" >
 
-        <!-- LAUNCHER: a classe que realmente existe -->
+        <!-- Tela inicial: Feed de vídeos -->
         <activity
-            android:name="com.seuapp.quiz.EditorActivity"
+            android:name="com.example.minhaparte.UploadVideoActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,17 +48,27 @@
             </intent-filter>
         </activity>
 
-        <!-- Outras Activities (ajuste para as suas reais) -->
+        <!-- Tela de login -->
         <activity
-            android:name="com.seuapp.quiz.QuizActivity"
-            android:exported="false" />
+            android:name="com.example.minhaparte.LoginActivity"
+            android:exported="true" />
+
+        <!-- Tela de criação de conta -->
         <activity
-            android:name="profiel.CriarUsuarioActivity"
+            android:name="com.example.minhaparte.CriarUsuarioActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|uiMode"
+            android:exported="false"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true" />
+
+        <!-- Player de vídeos -->
+        <activity
+            android:name="com.example.minhaparte.PlayerActivity"
             android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.performind.androidx-startup"
+            android:authorities="com.example.minhaparte.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"
