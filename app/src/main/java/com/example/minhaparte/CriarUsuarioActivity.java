@@ -50,9 +50,7 @@ public class CriarUsuarioActivity extends AppCompatActivity {
         tilSupervisor = findViewById(R.id.tilSupervisor);
         btnSalvar     = findViewById(R.id.btnSalvar);
         btnCancelar   = findViewById(R.id.btnCancelar);
-        btnAbrirPlayer= findViewById(R.id.btnAbrirPlayer);
 
-        // Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 new String[]{"RH", "Colaborador", "Supervisor"});
@@ -62,28 +60,19 @@ public class CriarUsuarioActivity extends AppCompatActivity {
         spTipo.setOnItemSelectedListener(new SimpleItemSelectedListener(this::atualizarCampos));
         btnCancelar.setOnClickListener(v -> finish());
         btnSalvar.setOnClickListener(v -> { if (validar()) salvarUsuario(); });
-
-        // Novo botão: abre o player
-        btnAbrirPlayer.setOnClickListener(v ->
-                startActivity(new Intent(CriarUsuarioActivity.this, PlayerActivity.class))
-        );
-
         atualizarCampos();
     }
-
     private void atualizarCampos() {
         TipoUsuario tipo = getTipoSelecionado();
         tilSetor.setVisibility(tipo == TipoUsuario.COLABORADOR || tipo == TipoUsuario.SUPERVISOR ? View.VISIBLE : View.GONE);
         tilSupervisor.setVisibility(tipo == TipoUsuario.COLABORADOR ? View.VISIBLE : View.GONE);
     }
-
     private TipoUsuario getTipoSelecionado() {
         String s = (String) spTipo.getSelectedItem();
         if ("Colaborador".equalsIgnoreCase(s)) return TipoUsuario.COLABORADOR;
         if ("Supervisor".equalsIgnoreCase(s)) return TipoUsuario.SUPERVISOR;
         return TipoUsuario.RH;
     }
-
     private boolean validar() {
         TipoUsuario tipo = getTipoSelecionado();
         String nome = getText(etNome);
@@ -113,11 +102,9 @@ public class CriarUsuarioActivity extends AppCompatActivity {
         }
         return true;
     }
-
     private static String getText(TextInputEditText et) {
         return et.getText() == null ? "" : et.getText().toString().trim();
     }
-
     private void salvarUsuario() {
         new Thread(() -> {
             try {
@@ -125,11 +112,11 @@ public class CriarUsuarioActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject();
                 json.put("nome", getText(etNome));
                 json.put("matricula", getText(etMatricula));
-                json.put("senha", getText(etSenha));         // considere hashear/armazenar com segurança no backend
+                json.put("senha", getText(etSenha));
                 json.put("tipo", tipo.name());
                 json.put("cargo", getText(etCargo));
                 json.put("setor", getText(etSetor));
-                json.put("supervisor_nome", getText(etSupervisor));
+                // json.put("supervisor_nome", getText(etSupervisor)); // REMOVIDO: Campo inexistente na tabela
                 json.put("cpf", getText(etCpf));
                 json.put("contato", getText(etContato));
 
@@ -142,19 +129,22 @@ public class CriarUsuarioActivity extends AppCompatActivity {
                 conn.setRequestProperty("Prefer", "return=representation");
                 conn.setDoOutput(true);
 
-                // PostgREST aceita array JSON para inserir múltiplas linhas; aqui enviamos um único objeto dentro de array
                 try (OutputStream os = conn.getOutputStream()) {
-                    os.write(("[" + json.toString() + "]").getBytes());
+                    // CORREÇÃO AQUI: Enviando apenas o objeto JSON
+                    os.write(json.toString().getBytes());
                     os.flush();
                 }
 
                 int responseCode = conn.getResponseCode();
+                // ... (o restante do código é o mesmo)
                 runOnUiThread(() -> {
-                    if (responseCode == 201 || responseCode == 200) {
-                        Toast.makeText(this, "✅ Usuário salvo com sucesso!", Toast.LENGTH_LONG).show();
+                    if (responseCode == 201) { // 201 Created é a resposta esperada para POST
+                        Toast.makeText(this, "Usuário salvo com sucesso!", Toast.LENGTH_LONG).show();
                         finish();
                     } else {
-                        Toast.makeText(this, "❌ Erro ao salvar usuário: HTTP " + responseCode, Toast.LENGTH_LONG).show();
+                        // Adicione um log para ver a mensagem de erro detalhada do Supabase (se disponível)
+                        // conn.getErrorStream()
+                        Toast.makeText(this, "Erro ao salvar usuário: HTTP " + responseCode, Toast.LENGTH_LONG).show();
                     }
                 });
                 conn.disconnect();
@@ -163,8 +153,6 @@ public class CriarUsuarioActivity extends AppCompatActivity {
             }
         }).start();
     }
-
-    // Listener Spinner simplificado
     private static class SimpleItemSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
         private final Runnable onChange;
         SimpleItemSelectedListener(Runnable onChange) { this.onChange = onChange; }

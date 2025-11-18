@@ -2,6 +2,7 @@ package com.example.minhaparte;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,14 +26,14 @@ public class EditorActivity extends AppCompatActivity {
     private long questionarioId = -1;
 
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
-    private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
+    private static final String SUPABASE_API_KEY =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        // Inicializa campos
         etTitulo = findViewById(R.id.etTitulo);
         etQuestion = findViewById(R.id.etQuestion);
         etAlt1 = findViewById(R.id.etAlt1);
@@ -42,15 +43,18 @@ public class EditorActivity extends AppCompatActivity {
         etCorrect = findViewById(R.id.etCorrect);
         btnProxima = findViewById(R.id.btnProxima);
         btnSalvar = findViewById(R.id.btnSalvar);
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
 
         btnProxima.setOnClickListener(v -> adicionarQuestao());
         btnSalvar.setOnClickListener(v -> salvarQuestionario());
     }
 
+    // Adiciona questão à lista
     private void adicionarQuestao() {
         String pergunta = etQuestion.getText().toString().trim();
         if (pergunta.isEmpty()) {
-            Toast.makeText(this, "Digite o enunciado da questão!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Digite o enunciado!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -64,25 +68,19 @@ public class EditorActivity extends AppCompatActivity {
         try {
             correta = Integer.parseInt(etCorrect.getText().toString()) - 1;
         } catch (Exception e) {
-            Toast.makeText(this, "Digite o número da alternativa correta (1-4)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Número da alternativa correta inválido!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (correta < 0 || correta >= alternativas.size()) {
-            Toast.makeText(this, "Número da alternativa inválido!", Toast.LENGTH_SHORT).show();
+        if (correta < 0 || correta > 3) {
+            Toast.makeText(this, "Digite 1, 2, 3 ou 4!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         listaQuestoes.add(new Question(pergunta, alternativas, correta));
         Toast.makeText(this, "Questão " + questaoAtual + " adicionada!", Toast.LENGTH_SHORT).show();
         questaoAtual++;
-
         limparCampos();
-
-        if (questaoAtual > 1) {
-            btnProxima.setEnabled(false);
-            Toast.makeText(this, "Você adicionou 5 questões. Agora clique em SALVAR.", Toast.LENGTH_LONG).show();
-        }
     }
 
     private void limparCampos() {
@@ -94,79 +92,99 @@ public class EditorActivity extends AppCompatActivity {
         etCorrect.setText("");
     }
 
+    // Salva questionário e questões
     private void salvarQuestionario() {
         if (listaQuestoes.isEmpty()) {
-            Toast.makeText(this, "Adicione pelo menos uma questão!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Adicione pelo menos 1 questão!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String titulo = etTitulo.getText().toString().trim();
         if (titulo.isEmpty()) {
-            Toast.makeText(this, "Digite o título do questionário!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Digite o título!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         new Thread(() -> {
-            HttpURLConnection conn = null;
             try {
-                // Criar questionário
-                URL url = new URL(SUPABASE_URL + "/rest/v1/questionarios");
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("apikey", SUPABASE_API_KEY);
-                conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Prefer", "return=representation");
-                conn.setDoOutput(true);
+                // 1) Criar questionário
+                if (questionarioId == -1) {
+                    URL url = new URL(SUPABASE_URL + "/rest/v1/questionarios");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("apikey", SUPABASE_API_KEY);
+                    conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Prefer", "return=representation");
+                    conn.setDoOutput(true);
 
-                JSONObject json = new JSONObject();
-                json.put("usuario_id", 1); // ID fixo
-                json.put("titulo", titulo);
+                    JSONObject body = new JSONObject();
+                    body.put("usuario_id", 4); // coloque um usuário existente
+                    body.put("titulo", titulo);
 
-                OutputStream os = conn.getOutputStream();
-                os.write(json.toString().getBytes());
-                os.flush();
-                os.close();
+                    OutputStream os = conn.getOutputStream();
+                    os.write(body.toString().getBytes());
+                    os.close();
 
-                int code = conn.getResponseCode();
-                if (code != 201) {
-                    runOnUiThread(() -> Toast.makeText(EditorActivity.this,
-                            "Erro ao criar questionário: HTTP " + code, Toast.LENGTH_LONG).show());
-                    return;
-                }
+                    InputStream is = conn.getErrorStream() != null ? conn.getErrorStream() : conn.getInputStream();
+                    String resposta = new java.util.Scanner(is).useDelimiter("\\A").next();
+                    Log.d("SUPABASE", "Resposta criarQuestionario: " + resposta);
 
-                JSONArray arr = new JSONArray(new java.util.Scanner(conn.getInputStream()).useDelimiter("\\A").next());
-                questionarioId = arr.getJSONObject(0).getLong("id");
-                Log.d("SUPABASE", "Questionário criado: ID=" + questionarioId);
-
-                conn.disconnect();
-
-                // Inserir questões
-                int sucesso = 0;
-                for (Question q : listaQuestoes) {
-                    boolean ok = QuestaoService.salvarQuestaoComQuestionario(
-                            questionarioId, 1,
-                            q.getQuestionText(),
-                            q.getAlternatives().toArray(new String[0]),
-                            q.getCorrectIndex()
-                    );
-                    if (ok) sucesso++;
-                }
-
-                int finalSucesso = sucesso;
-                runOnUiThread(() -> {
-                    if (finalSucesso == listaQuestoes.size()) {
-                        Toast.makeText(EditorActivity.this, "✅ Questionário e questões salvos com sucesso!", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(EditorActivity.this,
-                                "⚠️ Algumas questões falharam (" + finalSucesso + "/" + listaQuestoes.size() + ")", Toast.LENGTH_LONG).show();
+                    if (conn.getResponseCode() != 201) {
+                        runOnUiThread(() -> Toast.makeText(this, "Erro ao criar questionário!", Toast.LENGTH_LONG).show());
+                        return;
                     }
+
+                    JSONArray arr = new JSONArray(resposta);
+                    questionarioId = arr.getJSONObject(0).getLong("id");
+                    Log.d("SUPABASE", "Questionário criado com ID: " + questionarioId);
+                    conn.disconnect();
+                }
+
+                // 2) Salvar questões
+                int okCount = 0;
+                final int total = listaQuestoes.size();
+
+                for (Question q : listaQuestoes) {
+                    URL urlQ = new URL(SUPABASE_URL + "/rest/v1/questoes");
+                    HttpURLConnection connQ = (HttpURLConnection) urlQ.openConnection();
+                    connQ.setRequestMethod("POST");
+                    connQ.setRequestProperty("apikey", SUPABASE_API_KEY);
+                    connQ.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
+                    connQ.setRequestProperty("Content-Type", "application/json");
+                    connQ.setRequestProperty("Prefer", "return=minimal");
+                    connQ.setDoOutput(true);
+
+                    JSONObject jsonQ = new JSONObject();
+                    jsonQ.put("questionario_id", questionarioId);
+                    jsonQ.put("usuario_id", 4);
+                    jsonQ.put("enunciado", q.getQuestionText());
+                    jsonQ.put("alternativas", new JSONArray(q.getAlternatives()));
+                    jsonQ.put("indice_correta", q.getCorrectIndex());
+
+                    OutputStream oq = connQ.getOutputStream();
+                    oq.write(jsonQ.toString().getBytes());
+                    oq.close();
+
+                    InputStream isQ = connQ.getErrorStream() != null ? connQ.getErrorStream() : connQ.getInputStream();
+                    String respostaQ = new java.util.Scanner(isQ).useDelimiter("\\A").next();
+                    Log.d("SUPABASE", "Resposta salvarQuestao: " + respostaQ);
+
+                    if (connQ.getResponseCode() == 201) okCount++;
+                    connQ.disconnect();
+                }
+
+                final int finalOk = okCount;
+                runOnUiThread(() -> {
+                    if (finalOk == total)
+                        Toast.makeText(this, "Questionário salvo com sucesso! (" + finalOk + "/" + total + ")", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(this, "Algumas questões não foram salvas! (" + finalOk + "/" + total + ")", Toast.LENGTH_LONG).show();
                 });
 
             } catch (Exception e) {
-                runOnUiThread(() -> Toast.makeText(EditorActivity.this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show());
-            } finally {
-                if (conn != null) conn.disconnect();
+                Log.e("SUPABASE", "Erro salvarQuestionario", e);
+                runOnUiThread(() -> Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
         }).start();
     }

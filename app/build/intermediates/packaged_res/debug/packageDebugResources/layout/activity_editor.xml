@@ -2,79 +2,131 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#F5F5F5">
+    android:background="#1E1E1E"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Título do Questionário -->
-        <EditText
-            android:id="@+id/etTitulo"
+        <!-- Card: Título do Questionário -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite o título do questionário"
-            android:inputType="text"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:paddingBottom="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:background="#1E1E1E"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+            android:radius="12dp">
 
-        <!-- Enunciado da questão -->
-        <EditText
-            android:id="@+id/etQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite o enunciado da questão"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:gravity="top"
-            android:background="@android:drawable/edit_text"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título do Questionário"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
-        <!-- Alternativas -->
-        <EditText
-            android:id="@+id/etAlt1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Alternativa 1"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"/>
+            <EditText
+                android:id="@+id/etTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Digite o título"
+                android:textSize="18sp"
+                android:paddingTop="6dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/etAlt2"
+        <!-- Card: Enunciado da Questão -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Alternativa 2"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"/>
+            android:background="#1E1E1E"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etAlt3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Alternativa 3"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enunciado da Questão"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
-        <EditText
-            android:id="@+id/etAlt4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Alternativa 4"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"/>
+            <EditText
+                android:id="@+id/etQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escreva o enunciado..."
+                android:minLines="3"
+                android:gravity="top"
+                android:paddingTop="6dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/etCorrect"
+        <!-- Card: Alternativas -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Número da alternativa correta (1-4)"
-            android:inputType="number"
-            android:layout_marginBottom="24dp"/>
+            android:background="#1E1E1E"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alternativas"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etAlt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternativa 1"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+
+            <EditText
+                android:id="@+id/etAlt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternativa 2"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+
+            <EditText
+                android:id="@+id/etAlt3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternativa 3"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+
+            <EditText
+                android:id="@+id/etAlt4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternativa 4"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_rounded_bg"/>
+
+            <EditText
+                android:id="@+id/etCorrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Número da alternativa correta (1-4)"
+                android:inputType="number"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
 
         <!-- Botões -->
         <Button
@@ -82,18 +134,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Adicionar Questão"
-            android:layout_marginBottom="8dp"/>
+            android:textAllCaps="false"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:elevation="3dp"/>
 
         <Button
             android:id="@+id/btnSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar Questionário"
-            android:backgroundTint="#4CAF50"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/green_700"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:padding="12dp"
-            android:elevation="4dp"/>
-
+            android:padding="14dp"
+            android:elevation="3dp"/>
     </LinearLayout>
 </ScrollView>

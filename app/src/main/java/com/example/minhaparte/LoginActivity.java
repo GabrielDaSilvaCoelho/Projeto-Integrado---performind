@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,14 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         editMatricula = findViewById(R.id.editMatricula);
         editSenha = findViewById(R.id.editSenha);
         btnLogin = findViewById(R.id.btnLogin);
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
 
         btnLogin.setOnClickListener(v -> realizarLogin());
     }
-
     private void realizarLogin() {
         String matricula = editMatricula.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                 String encodedMatricula = URLEncoder.encode(matricula, "UTF-8");
                 String encodedSenha = URLEncoder.encode(senha, "UTF-8");
 
-                // ✅ Corrigido: usar ?select=* e filtros eq corretamente
                 URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios?matricula=eq." + encodedMatricula + "&senha=eq." + encodedSenha + "&select=*");
 
                 conn = (HttpURLConnection) url.openConnection();
@@ -75,15 +75,15 @@ public class LoginActivity extends AppCompatActivity {
                         prefs.edit().putInt("usuario_id", usuarioId).apply();
 
                         runOnUiThread(() -> {
-                            Toast.makeText(this, "✅ Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, EditorActivity.class);
+                            Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("usuarioId", usuarioId);
                             startActivity(intent);
                             finish();
                         });
                     } else {
                         runOnUiThread(() ->
-                                Toast.makeText(this, "❌ Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
+                                Toast.makeText(this, "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
                     }
                 } else {
                     runOnUiThread(() ->

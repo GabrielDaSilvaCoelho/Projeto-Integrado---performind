@@ -18,16 +18,12 @@ public class DBHelper {
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
     private final Context context;
-
     public DBHelper(Context context) {
         this.context = context;
     }
-
-    // 🔹 LOGIN
     public interface LoginCallback {
         void onResult(boolean sucesso, int usuarioId);
     }
-
     public void login(String email, String senha, LoginCallback callback) {
         new Thread(() -> {
             try {
@@ -90,13 +86,13 @@ public class DBHelper {
 
                 int code = conn.getResponseCode();
                 if (code == 201 || code == 200) {
-                    Log.d("SUPABASE", "✅ Questão salva com sucesso!");
+                    Log.d("SUPABASE", "Questão salva com sucesso!");
                 } else {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                     StringBuilder sb = new StringBuilder();
                     String line;
                     while ((line = br.readLine()) != null) sb.append(line);
-                    Log.e("SUPABASE", "❌ Erro ao inserir questão: " + sb);
+                    Log.e("SUPABASE", "Erro ao inserir questão: " + sb);
                 }
 
                 conn.disconnect();

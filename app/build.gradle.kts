@@ -38,10 +38,12 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.swiperefreshlayout)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.activity:activity:1.9.3")
     implementation("androidx.media3:media3-exoplayer:1.4.1")
     implementation("androidx.media3:media3-ui:1.4.1")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")

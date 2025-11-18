@@ -1,6 +1,8 @@
 package com.example.minhaparte;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,18 +20,23 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<Question> questoes = new ArrayList<>();
     private int index = 0;
-
-    // 🔑 Supabase config
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
-
-    // 🔹 Coloque aqui o ID do usuário logado (pode vir do login futuramente)
     private long usuarioId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
+        usuarioId = prefs.getInt("usuario_id", -1);
+
+        if (usuarioId == -1) {
+            Toast.makeText(this, "Erro: usuário não logado", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         tvQuestion = findViewById(R.id.tvQuestion);
         radioGroup = findViewById(R.id.radioGroup);
@@ -44,7 +51,6 @@ public class QuizActivity extends AppCompatActivity {
 
         btnNext.setOnClickListener(v -> verificarResposta());
     }
-
     private void carregarQuestoes() {
         new Thread(() -> {
             try {
@@ -62,7 +68,6 @@ public class QuizActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -74,6 +79,7 @@ public class QuizActivity extends AppCompatActivity {
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
+                    long id = o.optLong("id", -1); // 🔹 pega o ID real da questão
                     String enunciado = o.optString("enunciado", "");
                     JSONArray alternativasJson = o.optJSONArray("alternativas");
                     if (alternativasJson == null || alternativasJson.length() == 0) continue;
@@ -83,7 +89,7 @@ public class QuizActivity extends AppCompatActivity {
                         alternativas.add(alternativasJson.getString(j));
 
                     int indiceCorreta = o.optInt("indice_correta", 0);
-                    questoes.add(new Question(enunciado, alternativas, indiceCorreta));
+                    questoes.add(new Question(id, enunciado, alternativas, indiceCorreta));
                 }
 
                 runOnUiThread(() -> {
@@ -101,10 +107,9 @@ public class QuizActivity extends AppCompatActivity {
             }
         }).start();
     }
-
     private void mostrarQuestao() {
         if (index >= questoes.size()) {
-            Toast.makeText(this, "🏁 Fim do quiz!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -131,7 +136,7 @@ public class QuizActivity extends AppCompatActivity {
     private void verificarResposta() {
         int selectedId = radioGroup.getCheckedRadioButtonId();
         if (selectedId == -1) {
-            Toast.makeText(this, "Selecione uma alternativa!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Selecione uma alternativa", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -142,13 +147,12 @@ public class QuizActivity extends AppCompatActivity {
         String respostaCerta = q.getAlternatives().get(q.getCorrectIndex());
         boolean correta = resposta.equals(respostaCerta);
 
-        // 🔽 Salva resposta no Supabase
-        salvarResposta(usuarioId, index + 1, q.getAlternatives().indexOf(resposta), correta);
+        salvarResposta(usuarioId, q.getId(), q.getAlternatives().indexOf(resposta), correta);
 
         if (correta) {
-            Toast.makeText(this, "✅ Correta!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Correta!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "❌ Errada! Resposta certa: " + respostaCerta, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Errada! Resposta certa: " + respostaCerta, Toast.LENGTH_LONG).show();
         }
 
         index++;
@@ -178,18 +182,25 @@ public class QuizActivity extends AppCompatActivity {
                 os.close();
 
                 int responseCode = conn.getResponseCode();
+                Log.d("SUPABASE", "HTTP response: " + responseCode);
+
                 if (responseCode != 201 && responseCode != 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                     StringBuilder error = new StringBuilder();
                     String line;
                     while ((line = br.readLine()) != null) error.append(line);
                     br.close();
-                    runOnUiThread(() -> Toast.makeText(this, "Erro ao salvar: " + error, Toast.LENGTH_LONG).show());
+                    Log.e("SUPABASE", "Erro ao salvar: " + error.toString());
+                    runOnUiThread(() -> Toast.makeText(this, "Erro ao salvar resposta. Veja log.", Toast.LENGTH_LONG).show());
+                } else {
+                    Log.d("SUPABASE", "Resposta salva com sucesso!");
                 }
 
             } catch (Exception e) {
+                Log.e("SUPABASE", "Falha ao salvar resposta", e);
                 runOnUiThread(() -> Toast.makeText(this, "Falha ao salvar: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
         }).start();
     }
+
 }

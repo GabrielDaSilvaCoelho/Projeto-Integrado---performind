@@ -1,58 +1,61 @@
 package com.example.minhaparte;
 
 import android.content.Context;
-import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.MediaController;
-import android.widget.VideoView;
-
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
 import java.util.List;
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
 
-    private final Context context;
-    private final List<String> videoUrls;
+    public interface OnVideoClickListener {
+        void onVideoClick(VideoModel video);
+    }
 
-    public VideoAdapter(Context context, List<String> videoUrls) {
+    private List<VideoModel> videoList;
+    private Context context;
+    private OnVideoClickListener listener;
+
+    public VideoAdapter(List<VideoModel> videoList, Context context, OnVideoClickListener listener) {
+        this.videoList = videoList;
         this.context = context;
-        this.videoUrls = videoUrls;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_video, parent, false);
-        return new VideoViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_video, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        String url = videoUrls.get(position);
-        Uri uri = Uri.parse(url);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        VideoModel video = videoList.get(position);
+        holder.title.setText(video.title);
+        holder.desc.setText(video.description);
 
-        MediaController mediaController = new MediaController(context);
-        mediaController.setAnchorView(holder.videoView);
-        holder.videoView.setMediaController(mediaController);
-        holder.videoView.setVideoURI(uri);
-        holder.videoView.start();
+        Glide.with(context).load(video.thumb_url).into(holder.thumb);
+
+        holder.itemView.setOnClickListener(v -> listener.onVideoClick(video));
     }
 
     @Override
     public int getItemCount() {
-        return videoUrls.size();
+        return videoList.size();
     }
 
-    static class VideoViewHolder extends RecyclerView.ViewHolder {
-        VideoView videoView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView thumb;
+        TextView title, desc;
 
-        public VideoViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            videoView = itemView.findViewById(R.id.videoViewItem);
+            thumb = itemView.findViewById(R.id.thumbImage);
+            title = itemView.findViewById(R.id.videoTitle);
+            desc = itemView.findViewById(R.id.videoDesc);
         }
     }
 }

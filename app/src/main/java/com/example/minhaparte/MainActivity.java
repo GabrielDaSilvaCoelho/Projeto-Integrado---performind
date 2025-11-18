@@ -1,27 +1,32 @@
-package com.example.uploadvideoactivity;
+package com.example.minhaparte;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.minhaparte.R; // <- import correto
-import com.example.minhaparte.UploadVideoActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnGoUpload;
+    private Button btnCriarUsuario, btnEditor, btnFeed, btnLogin, btnQuiz, btnUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // <- apenas R.layout
+        setContentView(R.layout.activity_main);
 
-        btnGoUpload = findViewById(R.id.btnGoUpload);
-        btnGoUpload.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
-            startActivity(intent);
-        });
+        btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
+        btnEditor = findViewById(R.id.btnEditor);
+        btnFeed = findViewById(R.id.btnFeed);
+
+        btnQuiz = findViewById(R.id.btnQuiz);
+        btnUpload = findViewById(R.id.btnUpload);
+
+        btnCriarUsuario.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, CriarUsuarioActivity.class)));
+        btnEditor.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, EditorActivity.class)));
+        btnFeed.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, FeedActivity.class)));
+
+        btnQuiz.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, QuizActivity.class)));
+        btnUpload.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UploadActivity.class)));
     }
 }

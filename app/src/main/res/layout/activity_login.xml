@@ -8,22 +8,21 @@
     android:padding="24dp"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:text=""
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="411dp"
+        android:layout_height="329dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="Logo do app"
+        android:src="@drawable/ic_logo" />
 
     <EditText
         android:id="@+id/editMatricula"
-        android:hint="E-mail"
+        android:hint="Matricula"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edittext_rounded_bg"
         android:layout_marginBottom="12dp" />
 
     <EditText
@@ -32,6 +31,7 @@
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edittext_rounded_bg"
         android:layout_marginBottom="24dp" />
 
     <Button
@@ -39,5 +39,6 @@
         android:text="Entrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/blue_500"/>
 </LinearLayout>
