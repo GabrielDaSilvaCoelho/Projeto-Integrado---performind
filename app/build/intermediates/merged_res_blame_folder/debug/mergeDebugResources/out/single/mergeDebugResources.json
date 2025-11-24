@@ -48,10 +48,6 @@
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.example.minhaparte.app-debug-43:/drawable_thumb_rounded_b.xml.flat",
-        "source": "com.example.minhaparte.app-main-45:/drawable/thumb_rounded_b.xml"
-    },
-    {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\drawable\\ic_launcher_foreground.xml"
     },
@@ -68,12 +64,12 @@
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\drawable\\rounded_bg.xml"
     },
     {
-        "merged": "com.example.minhaparte.app-debug-43:/layout_item_video.xml.flat",
-        "source": "com.example.minhaparte.app-main-45:/layout/item_video.xml"
-    },
-    {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_activity_criar_usuario.xml.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\activity_criar_usuario.xml"
+    },
+    {
+        "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\drawable_thumb_rounded_b.xml.flat",
+        "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\drawable\\thumb_rounded_b.xml"
     },
     {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xxhdpi_ic_launcher.webp.flat",

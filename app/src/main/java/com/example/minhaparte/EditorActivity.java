@@ -184,7 +184,6 @@ public class EditorActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 Log.e("SUPABASE", "Erro salvarQuestionario", e);
-                runOnUiThread(() -> Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
         }).start();
     }

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import org.json.*;
@@ -28,6 +29,8 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
 
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         usuarioId = prefs.getInt("usuario_id", -1);

@@ -3,6 +3,7 @@ package com.example.minhaparte;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
         btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
         btnEditor = findViewById(R.id.btnEditor);
         btnFeed = findViewById(R.id.btnFeed);

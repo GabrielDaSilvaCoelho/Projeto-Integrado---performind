@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_rounded_bg"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/gray_500" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_rounded_bg"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/gray_500" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

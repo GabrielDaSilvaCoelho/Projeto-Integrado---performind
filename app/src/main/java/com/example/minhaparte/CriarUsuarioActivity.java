@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -36,6 +37,8 @@ public class CriarUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_usuario);
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
 
         spTipo        = findViewById(R.id.spTipo);
         etNome        = findViewById(R.id.etNome);

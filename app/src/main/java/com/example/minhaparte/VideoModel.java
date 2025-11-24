@@ -8,7 +8,7 @@ public class VideoModel {
 
     public VideoModel(String title, String description, String video_url, String thumb_url) {
         this.title = title;
-        this.description = (description == null || description.isEmpty()) ? "Sem descrição" : description;
+        this.description = (description == null || description.isEmpty()) ? "" : description;
         this.video_url = video_url;
         this.thumb_url = thumb_url;
     }
