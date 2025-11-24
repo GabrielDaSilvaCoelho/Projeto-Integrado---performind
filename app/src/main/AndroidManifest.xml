@@ -2,20 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- Para Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <!-- Compatibilidade com Android < 13 -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -27,7 +22,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <!-- Tela inicial agora é LoginActivity -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -37,7 +31,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Outras Activities -->
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".CriarUsuarioActivity" android:exported="true" />
         <activity android:name=".FeedActivity" android:exported="true" />
