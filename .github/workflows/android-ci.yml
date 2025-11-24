@@ -1,0 +1,70 @@
+name: Android CI Full v7
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      # 1) Baixar repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2) Instalar Java 17 (requerido pelo seu projeto)
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 17
+          cache: gradle
+
+      # 3) Dar permissão ao Gradle
+      - name: Permitir execução do Gradle
+        run: chmod +x gradlew
+
+      # 4) Verificar dependências, sintaxe e configs
+      - name: Gradle Check
+        run: ./gradlew check --stacktrace
+
+      # 5) Rodar Lint completo (qualidade de código)
+      - name: Android Lint
+        run: ./gradlew lint
+
+      # 6) Build Debug
+      - name: Build Debug
+        run: ./gradlew assembleDebug --stacktrace
+
+      # 7) Build Release (sem assinar)
+      - name: Build Release
+        run: ./gradlew assembleRelease --stacktrace
+
+      # 8) Testes unitários do módulo app
+      - name: Testes Unitários
+        run: ./gradlew testDebugUnitTest --stacktrace
+
+      # 9) Upload APK Debug
+      - name: Upload APK Debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/*.apk
+
+      # 10) Upload APK Release
+      - name: Upload APK Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-unsigned
+          path: app/build/outputs/apk/release/*.apk
+
+      # 11) Upload do relatório de Lint
+      - name: Upload Lint Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results.html
