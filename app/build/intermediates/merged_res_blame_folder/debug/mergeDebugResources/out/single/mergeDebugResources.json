@@ -8,10 +8,6 @@
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_upload.xml.flat",
-        "source": "com.example.minhaparte.app-main-45:/layout/activity_upload.xml"
-    },
-    {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_activity_quiz.xml.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\activity_quiz.xml"
     },
@@ -42,6 +38,10 @@
     {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xhdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_main.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/layout/activity_main.xml"
     },
     {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_activity_main.xml.flat",
@@ -76,6 +76,10 @@
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_enquetes.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/layout/activity_enquetes.xml"
+    },
+    {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
@@ -98,6 +102,10 @@
     {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.minhaparte.app-debug-43:/layout_item_enquete.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/layout/item_enquete.xml"
     },
     {
         "merged": "C:\\Users\\Wesley\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xxxhdpi_ic_launcher.webp.flat",

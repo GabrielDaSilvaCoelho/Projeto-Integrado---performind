@@ -57,5 +57,13 @@
             android:layout_height="wrap_content"
             android:text="Upload" />
 
+        <Button
+            android:id="@+id/btnEnquete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enquetes"
+            android:layout_marginTop="16dp" />
+
+
     </LinearLayout>
 </ScrollView>

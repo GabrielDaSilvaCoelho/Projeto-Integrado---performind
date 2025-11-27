@@ -10,14 +10,18 @@ public class Question implements Parcelable {
     private String questionText;
     private ArrayList<String> alternatives;
     private int correctIndex;
-    public Question(String questionText, ArrayList<String> alternatives, int correctIndex) {
-        this.id = -1; // ID indefinido
+
+    // Construtor usado para enviar ao Supabase
+    public Question(long id, String questionText, ArrayList<String> alternatives, int correctIndex) {
+        this.id = id;
         this.questionText = questionText;
         this.alternatives = alternatives;
         this.correctIndex = correctIndex;
     }
-    public Question(long id, String questionText, ArrayList<String> alternatives, int correctIndex) {
-        this.id = id;
+
+    // Construtor usado ao criar questão NOVA (id indefinido)
+    public Question(String questionText, ArrayList<String> alternatives, int correctIndex) {
+        this.id = -1;
         this.questionText = questionText;
         this.alternatives = alternatives;
         this.correctIndex = correctIndex;
@@ -29,6 +33,7 @@ public class Question implements Parcelable {
     public String getQuestionText() { return questionText; }
     public ArrayList<String> getAlternatives() { return alternatives; }
     public int getCorrectIndex() { return correctIndex; }
+
     protected Question(Parcel in) {
         id = in.readLong();
         questionText = in.readString();

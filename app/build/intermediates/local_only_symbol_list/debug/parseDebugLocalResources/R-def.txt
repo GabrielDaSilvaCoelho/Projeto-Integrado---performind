@@ -51,6 +51,7 @@ drawable thumb_rounded_b
 id btnCancelar
 id btnCriarUsuario
 id btnEditor
+id btnEnquete
 id btnFeed
 id btnLogin
 id btnMenu
@@ -83,6 +84,7 @@ id etSetor
 id etSupervisor
 id etTitulo
 id imageLogo
+id listEnquetes
 id main
 id progressBar
 id radioGroup
@@ -111,6 +113,7 @@ id videoTitle
 id videoView
 layout activity_criar_usuario
 layout activity_editor
+layout activity_enquetes
 layout activity_feed
 layout activity_login
 layout activity_main
@@ -120,6 +123,7 @@ layout activity_quiz
 layout activity_upload
 layout item_alternativa
 layout item_created_question
+layout item_enquete
 layout item_video
 mipmap ic_launcher
 mipmap ic_launcher_round

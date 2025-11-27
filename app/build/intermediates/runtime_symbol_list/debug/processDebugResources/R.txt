@@ -4012,6 +4012,7 @@ int id bounceStart 0x7f0a0069
 int id btnCancelar 0x7f0a006b
 int id btnCriarUsuario 0x7f0a029d
 int id btnEditor 0x7f0a029e
+int id btnEnquete 0x7f0a02a1
 int id btnFeed 0x7f0a029f
 int id btnLogin 0x7f0a006d
 int id btnMenu 0x7f0a006e
@@ -4252,6 +4253,7 @@ int id legacy 0x7f0a0157
 int id line1 0x7f0a0158
 int id line3 0x7f0a0159
 int id linear 0x7f0a015a
+int id listEnquetes 0x7f0a02a2
 int id listMode 0x7f0a015b
 int id list_item 0x7f0a015c
 int id live_video_indicator 0x7f0a015d
@@ -4691,6 +4693,7 @@ int layout abc_select_dialog_material 0x7f0d001a
 int layout abc_tooltip 0x7f0d001b
 int layout activity_criar_usuario 0x7f0d001c
 int layout activity_editor 0x7f0d001d
+int layout activity_enquetes 0x7f0d008f
 int layout activity_feed 0x7f0d001e
 int layout activity_login 0x7f0d001f
 int layout activity_main 0x7f0d0020
@@ -4731,6 +4734,7 @@ int layout ime_base_split_test_activity 0x7f0d0042
 int layout ime_secondary_split_test_activity 0x7f0d0043
 int layout item_alternativa 0x7f0d0044
 int layout item_created_question 0x7f0d0045
+int layout item_enquete 0x7f0d0090
 int layout item_video 0x7f0d0046
 int layout m3_alert_dialog 0x7f0d0047
 int layout m3_alert_dialog_actions 0x7f0d0048
