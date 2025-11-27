@@ -4013,6 +4013,7 @@ id bounceStart
 id btnCancelar
 id btnCriarUsuario
 id btnEditor
+id btnEnquete
 id btnFeed
 id btnLogin
 id btnMenu
@@ -4253,6 +4254,7 @@ id legacy
 id line1
 id line3
 id linear
+id listEnquetes
 id listMode
 id list_item
 id live_video_indicator
@@ -4692,6 +4694,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_criar_usuario
 layout activity_editor
+layout activity_enquetes
 layout activity_feed
 layout activity_login
 layout activity_main
@@ -4732,6 +4735,7 @@ layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_alternativa
 layout item_created_question
+layout item_enquete
 layout item_video
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
