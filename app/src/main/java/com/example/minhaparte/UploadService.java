@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.minhaparte.all;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;

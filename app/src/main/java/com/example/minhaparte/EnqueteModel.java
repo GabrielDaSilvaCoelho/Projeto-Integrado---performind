@@ -1,10 +1,10 @@
 package com.example.minhaparte;
 
-public class Enquete {
+public class EnqueteModel {
     private long id;
     private String titulo;
 
-    public Enquete(long id, String titulo) {
+    public EnqueteModel(long id, String titulo) {
         this.id = id;
         this.titulo = titulo;
     }

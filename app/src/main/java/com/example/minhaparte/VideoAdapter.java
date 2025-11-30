@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.minhaparte.all;
 
 import android.content.Context;
 import android.view.*;
@@ -6,6 +6,8 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.minhaparte.R;
+
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {

@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
 
-public class Question implements Parcelable {
+public class QuestionModel implements Parcelable {
 
     private long id;
     private String questionText;
@@ -12,7 +12,7 @@ public class Question implements Parcelable {
     private int correctIndex;
 
     // Construtor usado para enviar ao Supabase
-    public Question(long id, String questionText, ArrayList<String> alternatives, int correctIndex) {
+    public QuestionModel(long id, String questionText, ArrayList<String> alternatives, int correctIndex) {
         this.id = id;
         this.questionText = questionText;
         this.alternatives = alternatives;
@@ -20,7 +20,7 @@ public class Question implements Parcelable {
     }
 
     // Construtor usado ao criar questão NOVA (id indefinido)
-    public Question(String questionText, ArrayList<String> alternatives, int correctIndex) {
+    public QuestionModel(String questionText, ArrayList<String> alternatives, int correctIndex) {
         this.id = -1;
         this.questionText = questionText;
         this.alternatives = alternatives;
@@ -34,22 +34,22 @@ public class Question implements Parcelable {
     public ArrayList<String> getAlternatives() { return alternatives; }
     public int getCorrectIndex() { return correctIndex; }
 
-    protected Question(Parcel in) {
+    protected QuestionModel(Parcel in) {
         id = in.readLong();
         questionText = in.readString();
         alternatives = in.createStringArrayList();
         correctIndex = in.readInt();
     }
 
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
+    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
         @Override
-        public Question createFromParcel(Parcel in) {
-            return new Question(in);
+        public QuestionModel createFromParcel(Parcel in) {
+            return new QuestionModel(in);
         }
 
         @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
+        public QuestionModel[] newArray(int size) {
+            return new QuestionModel[size];
         }
     };
 
