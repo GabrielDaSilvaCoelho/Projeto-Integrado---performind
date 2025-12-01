@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-61:12
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:1-53:12
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\720aff740de26fc6c858b7f8ef8494ab\transformed\material-1.13.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\90be9743c694b683b20b24888ecd6b0d\transformed\constraintlayout-2.2.1\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.1] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\329920979cfd2c12192ce298f54f780c\transformed\appcompat-resources-1.7.1\AndroidManifest.xml:2:1-7:12
@@ -71,34 +71,34 @@ MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\Wesley\
 	xmlns:android
 		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:5:5-67
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:6:5-67
 MERGED from [com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\1da61cacaae1128e7f109cdfc7d854a9\transformed\core-12.1.0\AndroidManifest.xml:7:5-67
 MERGED from [com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\1da61cacaae1128e7f109cdfc7d854a9\transformed\core-12.1.0\AndroidManifest.xml:7:5-67
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:5:22-64
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.CAMERA
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:6:5-65
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:7:5-65
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:6:22-62
-uses-feature#android.hardware.camera
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:8:5-10:36
-	android:required
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:10:9-33
-	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:9:9-47
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:7:22-62
 uses-permission#android.permission.READ_MEDIA_VIDEO
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:12:5-75
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:8:5-75
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:12:22-72
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:8:22-72
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:13:5-15:38
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:10:5-12:38
 	android:maxSdkVersion
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:12:9-35
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:14:9-64
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:11:9-64
+uses-feature#android.hardware.camera
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:14:5-16:36
+	android:required
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:16:9-33
+	android:name
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:15:9-47
 application
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:17:5-59:19
-INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:17:5-59:19
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:18:5-51:19
+INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:18:5-51:19
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\720aff740de26fc6c858b7f8ef8494ab\transformed\material-1.13.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\720aff740de26fc6c858b7f8ef8494ab\transformed\material-1.13.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\90be9743c694b683b20b24888ecd6b0d\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
@@ -120,85 +120,103 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\We
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.0] C:\Users\Wesley\.gradle\caches\8.11.1\transforms\67545c4b0bfe0364e7a7472fa095903c\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:22:9-35
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:20:9-41
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:21:9-41
 	android:roundIcon
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:21:9-54
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:22:9-54
 	tools:targetApi
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:25:9-29
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:26:9-29
 	android:icon
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:19:9-43
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:20:9-43
 	android:allowBackup
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:18:9-35
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:19:9-35
 	android:theme
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:23:9-48
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:24:9-48
 	android:usesCleartextTraffic
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:24:9-44
-activity#com.example.minhaparte.EnquetesActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:26:9-28:40
-	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:28:13-37
-	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:27:13-45
-activity#com.example.minhaparte.LoginActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:29:9-37:20
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:25:9-44
+activity#com.example.minhaparte.Activity.LoginActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:29:9-36:20
 	android:exported
 		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:31:13-36
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:30:13-42
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:30:13-51
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:32:13-36:29
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:32:13-35:29
 action#android.intent.action.MAIN
 ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:33:17-69
 	android:name
 		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:33:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:35:17-77
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:34:17-77
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:35:27-74
-activity#com.example.minhaparte.MainActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:38:9-40:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:34:27-74
+activity#com.example.minhaparte.Activity.MainActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:39:9-83
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:40:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:39:57-80
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:39:13-41
-activity#com.example.minhaparte.CriarUsuarioActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:41:9-43:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:39:19-56
+activity#com.example.minhaparte.Activity.CriarUsuarioActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:40:9-91
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:43:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:40:65-88
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:42:13-49
-activity#com.example.minhaparte.FeedActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:44:9-46:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:40:19-64
+activity#com.example.minhaparte.Activity.FeedActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:41:9-83
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:46:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:41:57-80
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:45:13-41
-activity#com.example.minhaparte.QuizActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:47:9-49:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:41:19-56
+activity#com.example.minhaparte.Activity.QuizActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:42:9-83
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:49:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:42:57-80
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:48:13-41
-activity#com.example.minhaparte.EditorActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:50:9-52:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:42:19-56
+activity#com.example.minhaparte.Activity.EditorActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:43:9-85
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:52:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:43:59-82
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:51:13-43
-activity#com.example.minhaparte.UploadActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:53:9-55:39
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:43:19-58
+activity#com.example.minhaparte.Activity.UploadActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:44:9-85
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:55:13-36
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:44:59-82
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:54:13-43
-activity#com.example.minhaparte.PlayerActivity
-ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:56:9-58:40
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:44:19-58
+activity#com.example.minhaparte.Activity.EnquetesActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:45:9-88
 	android:exported
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:58:13-37
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:45:61-85
 	android:name
-		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:57:13-43
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:45:19-60
+activity#com.example.minhaparte.Activity.PlayerActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:46:9-86
+	android:exported
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:46:59-83
+	android:name
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:46:19-58
+activity#com.example.minhaparte.Activity.VideoListActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:47:9-88
+	android:exported
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:47:62-85
+	android:name
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:47:19-61
+activity#com.example.minhaparte.Activity.ListarUsuariosActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:48:9-93
+	android:exported
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:48:67-90
+	android:name
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:48:19-66
+activity#com.example.minhaparte.Activity.TrocarSenhaActivity
+ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:49:9-90
+	android:exported
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:49:64-87
+	android:name
+		ADDED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml:49:19-63
 uses-sdk
 INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Wesley\OneDrive\Documentos\Projeto-Integrado---performind\app\src\main\AndroidManifest.xml

@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.util.Log;
 import org.json.JSONArray;
@@ -10,11 +10,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class QuestaoService {
-
     private static final String BASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String API_KEY =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
-
     private static final OkHttpClient client = new OkHttpClient();
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static long criarQuestionario(long usuarioId, String titulo) {

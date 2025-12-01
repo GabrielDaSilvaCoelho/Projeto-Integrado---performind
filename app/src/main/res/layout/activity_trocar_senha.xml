@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trocar Senha"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/editMatricula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Matrícula"
+        android:inputType="text"
+        android:padding="12dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editSenhaAtual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Senha Atual"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editNovaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nova Senha"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnTrocar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alterar Senha"
+        android:backgroundTint="@color/blue_500"
+        android:textColor="@android:color/white"
+        android:padding="12dp"/>
+
+</LinearLayout>

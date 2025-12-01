@@ -1,32 +1,30 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.minhaparte.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.util.HashMap;
 
 public class CriarUsuarioActivity extends AppCompatActivity {
-
     private Spinner spTipo;
     private TextInputEditText etNome, etMatricula, etSenha, etCargo, etSetor, etSupervisor, etCpf, etContato;
     private TextInputLayout tilSetor, tilSupervisor;
-    private Button btnSalvar, btnCancelar, btnAbrirPlayer;
+    private Button btnSalvar, btnCancelar;
 
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
@@ -62,7 +60,10 @@ public class CriarUsuarioActivity extends AppCompatActivity {
 
         spTipo.setOnItemSelectedListener(new SimpleItemSelectedListener(this::atualizarCampos));
         btnCancelar.setOnClickListener(v -> finish());
-        btnSalvar.setOnClickListener(v -> { if (validar()) salvarUsuario(); });
+        btnSalvar.setOnClickListener(v -> {
+            if (validar()) salvarUsuario();
+        });
+
         atualizarCampos();
     }
     private void atualizarCampos() {
@@ -112,16 +113,18 @@ public class CriarUsuarioActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 TipoUsuario tipo = getTipoSelecionado();
-                JSONObject json = new JSONObject();
-                json.put("nome", getText(etNome));
-                json.put("matricula", getText(etMatricula));
-                json.put("senha", getText(etSenha));
-                json.put("tipo", tipo.name());
-                json.put("cargo", getText(etCargo));
-                json.put("setor", getText(etSetor));
-                // json.put("supervisor_nome", getText(etSupervisor)); // REMOVIDO: Campo inexistente na tabela
-                json.put("cpf", getText(etCpf));
-                json.put("contato", getText(etContato));
+
+                HashMap<String, Object> jsonMap = new HashMap<>();
+                jsonMap.put("nome", getText(etNome));
+                jsonMap.put("matricula", getText(etMatricula));
+                jsonMap.put("senha", sha256Hex(getText(etSenha))); // hash da senha
+                jsonMap.put("tipo", tipo.name());
+                jsonMap.put("cargo", getText(etCargo));
+                jsonMap.put("setor", getText(etSetor));
+                jsonMap.put("cpf", getText(etCpf));
+                jsonMap.put("contato", getText(etContato));
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(jsonMap);
 
                 URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -133,28 +136,41 @@ public class CriarUsuarioActivity extends AppCompatActivity {
                 conn.setDoOutput(true);
 
                 try (OutputStream os = conn.getOutputStream()) {
-                    // CORREÇÃO AQUI: Enviando apenas o objeto JSON
-                    os.write(json.toString().getBytes());
+                    os.write(jsonString.getBytes());
                     os.flush();
                 }
 
                 int responseCode = conn.getResponseCode();
-                // ... (o restante do código é o mesmo)
                 runOnUiThread(() -> {
-                    if (responseCode == 201) { // 201 Created é a resposta esperada para POST
+                    if (responseCode == 201) {
                         Toast.makeText(this, "Usuário salvo com sucesso!", Toast.LENGTH_LONG).show();
                         finish();
                     } else {
-                        // Adicione um log para ver a mensagem de erro detalhada do Supabase (se disponível)
-                        // conn.getErrorStream()
                         Toast.makeText(this, "Erro ao salvar usuário: HTTP " + responseCode, Toast.LENGTH_LONG).show();
                     }
                 });
                 conn.disconnect();
+
             } catch (Exception e) {
                 runOnUiThread(() -> Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
         }).start();
+    }
+
+    private String sha256Hex(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(senha.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = String.format("%02x", b);
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            Log.e("HASH_ERROR", "Erro ao gerar hash", e);
+            return null;
+        }
     }
     private static class SimpleItemSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
         private final Runnable onChange;

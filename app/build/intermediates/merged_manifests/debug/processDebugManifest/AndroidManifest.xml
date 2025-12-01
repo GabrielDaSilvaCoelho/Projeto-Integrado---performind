@@ -8,17 +8,18 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="36" />
 
+    <!-- Permissões -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
@@ -39,11 +40,10 @@
         android:testOnly="true"
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true" >
+
+        <!-- Tela de Login (Launcher) -->
         <activity
-            android:name="com.example.minhaparte.EnquetesActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.minhaparte.LoginActivity"
+            android:name="com.example.minhaparte.Activity.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,27 +51,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Activities do app -->
         <activity
-            android:name="com.example.minhaparte.MainActivity"
+            android:name="com.example.minhaparte.Activity.MainActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.CriarUsuarioActivity"
+            android:name="com.example.minhaparte.Activity.CriarUsuarioActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.FeedActivity"
+            android:name="com.example.minhaparte.Activity.FeedActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.QuizActivity"
+            android:name="com.example.minhaparte.Activity.QuizActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.EditorActivity"
+            android:name="com.example.minhaparte.Activity.EditorActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.UploadActivity"
+            android:name="com.example.minhaparte.Activity.UploadActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.minhaparte.PlayerActivity"
+            android:name="com.example.minhaparte.Activity.EnquetesActivity"
             android:exported="false" />
+        <activity
+            android:name="com.example.minhaparte.Activity.PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.minhaparte.Activity.VideoListActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.minhaparte.Activity.ListarUsuariosActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.minhaparte.Activity.TrocarSenhaActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

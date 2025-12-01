@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.minhaparte.Model.VideoModel;
+import com.example.minhaparte.R;
+import com.example.minhaparte.RetrofitClient;
+import com.example.minhaparte.Service.UploadService;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,7 +22,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UploadActivity extends AppCompatActivity {
-
     private static final int PICK_VIDEO = 100;
     private static final int PICK_IMAGE = 200;
 
@@ -43,7 +48,6 @@ public class UploadActivity extends AppCompatActivity {
         pickThumbBtn = findViewById(R.id.btnPickThumb);
         videoPreview = findViewById(R.id.videoPreview);
         thumbPreview = findViewById(R.id.thumbPreview);
-
         pickVideoBtn.setOnClickListener(v -> pickVideo());
         pickThumbBtn.setOnClickListener(v -> pickThumb());
         uploadBtn.setOnClickListener(v -> uploadFiles());
@@ -106,12 +110,11 @@ public class UploadActivity extends AppCompatActivity {
 
                             String videoUrl = SUPABASE_URL + "/storage/v1/object/public/video/" + videoName;
                             String thumbUrl = SUPABASE_URL + "/storage/v1/object/public/thumb/" + thumbName;
-
                             String videoTitle = title.getText().toString();
                             String videoDesc = description.getText().toString();
                             if (videoDesc.isEmpty()) videoDesc = "Sem descrição";
 
-                            VideoModel model = new VideoModel(videoTitle, videoDesc, videoUrl, thumbUrl);
+                            VideoModel model = new VideoModel(0,videoTitle, videoDesc, videoUrl, thumbUrl);
 
                             service.saveVideoData(API_KEY, AUTH, model).enqueue(new Callback<ResponseBody>() {
                                 @Override
@@ -119,14 +122,12 @@ public class UploadActivity extends AppCompatActivity {
                                     Toast.makeText(UploadActivity.this, "Upload completo!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
-
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     Toast.makeText(UploadActivity.this, "Erro ao salvar no banco: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             dialog.dismiss();
@@ -134,7 +135,6 @@ public class UploadActivity extends AppCompatActivity {
                         }
                     });
                 }
-
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     dialog.dismiss();
@@ -148,7 +148,6 @@ public class UploadActivity extends AppCompatActivity {
             Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
     private File createTempFile(Uri uri, String name) throws Exception {
         File file = new File(getCacheDir(), name);
         try (InputStream in = getContentResolver().openInputStream(uri);
@@ -159,7 +158,6 @@ public class UploadActivity extends AppCompatActivity {
         }
         return file;
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.Window;
 import android.widget.VideoView;
 import android.widget.MediaController;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.minhaparte.R;
 
 public class PlayerActivity extends AppCompatActivity {
     @Override

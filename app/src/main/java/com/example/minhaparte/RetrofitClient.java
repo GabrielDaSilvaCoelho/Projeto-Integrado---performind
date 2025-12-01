@@ -2,14 +2,13 @@ package com.example.minhaparte;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 public class RetrofitClient {
     private static Retrofit retrofit;
 
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://pbpkxbkwfpznkkuwcxjl.supabase.co/") // URL do seu projeto
+                    .baseUrl("https://pbpkxbkwfpznkkuwcxjl.supabase.co/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

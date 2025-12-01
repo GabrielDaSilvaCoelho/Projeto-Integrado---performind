@@ -1,7 +1,8 @@
-package com.example.minhaparte.All;
+package com.example.minhaparte.Activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -10,18 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.minhaparte.Model.UsuarioModel;
 import com.example.minhaparte.R;
-import com.example.minhaparte.model.UsuarioModel;
-
-
+import com.example.minhaparte.RetrofitClient;
+import com.example.minhaparte.Service.UsuarioService;
+import com.example.minhaparte.Adapter.UsuarioAdapter;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListarUsuariosActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
     ProgressBar progressBar;
     UsuarioAdapter usuarioAdapter;
@@ -34,16 +34,14 @@ public class ListarUsuariosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_usuarios);
-
         recyclerView = findViewById(R.id.recyclerUsuarios);
         progressBar = findViewById(R.id.progressBarUsuarios);
-
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         api = RetrofitClient.getClient().create(UsuarioService.class);
         carregarUsuarios();
     }
-
     private void carregarUsuarios() {
         progressBar.setVisibility(View.VISIBLE);
 
@@ -60,7 +58,6 @@ public class ListarUsuariosActivity extends AppCompatActivity {
                     Toast.makeText(ListarUsuariosActivity.this, "Erro ao carregar usuários", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<UsuarioModel>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
@@ -68,7 +65,6 @@ public class ListarUsuariosActivity extends AppCompatActivity {
             }
         });
     }
-
     private void confirmarExclusao(long id) {
         new AlertDialog.Builder(this)
                 .setTitle("Excluir usuário")
@@ -77,10 +73,8 @@ public class ListarUsuariosActivity extends AppCompatActivity {
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
-
     private void excluirUsuario(long id) {
-
-        String filtro = "eq." + id; // Supabase exige esse formato
+        String filtro = "eq." + id;
 
         api.deleteUsuario(filtro, API_KEY, AUTH)
                 .enqueue(new Callback<Void>() {
@@ -93,7 +87,6 @@ public class ListarUsuariosActivity extends AppCompatActivity {
                             Toast.makeText(ListarUsuariosActivity.this, "Falha ao excluir! Código: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
                         Toast.makeText(ListarUsuariosActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();

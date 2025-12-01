@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,18 +8,19 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.minhaparte.Model.VideoModel;
+import com.example.minhaparte.R;
+import com.example.minhaparte.Service.SupabaseApi;
+import com.example.minhaparte.Adapter.VideoAdapter;
 import java.util.*;
 import retrofit2.*;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private VideoAdapter adapter;
     private float x1, x2;
     private static final int MIN_DISTANCE = 150;
-
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co/";
     private static final String API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
     private static final String AUTH = "Bearer " + API_KEY;
@@ -30,14 +31,12 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setOnTouchListener((v, event) -> onTouchEvent(event));
 
         loadVideos();
     }
-
     private void loadVideos() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SUPABASE_URL)
@@ -58,7 +57,6 @@ public class FeedActivity extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onFailure(Call<List<VideoModel>> call, Throwable t) {
                 t.printStackTrace();

@@ -4012,9 +4012,11 @@ id bounceEnd
 id bounceStart
 id btnCancelar
 id btnCriarUsuario
+id btnDeleteUsuario
 id btnEditor
 id btnEnquete
 id btnFeed
+id btnListaUsuarios
 id btnLogin
 id btnMenu
 id btnNext
@@ -4023,8 +4025,11 @@ id btnPickVideo
 id btnProxima
 id btnQuiz
 id btnSalvar
+id btnTrocar
+id btnTrocarSenha
 id btnUpload
 id btnUser
+id btnvideos
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -4107,7 +4112,9 @@ id edge
 id editAlternativa
 id editDescription
 id editMatricula
+id editNovaSenha
 id editSenha
+id editSenhaAtual
 id editTitle
 id edit_query
 id edit_text_id
@@ -4387,6 +4394,7 @@ id postLayout
 id pressed
 id progress
 id progressBar
+id progressBarUsuarios
 id progress_circular
 id progress_horizontal
 id radio
@@ -4399,6 +4407,8 @@ id rb4
 id rb5
 id rbCorreta
 id rectangles
+id recyclerUsuarios
+id recyclerVideos
 id recyclerView
 id recycler_view
 id report_drawn
@@ -4538,6 +4548,9 @@ id triangle
 id tvDetalhe
 id tvQuestion
 id tvTitulo
+id txtMatriculaUsuario
+id txtNomeUsuario
+id txtTipoUsuario
 id unchecked
 id uniform
 id unlabeled
@@ -4696,12 +4709,15 @@ layout activity_criar_usuario
 layout activity_editor
 layout activity_enquetes
 layout activity_feed
+layout activity_listar_usuarios
 layout activity_login
 layout activity_main
 layout activity_player
 layout activity_question
 layout activity_quiz
+layout activity_trocar_senha
 layout activity_upload
+layout activity_video_list
 layout ayp_default_player_ui
 layout ayp_menu_item
 layout ayp_player_menu
@@ -4736,6 +4752,7 @@ layout ime_secondary_split_test_activity
 layout item_alternativa
 layout item_created_question
 layout item_enquete
+layout item_usuario
 layout item_video
 layout m3_alert_dialog
 layout m3_alert_dialog_actions

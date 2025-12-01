@@ -1,4 +1,6 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Service;
+
+import com.example.minhaparte.Model.VideoModel;
 
 import java.util.List;
 

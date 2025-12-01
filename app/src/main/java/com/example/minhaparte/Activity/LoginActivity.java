@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.minhaparte.R;
 import org.json.JSONArray;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,9 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         editMatricula = findViewById(R.id.editMatricula);
         editSenha = findViewById(R.id.editSenha);
         btnLogin = findViewById(R.id.btnLogin);
+
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
 
@@ -45,14 +50,19 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        String senhaHash = sha256Hex(senha);
+
+        HashMap<String, String> loginData = new HashMap<>();
+        loginData.put("matricula", matricula);
+        loginData.put("senha", senhaHash);
+
         new Thread(() -> {
             HttpURLConnection conn = null;
             try {
-                String encodedMatricula = URLEncoder.encode(matricula, "UTF-8");
-                String encodedSenha = URLEncoder.encode(senha, "UTF-8");
+                String encodedMatricula = URLEncoder.encode(loginData.get("matricula"), "UTF-8");
+                String encodedSenha = URLEncoder.encode(loginData.get("senha"), "UTF-8");
 
                 URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios?matricula=eq." + encodedMatricula + "&senha=eq." + encodedSenha + "&select=*");
-
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
@@ -89,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(() ->
                             Toast.makeText(this, "Erro HTTP: " + responseCode, Toast.LENGTH_SHORT).show());
                 }
-
             } catch (Exception e) {
                 Log.e("LOGIN", "Erro ao logar", e);
                 runOnUiThread(() ->
@@ -98,5 +107,19 @@ public class LoginActivity extends AppCompatActivity {
                 if (conn != null) conn.disconnect();
             }
         }).start();
+    }
+    private String sha256Hex(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(senha.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            Log.e("HASH_ERROR", "Erro ao gerar hash", e);
+            return null;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.minhaparte.Model.QuestionModel;
+import com.example.minhaparte.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -18,13 +18,11 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class EditorActivity extends AppCompatActivity {
-
     private EditText etTitulo, etQuestion, etAlt1, etAlt2, etAlt3, etAlt4, etCorrect;
     private Button btnSalvar, btnProxima;
-    private ArrayList<Question> listaQuestoes = new ArrayList<>();
+    private ArrayList<QuestionModel> listaQuestoes = new ArrayList<>();
     private int questaoAtual = 1;
     private long questionarioId = -1;
-
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
@@ -33,7 +31,6 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
         etTitulo = findViewById(R.id.etTitulo);
         etQuestion = findViewById(R.id.etQuestion);
         etAlt1 = findViewById(R.id.etAlt1);
@@ -45,12 +42,9 @@ public class EditorActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
-
         btnProxima.setOnClickListener(v -> adicionarQuestao());
         btnSalvar.setOnClickListener(v -> salvarQuestionario());
     }
-
-    // Adiciona questão à lista
     private void adicionarQuestao() {
         String pergunta = etQuestion.getText().toString().trim();
         if (pergunta.isEmpty()) {
@@ -77,12 +71,11 @@ public class EditorActivity extends AppCompatActivity {
             return;
         }
 
-        listaQuestoes.add(new Question(pergunta, alternativas, correta));
+        listaQuestoes.add(new QuestionModel(pergunta, alternativas, correta));
         Toast.makeText(this, "Questão " + questaoAtual + " adicionada!", Toast.LENGTH_SHORT).show();
         questaoAtual++;
         limparCampos();
     }
-
     private void limparCampos() {
         etQuestion.setText("");
         etAlt1.setText("");
@@ -91,8 +84,6 @@ public class EditorActivity extends AppCompatActivity {
         etAlt4.setText("");
         etCorrect.setText("");
     }
-
-    // Salva questionário e questões
     private void salvarQuestionario() {
         if (listaQuestoes.isEmpty()) {
             Toast.makeText(this, "Adicione pelo menos 1 questão!", Toast.LENGTH_SHORT).show();
@@ -107,7 +98,6 @@ public class EditorActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                // 1) Criar questionário
                 if (questionarioId == -1) {
                     URL url = new URL(SUPABASE_URL + "/rest/v1/questionarios");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -119,7 +109,7 @@ public class EditorActivity extends AppCompatActivity {
                     conn.setDoOutput(true);
 
                     JSONObject body = new JSONObject();
-                    body.put("usuario_id", 4); // coloque um usuário existente
+                    body.put("usuario_id", 4);
                     body.put("titulo", titulo);
 
                     OutputStream os = conn.getOutputStream();
@@ -140,12 +130,10 @@ public class EditorActivity extends AppCompatActivity {
                     Log.d("SUPABASE", "Questionário criado com ID: " + questionarioId);
                     conn.disconnect();
                 }
-
-                // 2) Salvar questões
                 int okCount = 0;
                 final int total = listaQuestoes.size();
 
-                for (Question q : listaQuestoes) {
+                for (QuestionModel q : listaQuestoes) {
                     URL urlQ = new URL(SUPABASE_URL + "/rest/v1/questoes");
                     HttpURLConnection connQ = (HttpURLConnection) urlQ.openConnection();
                     connQ.setRequestMethod("POST");

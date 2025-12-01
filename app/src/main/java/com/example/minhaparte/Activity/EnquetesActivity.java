@@ -1,9 +1,11 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.minhaparte.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -13,11 +15,9 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class EnquetesActivity extends AppCompatActivity {
-
     private ListView listEnquetes;
     private ArrayList<Long> enqueteIds = new ArrayList<>();
     private ArrayList<String> enqueteTitulos = new ArrayList<>();
-
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
@@ -25,11 +25,10 @@ public class EnquetesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enquetes);
-
         listEnquetes = findViewById(R.id.listEnquetes);
-
         carregarEnquetes();
-
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
         listEnquetes.setOnItemClickListener((adapterView, view, position, id) -> {
             long enqueteId = enqueteIds.get(position);
 
@@ -38,7 +37,6 @@ public class EnquetesActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
     private void carregarEnquetes() {
         new Thread(() -> {
             try {

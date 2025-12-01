@@ -1,5 +1,4 @@
-package com.example.minhaparte.minhaparte.all;
-
+package com.example.minhaparte.Model;
 public class UsuarioModel {
     public long id;
     public String nome;

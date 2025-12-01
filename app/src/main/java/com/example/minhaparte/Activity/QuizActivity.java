@@ -1,4 +1,4 @@
-package com.example.minhaparte;
+package com.example.minhaparte.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,26 +7,26 @@ import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.minhaparte.Model.QuestionModel;
+import com.example.minhaparte.R;
 import org.json.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 public class QuizActivity extends AppCompatActivity {
-
     private TextView tvQuestion;
     private RadioGroup radioGroup;
     private RadioButton rb1, rb2, rb3, rb4, rb5;
     private Button btnNext;
 
-    private ArrayList<Question> questoes = new ArrayList<>();
+    private ArrayList<QuestionModel> questoes = new ArrayList<>();
     private int index = 0;
-
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
     private long usuarioId = 1;
-    private long questionarioId = -1; // IMPORTANTE enviar para tabela respostas
+    private long questionarioId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class QuizActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
 
-        // pega usuário salvo
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         usuarioId = prefs.getInt("usuario_id", -1);
 
@@ -45,8 +44,6 @@ public class QuizActivity extends AppCompatActivity {
             finish();
             return;
         }
-
-        // pega questionário enviado pela EnquetesActivity
         questionarioId = getIntent().getLongExtra("enquete_id", -1);
 
         tvQuestion = findViewById(R.id.tvQuestion);
@@ -57,17 +54,9 @@ public class QuizActivity extends AppCompatActivity {
         rb4 = findViewById(R.id.rb4);
         rb5 = findViewById(R.id.rb5);
         btnNext = findViewById(R.id.btnNext);
-
         carregarQuestoes();
-
         btnNext.setOnClickListener(v -> verificarResposta());
     }
-
-
-
-    // =========================================================
-    // 👉 CARREGAR QUESTÕES DO SUPABASE
-    // =========================================================
     private void carregarQuestoes() {
 
         new Thread(() -> {
@@ -113,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
 
                     int indiceCorreta = o.optInt("indice_correta");
 
-                    questoes.add(new Question(id, enunciado, alternativas, indiceCorreta));
+                    questoes.add(new QuestionModel(id, enunciado, alternativas, indiceCorreta));
                 }
 
                 runOnUiThread(() -> {
@@ -132,12 +121,6 @@ public class QuizActivity extends AppCompatActivity {
             }
         }).start();
     }
-
-
-
-    // =========================================================
-    // 👉 MOSTRAR QUESTÃO
-    // =========================================================
     private void mostrarQuestao() {
         if (index >= questoes.size()) {
             Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show();
@@ -145,10 +128,9 @@ public class QuizActivity extends AppCompatActivity {
             return;
         }
 
-        Question q = questoes.get(index);
+        QuestionModel q = questoes.get(index);
         tvQuestion.setText(q.getQuestionText());
 
-        // embaralha alternativas, mas mantém índice correto
         ArrayList<String> alternativas = new ArrayList<>(q.getAlternatives());
         Collections.shuffle(alternativas);
 
@@ -162,15 +144,8 @@ public class QuizActivity extends AppCompatActivity {
                 radios[i].setVisibility(View.GONE);
             }
         }
-
         radioGroup.clearCheck();
     }
-
-
-
-    // =========================================================
-    // 👉 VERIFICAR RESPOSTA
-    // =========================================================
     private void verificarResposta() {
         int selectedId = radioGroup.getCheckedRadioButtonId();
         if (selectedId == -1) {
@@ -181,7 +156,7 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton selected = findViewById(selectedId);
         String resposta = selected.getText().toString();
 
-        Question q = questoes.get(index);
+        QuestionModel q = questoes.get(index);
         String respostaCerta = q.getAlternatives().get(q.getCorrectIndex());
 
         boolean correta = resposta.equals(respostaCerta);
@@ -196,12 +171,6 @@ public class QuizActivity extends AppCompatActivity {
         index++;
         mostrarQuestao();
     }
-
-
-
-    // =========================================================
-    // 👉 SALVAR RESPOSTA NO SUPABASE (CORRIGIDO)
-    // =========================================================
     private void salvarResposta(long usuarioId, long questaoId, int alternativaEscolhida, boolean correta) {
         new Thread(() -> {
             try {

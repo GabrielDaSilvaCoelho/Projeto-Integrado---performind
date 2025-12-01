@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:spacing="10dp">
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,44 +24,76 @@
         <Button
             android:id="@+id/btnCriarUsuario"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/blue_500"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue_500"
             android:text="Criar Usuário" />
 
         <Button
             android:id="@+id/btnEditor"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/blue_500"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue_500"
             android:text="Editor" />
 
         <Button
             android:id="@+id/btnFeed"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/blue_500"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue_500"
             android:text="Feed" />
 
         <Button
             android:id="@+id/btnQuiz"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/blue_500"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue_500"
             android:text="Quiz" />
 
         <Button
             android:id="@+id/btnUpload"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/blue_500"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue_500"
             android:text="Upload" />
 
         <Button
             android:id="@+id/btnEnquete"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enquetes"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue_500"
+            android:text="Enquetes" />
+
+        <Button
+            android:id="@+id/btnvideos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue_500"
+            android:text="Excluir Vídeo" />
+
+        <Button
+            android:id="@+id/btnListaUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue_500"
+            android:text="Lista de Usuários" />
+
+        <Button
+            android:id="@+id/btnTrocarSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trocar Senha"
+            android:backgroundTint="@color/blue_500"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            />
 
 
     </LinearLayout>

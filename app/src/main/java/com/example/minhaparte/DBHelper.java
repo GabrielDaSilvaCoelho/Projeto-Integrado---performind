@@ -3,6 +3,8 @@ package com.example.minhaparte;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.minhaparte.Model.QuestionModel;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -59,9 +61,7 @@ public class DBHelper {
             }
         }).start();
     }
-
-    // 🔹 INSERIR QUESTÃO
-    public void inserirQuestao(Question q, int usuarioId) {
+    public void inserirQuestao(QuestionModel q, int usuarioId) {
         new Thread(() -> {
             try {
                 URL url = new URL(SUPABASE_URL + "/rest/v1/questoes");
@@ -94,7 +94,6 @@ public class DBHelper {
                     while ((line = br.readLine()) != null) sb.append(line);
                     Log.e("SUPABASE", "Erro ao inserir questão: " + sb);
                 }
-
                 conn.disconnect();
             } catch (Exception e) {
                 Log.e("SUPABASE", "Erro ao salvar questão: " + e.getMessage());
