@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
 
-        // ➜ Inicialização correta de TODOS os botões
         btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
         btnEditor = findViewById(R.id.btnEditor);
         btnFeed = findViewById(R.id.btnFeed);
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         btnListaUsuarios = findViewById(R.id.btnListaUsuarios);
         btnTrocarSenha = findViewById(R.id.btnTrocarSenha);
 
-        // ➜ Ações dos botões
         btnCriarUsuario.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, CriarUsuarioActivity.class)));
 

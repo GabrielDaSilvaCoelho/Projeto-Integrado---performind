@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(v -> realizarLogin());
     }
+
     private void realizarLogin() {
         String matricula = editMatricula.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
@@ -79,13 +80,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     JSONArray jsonArray = new JSONArray(sb.toString());
                     if (jsonArray.length() > 0) {
-                        int usuarioId = jsonArray.getJSONObject(0).getInt("id");
+                        // Alterado para long
+                        long usuarioId = jsonArray.getJSONObject(0).getLong("id");
 
+                        // Salvar no SharedPreferences como long
                         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
-                        prefs.edit().putInt("usuario_id", usuarioId).apply();
+                        prefs.edit().putLong("usuario_id", usuarioId).apply();
 
                         runOnUiThread(() -> {
                             Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                            // Passando via Intent como long
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("usuarioId", usuarioId);
                             startActivity(intent);
@@ -108,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     private String sha256Hex(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

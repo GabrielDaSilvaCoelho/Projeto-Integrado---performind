@@ -2,9 +2,6 @@ package com.example.minhaparte.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.minhaparte.Model.QuestionModel;
@@ -15,6 +12,7 @@ import java.net.*;
 import java.util.*;
 
 public class QuizActivity extends AppCompatActivity {
+
     private TextView tvQuestion;
     private RadioGroup radioGroup;
     private RadioButton rb1, rb2, rb3, rb4, rb5;
@@ -22,29 +20,17 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<QuestionModel> questoes = new ArrayList<>();
     private int index = 0;
+
+    private long usuarioId = -1;
+    private long questionarioId = -1;
+
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
-
-    private long usuarioId = 1;
-    private long questionarioId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
-        Window window = getWindow();
-        window.setStatusBarColor(getColor(R.color.blue_500));
-
-        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
-        usuarioId = prefs.getInt("usuario_id", -1);
-
-        if (usuarioId == -1) {
-            Toast.makeText(this, "Erro: usuário não logado", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-        questionarioId = getIntent().getLongExtra("enquete_id", -1);
 
         tvQuestion = findViewById(R.id.tvQuestion);
         radioGroup = findViewById(R.id.radioGroup);
@@ -54,11 +40,18 @@ public class QuizActivity extends AppCompatActivity {
         rb4 = findViewById(R.id.rb4);
         rb5 = findViewById(R.id.rb5);
         btnNext = findViewById(R.id.btnNext);
+
+        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
+        usuarioId = prefs.getLong("usuario_id", -1L);
+        if (usuarioId == -1) { Toast.makeText(this, "Usuário não logado", Toast.LENGTH_LONG).show(); finish(); return; }
+
+        questionarioId = getIntent().getLongExtra("enquete_id", -1L);
         carregarQuestoes();
+
         btnNext.setOnClickListener(v -> verificarResposta());
     }
-    private void carregarQuestoes() {
 
+    private void carregarQuestoes() {
         new Thread(() -> {
             try {
                 URL url = new URL(SUPABASE_URL + "/rest/v1/questoes?questionario_id=eq." + questionarioId);
@@ -67,66 +60,33 @@ public class QuizActivity extends AppCompatActivity {
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
                 conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
 
-                Log.d("SUPABASE", "GET questoes -> questionario_id=" + questionarioId);
-
-                int responseCode = conn.getResponseCode();
-                Log.d("SUPABASE", "HTTP CODE QUESTOES = " + responseCode);
-
-                if (responseCode != 200) {
-                    runOnUiThread(() -> Toast.makeText(this, "Erro HTTP: " + responseCode, Toast.LENGTH_LONG).show());
-                    return;
-                }
-
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
-
-                while ((line = br.readLine()) != null)
-                    sb.append(line);
-
+                while ((line = br.readLine()) != null) sb.append(line);
                 br.close();
 
                 JSONArray arr = new JSONArray(sb.toString());
                 questoes.clear();
-
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
-
-                    long id = o.optLong("id");
-                    String enunciado = o.optString("enunciado");
-
-                    JSONArray alternativasJson = o.getJSONArray("alternativas");
+                    long id = o.getLong("id");
+                    String enunciado = o.getString("enunciado");
+                    JSONArray altJson = o.getJSONArray("alternativas");
                     ArrayList<String> alternativas = new ArrayList<>();
-                    for (int j = 0; j < alternativasJson.length(); j++)
-                        alternativas.add(alternativasJson.getString(j));
-
-                    int indiceCorreta = o.optInt("indice_correta");
-
-                    questoes.add(new QuestionModel(id, enunciado, alternativas, indiceCorreta));
+                    for (int j = 0; j < altJson.length(); j++) alternativas.add(altJson.getString(j));
+                    int correctIndex = o.getInt("indice_correta");
+                    questoes.add(new QuestionModel(id, enunciado, alternativas, correctIndex));
                 }
 
-                runOnUiThread(() -> {
-                    if (questoes.isEmpty()) {
-                        Toast.makeText(this, "Nenhuma questão encontrada!", Toast.LENGTH_LONG).show();
-                        finish();
-                    } else {
-                        mostrarQuestao();
-                    }
-                });
+                runOnUiThread(() -> { if (!questoes.isEmpty()) mostrarQuestao(); else finish(); });
 
-            } catch (Exception e) {
-                Log.e("SUPABASE", "Erro ao carregar questoes", e);
-                runOnUiThread(() ->
-                        Toast.makeText(this, "Erro ao carregar: " + e.getMessage(), Toast.LENGTH_LONG).show());
-            }
+            } catch (Exception e) { runOnUiThread(() -> Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show()); }
         }).start();
     }
+
     private void mostrarQuestao() {
-        if (index >= questoes.size()) {
-            Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
+        if (index >= questoes.size()) { Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show(); finish(); return; }
 
         QuestionModel q = questoes.get(index);
         tvQuestion.setText(q.getQuestionText());
@@ -135,80 +95,49 @@ public class QuizActivity extends AppCompatActivity {
         Collections.shuffle(alternativas);
 
         RadioButton[] radios = {rb1, rb2, rb3, rb4, rb5};
-
         for (int i = 0; i < radios.length; i++) {
-            if (i < alternativas.size()) {
-                radios[i].setText(alternativas.get(i));
-                radios[i].setVisibility(View.VISIBLE);
-            } else {
-                radios[i].setVisibility(View.GONE);
-            }
+            if (i < alternativas.size()) { radios[i].setText(alternativas.get(i)); radios[i].setVisibility(android.view.View.VISIBLE); }
+            else radios[i].setVisibility(android.view.View.GONE);
         }
         radioGroup.clearCheck();
     }
+
     private void verificarResposta() {
         int selectedId = radioGroup.getCheckedRadioButtonId();
-        if (selectedId == -1) {
-            Toast.makeText(this, "Selecione uma alternativa", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        if (selectedId == -1) { Toast.makeText(this, "Selecione uma alternativa!", Toast.LENGTH_SHORT).show(); return; }
 
         RadioButton selected = findViewById(selectedId);
-        String resposta = selected.getText().toString();
-
         QuestionModel q = questoes.get(index);
-        String respostaCerta = q.getAlternatives().get(q.getCorrectIndex());
+        boolean correta = selected.getText().toString().equals(q.getAlternatives().get(q.getCorrectIndex()));
 
-        boolean correta = resposta.equals(respostaCerta);
-
-        salvarResposta(usuarioId, q.getId(), q.getAlternatives().indexOf(resposta), correta);
-
-        if (correta)
-            Toast.makeText(this, "Correta!", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Errada! Certa: " + respostaCerta, Toast.LENGTH_LONG).show();
-
+        salvarResposta(usuarioId, q.getId(), q.getAlternatives().indexOf(selected.getText().toString()), correta);
         index++;
         mostrarQuestao();
     }
+
     private void salvarResposta(long usuarioId, long questaoId, int alternativaEscolhida, boolean correta) {
         new Thread(() -> {
             try {
-
                 URL url = new URL(SUPABASE_URL + "/rest/v1/respostas");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
                 conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
                 conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Prefer", "return=minimal"); // IMPORTANTE!
                 conn.setDoOutput(true);
 
-                JSONObject body = new JSONObject();
-                body.put("usuario_id", usuarioId);
-                body.put("questao_id", questaoId);
-                body.put("alternativa_escolhida", alternativaEscolhida);
-                body.put("correta", correta);
-                body.put("questionario_id", questionarioId); // OBRIGATÓRIO na sua tabela
+                JSONObject json = new JSONObject();
+                json.put("usuario_id", usuarioId);
+                json.put("questao_id", questaoId);
+                json.put("alternativa_escolhida", alternativaEscolhida);
+                json.put("correta", correta);
+                json.put("questionario_id", questionarioId);
 
-                Log.d("SUPABASE", "BODY -> " + body);
-
-                OutputStream os = conn.getOutputStream();
-                os.write(body.toString().getBytes());
-                os.flush();
-                os.close();
-
-                int code = conn.getResponseCode();
-                Log.d("SUPABASE", "POST RESPOSTA HTTP = " + code);
-
-                if (code != 201 && code != 200 && code != 204) {
-                    Log.e("SUPABASE", "ERRO AO SALVAR RESPOSTA: HTTP " + code);
-                }
-
-            } catch (Exception e) {
-                Log.e("SUPABASE", "Erro salvar resp.", e);
-            }
+                conn.getOutputStream().write(json.toString().getBytes());
+                conn.getOutputStream().flush();
+                conn.getOutputStream().close();
+                conn.getResponseCode();
+            } catch (Exception e) { e.printStackTrace(); }
         }).start();
     }
 }

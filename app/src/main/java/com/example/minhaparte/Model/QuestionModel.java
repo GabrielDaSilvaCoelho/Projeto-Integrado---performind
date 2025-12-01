@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class QuestionModel implements Parcelable {
+
     private long id;
     private String questionText;
     private ArrayList<String> alternatives;
@@ -21,11 +22,14 @@ public class QuestionModel implements Parcelable {
         this.alternatives = alternatives;
         this.correctIndex = correctIndex;
     }
+
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
+
     public String getQuestionText() { return questionText; }
     public ArrayList<String> getAlternatives() { return alternatives; }
     public int getCorrectIndex() { return correctIndex; }
+
     protected QuestionModel(Parcel in) {
         id = in.readLong();
         questionText = in.readString();
@@ -35,15 +39,11 @@ public class QuestionModel implements Parcelable {
 
     public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
         @Override
-        public QuestionModel createFromParcel(Parcel in) {
-            return new QuestionModel(in);
-        }
-
+        public QuestionModel createFromParcel(Parcel in) { return new QuestionModel(in); }
         @Override
-        public QuestionModel[] newArray(int size) {
-            return new QuestionModel[size];
-        }
+        public QuestionModel[] newArray(int size) { return new QuestionModel[size]; }
     };
+
     @Override
     public int describeContents() { return 0; }
 
