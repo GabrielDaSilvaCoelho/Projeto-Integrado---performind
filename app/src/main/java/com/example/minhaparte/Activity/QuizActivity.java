@@ -1,12 +1,16 @@
 package com.example.minhaparte.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.minhaparte.Model.QuestionModel;
 import com.example.minhaparte.R;
+
 import org.json.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -20,9 +24,14 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<QuestionModel> questoes = new ArrayList<>();
     private int index = 0;
+    private int acertos = 0; // novo: contador de acertos
 
     private long usuarioId = -1;
     private long questionarioId = -1;
+
+    // pergunta aberta que será usada na tela da IA
+    private static final String PERGUNTA_ABERTA_PADRAO =
+            "Descreva como você lida com suas atividades, responsabilidades e prazos no dia a dia.";
 
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
@@ -43,7 +52,11 @@ public class QuizActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         usuarioId = prefs.getLong("usuario_id", -1L);
-        if (usuarioId == -1) { Toast.makeText(this, "Usuário não logado", Toast.LENGTH_LONG).show(); finish(); return; }
+        if (usuarioId == -1) {
+            Toast.makeText(this, "Usuário não logado", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         questionarioId = getIntent().getLongExtra("enquete_id", -1L);
         carregarQuestoes();
@@ -79,14 +92,39 @@ public class QuizActivity extends AppCompatActivity {
                     questoes.add(new QuestionModel(id, enunciado, alternativas, correctIndex));
                 }
 
-                runOnUiThread(() -> { if (!questoes.isEmpty()) mostrarQuestao(); else finish(); });
+                runOnUiThread(() -> {
+                    if (!questoes.isEmpty()) mostrarQuestao();
+                    else finish();
+                });
 
-            } catch (Exception e) { runOnUiThread(() -> Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show()); }
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                );
+            }
         }).start();
     }
 
     private void mostrarQuestao() {
-        if (index >= questoes.size()) { Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show(); finish(); return; }
+        if (index >= questoes.size()) {
+            Toast.makeText(this, "Fim do quiz!", Toast.LENGTH_SHORT).show();
+
+            int totalPerguntas = questoes.size();
+
+            // id_conteudo que vamos mandar pra IA (aqui uso o próprio id do questionário)
+            String idConteudo = String.valueOf(questionarioId);
+
+            Intent intent = new Intent(QuizActivity.this, RespostaAbertaActivity.class);
+            intent.putExtra(RespostaAbertaActivity.EXTRA_ID_USUARIO, String.valueOf(usuarioId));
+            intent.putExtra(RespostaAbertaActivity.EXTRA_ID_CONTEUDO, idConteudo);
+            intent.putExtra(RespostaAbertaActivity.EXTRA_TOTAL_PERGUNTAS, totalPerguntas);
+            intent.putExtra(RespostaAbertaActivity.EXTRA_ACERTOS, acertos);
+            intent.putExtra(RespostaAbertaActivity.EXTRA_PERGUNTA_ABERTA, PERGUNTA_ABERTA_PADRAO);
+
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         QuestionModel q = questoes.get(index);
         tvQuestion.setText(q.getQuestionText());
@@ -96,26 +134,44 @@ public class QuizActivity extends AppCompatActivity {
 
         RadioButton[] radios = {rb1, rb2, rb3, rb4, rb5};
         for (int i = 0; i < radios.length; i++) {
-            if (i < alternativas.size()) { radios[i].setText(alternativas.get(i)); radios[i].setVisibility(android.view.View.VISIBLE); }
-            else radios[i].setVisibility(android.view.View.GONE);
+            if (i < alternativas.size()) {
+                radios[i].setText(alternativas.get(i));
+                radios[i].setVisibility(android.view.View.VISIBLE);
+            } else {
+                radios[i].setVisibility(android.view.View.GONE);
+            }
         }
         radioGroup.clearCheck();
     }
 
     private void verificarResposta() {
         int selectedId = radioGroup.getCheckedRadioButtonId();
-        if (selectedId == -1) { Toast.makeText(this, "Selecione uma alternativa!", Toast.LENGTH_SHORT).show(); return; }
+        if (selectedId == -1) {
+            Toast.makeText(this, "Selecione uma alternativa!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         RadioButton selected = findViewById(selectedId);
         QuestionModel q = questoes.get(index);
-        boolean correta = selected.getText().toString().equals(q.getAlternatives().get(q.getCorrectIndex()));
+        boolean correta = selected.getText().toString()
+                .equals(q.getAlternatives().get(q.getCorrectIndex()));
 
-        salvarResposta(usuarioId, q.getId(), q.getAlternatives().indexOf(selected.getText().toString()), correta);
+        if (correta) {
+            acertos++;
+        }
+
+        salvarResposta(usuarioId,
+                q.getId(),
+                q.getAlternatives().indexOf(selected.getText().toString()),
+                correta
+        );
+
         index++;
         mostrarQuestao();
     }
 
-    private void salvarResposta(long usuarioId, long questaoId, int alternativaEscolhida, boolean correta) {
+    private void salvarResposta(long usuarioId, long questaoId,
+                                int alternativaEscolhida, boolean correta) {
         new Thread(() -> {
             try {
                 URL url = new URL(SUPABASE_URL + "/rest/v1/respostas");
@@ -137,7 +193,9 @@ public class QuizActivity extends AppCompatActivity {
                 conn.getOutputStream().flush();
                 conn.getOutputStream().close();
                 conn.getResponseCode();
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }).start();
     }
 }
