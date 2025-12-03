@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Pergunta aberta -->
+    <TextView
+        android:id="@+id/tvPerguntaAberta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Descreva como você lida com suas atividades e prazos:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Campo de resposta do funcionário -->
+    <EditText
+        android:id="@+id/etRespostaAberta"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="Digite sua resposta aqui..."
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:minLines="6"
+        app:layout_constraintTop_toBottomOf="@id/tvPerguntaAberta"
+        app:layout_constraintBottom_toTopOf="@id/btnEnviarResposta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Botão de envio -->
+    <Button
+        android:id="@+id/btnEnviarResposta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Enviar e calcular desempenho"
+        android:backgroundTint="#6A0DAD"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/tvResultadoIA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Resultado da IA -->
+    <TextView
+        android:id="@+id/tvResultadoIA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Aguardando análise..."
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="#eeeeee"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

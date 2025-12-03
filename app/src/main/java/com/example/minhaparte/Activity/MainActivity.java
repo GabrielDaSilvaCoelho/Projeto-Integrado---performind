@@ -12,7 +12,7 @@ import com.example.minhaparte.R;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnCriarUsuario, btnEditor, btnFeed, btnQuiz, btnUpload, btnEnquete;
-    private Button btnVideos, btnListaUsuarios, btnTrocarSenha;
+    private Button btnVideos, btnListaUsuarios, btnTrocarSenha, btnRespostaAberta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         window.setStatusBarColor(getColor(R.color.blue_500));
 
         btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
+        btnRespostaAberta = findViewById(R.id.btnRespostaAberta);
         btnEditor = findViewById(R.id.btnEditor);
         btnFeed = findViewById(R.id.btnFeed);
         btnQuiz = findViewById(R.id.btnQuiz);
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnQuiz.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, QuizActivity.class)));
+
+        btnRespostaAberta.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, RespostaAbertaActivity.class)));
 
         btnUpload.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, UploadActivity.class)));

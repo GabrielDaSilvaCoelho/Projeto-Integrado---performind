@@ -5000,9 +5000,9 @@
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",
-                        "startOffsets": "17",
+                        "startOffsets": "16",
                         "endColumns": "47",
-                        "endOffsets": "60"
+                        "endOffsets": "59"
                     },
                     "to": {
                         "startLines": "2721",
