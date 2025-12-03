@@ -8,9 +8,12 @@ public class AvaliacaoRequest {
     private int total_perguntas;
     private int acertos;
 
-    public AvaliacaoRequest(String idUsuario, String idConteudo,
-                            String pergunta, String textoResposta,
-                            int totalPerguntas, int acertos) {
+    public AvaliacaoRequest(String idUsuario,
+                            String idConteudo,
+                            String pergunta,
+                            String textoResposta,
+                            int totalPerguntas,
+                            int acertos) {
         this.id_usuario = idUsuario;
         this.id_conteudo = idConteudo;
         this.pergunta = pergunta;

@@ -4015,6 +4015,7 @@ id btnCriarUsuario
 id btnDeleteUsuario
 id btnEditor
 id btnEnquete
+id btnEnviarResposta
 id btnFeed
 id btnListaUsuarios
 id btnLogin
@@ -4024,6 +4025,7 @@ id btnPickThumb
 id btnPickVideo
 id btnProxima
 id btnQuiz
+id btnRespostaAberta
 id btnSalvar
 id btnTrocar
 id btnTrocarSenha
@@ -4138,6 +4140,7 @@ id etCpf
 id etMatricula
 id etNome
 id etQuestion
+id etRespostaAberta
 id etSenha
 id etSetor
 id etSupervisor
@@ -4546,7 +4549,9 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvDetalhe
+id tvPerguntaAberta
 id tvQuestion
+id tvResultadoIA
 id tvTitulo
 id txtMatriculaUsuario
 id txtNomeUsuario
@@ -4715,6 +4720,7 @@ layout activity_main
 layout activity_player
 layout activity_question
 layout activity_quiz
+layout activity_resposta_aberta
 layout activity_trocar_senha
 layout activity_upload
 layout activity_video_list

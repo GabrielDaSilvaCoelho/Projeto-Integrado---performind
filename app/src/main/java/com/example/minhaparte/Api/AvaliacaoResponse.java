@@ -3,6 +3,7 @@ package com.example.minhaparte.Api;
 import java.util.Map;
 
 public class AvaliacaoResponse {
+
     private String id_usuario;
     private String id_conteudo;
 

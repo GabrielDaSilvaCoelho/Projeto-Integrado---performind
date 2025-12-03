@@ -7,10 +7,11 @@
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="36" />
-
     <!-- Permissões -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -40,7 +41,9 @@
         android:testOnly="true"
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true" >
-
+        <activity
+            android:name="com.example.minhaparte.activity_resposta_aberta"
+            android:exported="false" />
         <!-- Tela de Login (Launcher) -->
         <activity
             android:name="com.example.minhaparte.Activity.LoginActivity"
@@ -50,9 +53,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Activities do app -->
+        </activity> <!-- Activities do app -->
         <activity
             android:name="com.example.minhaparte.Activity.MainActivity"
             android:exported="true" />
@@ -70,6 +71,9 @@
             android:exported="true" />
         <activity
             android:name="com.example.minhaparte.Activity.UploadActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.minhaparte.Activity.RespostaAbertaActivity"
             android:exported="true" />
         <activity
             android:name="com.example.minhaparte.Activity.EnquetesActivity"

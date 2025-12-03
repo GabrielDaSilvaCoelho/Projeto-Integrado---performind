@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Permissões -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -26,30 +24,56 @@
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activity_resposta_aberta"
+            android:exported="false"
+            tools:ignore="MissingClass" />
         <!-- Tela de Login (Launcher) -->
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Activities do app -->
-        <activity android:name=".Activity.MainActivity" android:exported="true" />
-        <activity android:name=".Activity.CriarUsuarioActivity" android:exported="true" />
-        <activity android:name=".Activity.FeedActivity" android:exported="true" />
-        <activity android:name=".Activity.QuizActivity" android:exported="true" />
-        <activity android:name=".Activity.EditorActivity" android:exported="true" />
-        <activity android:name=".Activity.UploadActivity" android:exported="true" />
-        <activity android:name=".Activity.EnquetesActivity" android:exported="false" />
-        <activity android:name=".Activity.PlayerActivity" android:exported="false" />
-        <activity android:name=".Activity.VideoListActivity" android:exported="true" />
-        <activity android:name=".Activity.ListarUsuariosActivity" android:exported="true" />
-        <activity android:name=".Activity.TrocarSenhaActivity" android:exported="true" />
-
+        </activity> <!-- Activities do app -->
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.CriarUsuarioActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FeedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.QuizActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.EditorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.UploadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.RespostaAbertaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.EnquetesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.VideoListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.ListarUsuariosActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.TrocarSenhaActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
