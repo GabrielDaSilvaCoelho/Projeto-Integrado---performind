@@ -4,7 +4,7 @@
             "outputFile": "com.example.minhaparte.app-mergeDebugResources-41:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\5ed9fe4352a0906927e825f7164c2f4b\\transformed\\appcompat-1.7.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.11.1\\transforms\\5ed9fe4352a0906927e825f7164c2f4b\\transformed\\appcompat-1.7.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Wesley\\.gradle\\caches\\8.11.1\\transforms\\720aff740de26fc6c858b7f8ef8494ab\\transformed\\material-1.13.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\frede\\.gradle\\caches\\8.11.1\\transforms\\720aff740de26fc6c858b7f8ef8494ab\\transformed\\material-1.13.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
