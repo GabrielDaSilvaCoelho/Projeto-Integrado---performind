@@ -94,6 +94,7 @@ id etSetor
 id etSupervisor
 id etTitulo
 id imageLogo
+id layoutAlternativas
 id listEnquetes
 id main
 id progressBar
@@ -111,6 +112,7 @@ id recyclerView
 id searchView
 id spTipo
 id swipeRefresh
+id switchDiscursiva
 id thumbImage
 id thumbPreview
 id tilSetor

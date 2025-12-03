@@ -4258,6 +4258,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layoutAlternativas
 id left
 id leftToRight
 id legacy
@@ -4491,6 +4492,7 @@ id submit_area
 id supportScrollUp
 id surface_view
 id swipeRefresh
+id switchDiscursiva
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
