@@ -4014,6 +4014,7 @@ int id btnCriarUsuario 0x7f0a006b
 int id btnDeleteUsuario 0x7f0a006c
 int id btnEditor 0x7f0a006d
 int id btnEnquete 0x7f0a006e
+int id btnEnviarResposta 0x7f0a02aa
 int id btnFeed 0x7f0a006f
 int id btnListaUsuarios 0x7f0a0070
 int id btnLogin 0x7f0a0071
@@ -4023,6 +4024,7 @@ int id btnPickThumb 0x7f0a0074
 int id btnPickVideo 0x7f0a0075
 int id btnProxima 0x7f0a0076
 int id btnQuiz 0x7f0a0077
+int id btnRespostaAberta 0x7f0a02ab
 int id btnSalvar 0x7f0a0078
 int id btnTrocar 0x7f0a0079
 int id btnTrocarSenha 0x7f0a007a
@@ -4137,6 +4139,7 @@ int id etCpf 0x7f0a00e6
 int id etMatricula 0x7f0a00e7
 int id etNome 0x7f0a00e8
 int id etQuestion 0x7f0a00e9
+int id etRespostaAberta 0x7f0a02ac
 int id etSenha 0x7f0a00ea
 int id etSetor 0x7f0a00eb
 int id etSupervisor 0x7f0a00ec
@@ -4545,7 +4548,9 @@ int id transition_scene_layoutid_cache 0x7f0a027e
 int id transition_transform 0x7f0a027f
 int id triangle 0x7f0a0280
 int id tvDetalhe 0x7f0a0281
+int id tvPerguntaAberta 0x7f0a02ad
 int id tvQuestion 0x7f0a0282
+int id tvResultadoIA 0x7f0a02ae
 int id tvTitulo 0x7f0a0283
 int id txtMatriculaUsuario 0x7f0a0284
 int id txtNomeUsuario 0x7f0a0285
@@ -4714,6 +4719,7 @@ int layout activity_main 0x7f0d0022
 int layout activity_player 0x7f0d0023
 int layout activity_question 0x7f0d0024
 int layout activity_quiz 0x7f0d0025
+int layout activity_resposta_aberta 0x7f0d0095
 int layout activity_trocar_senha 0x7f0d0026
 int layout activity_upload 0x7f0d0027
 int layout activity_video_list 0x7f0d0028
