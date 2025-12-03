@@ -2,28 +2,53 @@ package com.example.minhaparte.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.minhaparte.Model.QuestionModel;
 import com.example.minhaparte.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class EditorActivity extends AppCompatActivity {
+
     private EditText etTitulo, etQuestion, etAlt1, etAlt2, etAlt3, etAlt4, etCorrect;
     private Button btnSalvar, btnProxima;
-    private ArrayList<QuestionModel> listaQuestoes = new ArrayList<>();
-    private int questaoAtual = 1;
+    private Switch switchDiscursiva;
+    private LinearLayout layoutAlternativas;
+
+    // Modelo interno para não depender de QuestionModel
+    private static class LocalQuestion {
+        String enunciado;
+        ArrayList<String> alternativas;
+        int indiceCorreta; // -1 para discursiva
+        boolean discursiva;
+
+        LocalQuestion(String enunciado, ArrayList<String> alternativas, int indiceCorreta, boolean discursiva) {
+            this.enunciado = enunciado;
+            this.alternativas = alternativas;
+            this.indiceCorreta = indiceCorreta;
+            this.discursiva = discursiva;
+        }
+    }
+
+    private ArrayList<LocalQuestion> listaQuestoes = new ArrayList<>();
+    private int numeroQuestao = 1;
     private long questionarioId = -1;
+
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
@@ -42,9 +67,22 @@ public class EditorActivity extends AppCompatActivity {
         btnProxima = findViewById(R.id.btnProxima);
         btnSalvar = findViewById(R.id.btnSalvar);
 
+        switchDiscursiva = findViewById(R.id.switchDiscursiva);
+        layoutAlternativas = findViewById(R.id.layoutAlternativas);
+
+        // Se marcar discursiva → esconde as alternativas
+        switchDiscursiva.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                layoutAlternativas.setVisibility(View.GONE);
+            } else {
+                layoutAlternativas.setVisibility(View.VISIBLE);
+            }
+        });
+
         btnProxima.setOnClickListener(v -> adicionarQuestao());
         btnSalvar.setOnClickListener(v -> salvarQuestionario());
     }
+
     private void adicionarQuestao() {
         String pergunta = etQuestion.getText().toString().trim();
         if (pergunta.isEmpty()) {
@@ -52,11 +90,37 @@ public class EditorActivity extends AppCompatActivity {
             return;
         }
 
+        boolean isDiscursiva = switchDiscursiva.isChecked();
+
+        if (isDiscursiva) {
+            // Questão discursiva: sem alternativas, índice correto -1
+            ArrayList<String> alternativasVazias = new ArrayList<>();
+            int indiceCorreta = -1;
+
+            listaQuestoes.add(new LocalQuestion(pergunta, alternativasVazias, indiceCorreta, true));
+            Toast.makeText(this,
+                    "Questão discursiva " + numeroQuestao + " adicionada!",
+                    Toast.LENGTH_SHORT).show();
+            numeroQuestao++;
+            limparCampos();
+            return;
+        }
+
+        // Questão objetiva (múltipla escolha)
         ArrayList<String> alternativas = new ArrayList<>();
-        alternativas.add(etAlt1.getText().toString());
-        alternativas.add(etAlt2.getText().toString());
-        alternativas.add(etAlt3.getText().toString());
-        alternativas.add(etAlt4.getText().toString());
+        alternativas.add(etAlt1.getText().toString().trim());
+        alternativas.add(etAlt2.getText().toString().trim());
+        alternativas.add(etAlt3.getText().toString().trim());
+        alternativas.add(etAlt4.getText().toString().trim());
+
+        int preenchidas = 0;
+        for (String alt : alternativas) {
+            if (!alt.isEmpty()) preenchidas++;
+        }
+        if (preenchidas < 2) {
+            Toast.makeText(this, "Preencha pelo menos duas alternativas.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         int correta;
         try {
@@ -67,13 +131,15 @@ public class EditorActivity extends AppCompatActivity {
         }
 
         if (correta < 0 || correta >= alternativas.size()) {
-            Toast.makeText(this, "Número da alternativa inválido!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Número da alternativa correta inválido!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        listaQuestoes.add(new QuestionModel(pergunta, alternativas, correta));
-        Toast.makeText(this, "Questão " + questaoAtual + " adicionada!", Toast.LENGTH_SHORT).show();
-        questaoAtual++;
+        listaQuestoes.add(new LocalQuestion(pergunta, alternativas, correta, false));
+        Toast.makeText(this,
+                "Questão objetiva " + numeroQuestao + " adicionada!",
+                Toast.LENGTH_SHORT).show();
+        numeroQuestao++;
 
         limparCampos();
     }
@@ -85,11 +151,12 @@ public class EditorActivity extends AppCompatActivity {
         etAlt3.setText("");
         etAlt4.setText("");
         etCorrect.setText("");
+        switchDiscursiva.setChecked(false);
+        layoutAlternativas.setVisibility(View.VISIBLE);
     }
 
     private long buscarUsuarioId(String nomeUsuario) {
-        final long[] usuarioId = {-1};
-
+        long usuarioId = -1;
         try {
             URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios?nome=eq." + nomeUsuario + "&select=id");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -105,15 +172,15 @@ public class EditorActivity extends AppCompatActivity {
 
             JSONArray arr = new JSONArray(sb.toString());
             if (arr.length() > 0) {
-                usuarioId[0] = arr.getJSONObject(0).getLong("id");
+                usuarioId = arr.getJSONObject(0).getLong("id");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return usuarioId[0];
+        return usuarioId;
     }
+
     private void salvarQuestionario() {
         if (listaQuestoes.isEmpty()) {
             Toast.makeText(this, "Adicione pelo menos uma questão!", Toast.LENGTH_SHORT).show();
@@ -129,12 +196,12 @@ public class EditorActivity extends AppCompatActivity {
         new Thread(() -> {
             HttpURLConnection conn = null;
             try {
-                // 🔹 Busca ID do usuário
                 long usuarioId = buscarUsuarioId("admins");
                 if (usuarioId == -1) {
                     runOnUiThread(() ->
-                            Toast.makeText(EditorActivity.this, "Usuário não encontrado!", Toast.LENGTH_LONG).show()
-                    );
+                            Toast.makeText(EditorActivity.this,
+                                    "Usuário 'admins' não encontrado!",
+                                    Toast.LENGTH_LONG).show());
                     return;
                 }
 
@@ -159,24 +226,29 @@ public class EditorActivity extends AppCompatActivity {
                 int code = conn.getResponseCode();
                 if (code != 201) {
                     runOnUiThread(() -> Toast.makeText(EditorActivity.this,
-                            "Erro ao criar questionário: HTTP " + code, Toast.LENGTH_LONG).show());
+                            "Erro ao criar questionário: HTTP " + code,
+                            Toast.LENGTH_LONG).show());
                     return;
                 }
 
-                JSONArray arr = new JSONArray(new java.util.Scanner(conn.getInputStream()).useDelimiter("\\A").next());
+                JSONArray arr = new JSONArray(
+                        new java.util.Scanner(conn.getInputStream())
+                                .useDelimiter("\\A").next()
+                );
                 questionarioId = arr.getJSONObject(0).getLong("id");
                 Log.d("SUPABASE", "Questionário criado: ID=" + questionarioId);
 
                 conn.disconnect();
 
                 int sucesso = 0;
-                for (QuestionModel q : listaQuestoes) {
+                for (LocalQuestion q : listaQuestoes) {
+                    // Para discursiva: alternativas vazias e indiceCorreta = -1
                     boolean ok = QuestaoService.salvarQuestaoComQuestionario(
                             questionarioId,
                             usuarioId,
-                            q.getQuestionText(),
-                            q.getAlternatives().toArray(new String[0]),
-                            q.getCorrectIndex()
+                            q.enunciado,
+                            q.alternativas.toArray(new String[0]),
+                            q.indiceCorreta
                     );
                     if (ok) sucesso++;
                 }
@@ -184,15 +256,21 @@ public class EditorActivity extends AppCompatActivity {
                 int finalSucesso = sucesso;
                 runOnUiThread(() -> {
                     if (finalSucesso == listaQuestoes.size()) {
-                        Toast.makeText(EditorActivity.this, "Questionário e questões salvos com sucesso!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditorActivity.this,
+                                "Questionário e questões salvos com sucesso!",
+                                Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(EditorActivity.this,
-                                "Algumas questões falharam (" + finalSucesso + "/" + listaQuestoes.size() + ")", Toast.LENGTH_LONG).show();
+                                "Algumas questões falharam (" + finalSucesso + "/" + listaQuestoes.size() + ")",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
 
             } catch (Exception e) {
-                runOnUiThread(() -> Toast.makeText(EditorActivity.this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                runOnUiThread(() ->
+                        Toast.makeText(EditorActivity.this,
+                                "Erro: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show());
             } finally {
                 if (conn != null) conn.disconnect();
             }
