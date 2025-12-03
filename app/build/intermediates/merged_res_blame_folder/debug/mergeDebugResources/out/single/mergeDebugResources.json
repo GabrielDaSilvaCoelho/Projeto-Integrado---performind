@@ -132,6 +132,10 @@
         "source": "com.example.minhaparte.app-main-45:/mipmap-mdpi/ic_launcher.webp"
     },
     {
+        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_resposta_aberta.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/layout/activity_resposta_aberta.xml"
+    },
+    {
         "merged": "com.example.minhaparte.app-debug-43:/layout_activity_editor.xml.flat",
         "source": "com.example.minhaparte.app-main-45:/layout/activity_editor.xml"
     },
