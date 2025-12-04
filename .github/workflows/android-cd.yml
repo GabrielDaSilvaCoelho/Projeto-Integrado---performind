@@ -1,0 +1,59 @@
+name: Android CD Deploy
+
+on:
+  workflow_run:
+    workflows: ["Android CI/CD Full"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Permitir execução do Gradle
+        run: chmod +x ./gradlew
+
+      - name: Download APK Debug
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk-debug
+          path: ./apk
+
+      - name: Deploy Staging
+        run: |
+          echo "🚀 Deploy do APK Debug para Staging"
+          ls -lh ./apk
+
+      - name: Criar keystore temporário
+        run: |
+          keytool -genkeypair \
+            -alias androidkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass password \
+            -keypass password \
+            -keystore android_temp.keystore \
+            -dname "CN=Android,O=App,C=BR"
+
+      - name: Build Release Assinado
+        run: |
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=android_temp.keystore \
+            -Pandroid.injected.signing.key.alias=androidkey \
+            -Pandroid.injected.signing.store.password=password \
+            -Pandroid.injected.signing.key.password=password \
+            --stacktrace
+
+      - name: Deploy Produção
+        run: |
+          echo "🚀 Deploy do APK Release para Produção"
+          ls -lh app/build/outputs/apk/release/
+
+      - name: Finalizado
+        run: echo "✅ CD completo com sucesso!"
