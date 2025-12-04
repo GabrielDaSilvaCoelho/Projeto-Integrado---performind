@@ -46,5 +46,4 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
 
       - name: Build Success Message
-        if: success() && always()
         run: echo "✅ Build concluído com sucesso! APK gerado e enviado como artifact."
