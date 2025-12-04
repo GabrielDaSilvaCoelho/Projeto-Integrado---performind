@@ -11,15 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1) Baixar o repositório
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2) Baixar o APK gerado no CI
       - name: Download APK from CI
         uses: actions/download-artifact@v4
         with:
-          name: build-output
+          name: build-output      # ⚠ deve bater com o nome do upload do CI
           path: ./apk
 
+      # 3) Determinar o ambiente (staging ou produção)
       - name: Set environment
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
@@ -29,11 +32,12 @@ jobs:
           else
             echo "ENV=UNKNOWN" >> $GITHUB_ENV
 
+      # 4) Mostrar mensagem de sucesso
       - name: Show success message
         run: |
           echo "=============================="
-          echo " CI/CD completed successfully!"
-          echo " Deploy environment: $ENV"
-          echo " APK is available at ./apk/app-debug.apk"
+          echo "✅ CI/CD completed successfully!"
+          echo "Deploy environment: $ENV"
+          echo "APK is available at ./apk/app-debug.apk"
           echo "=============================="
 
