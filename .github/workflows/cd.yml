@@ -1,59 +1,43 @@
-name: Android CD Deploy
+name: Android CD
 
 on:
-  workflow_run:
-    workflows: ["Android CI/CD Full"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build:
+    name: Build Release APK
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Permitir execução do Gradle
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Download APK Debug
-        uses: actions/download-artifact@v4
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v3
         with:
-          name: android-apk-debug
-          path: ./apk
-
-      - name: Deploy Staging
-        run: |
-          echo "🚀 Deploy do APK Debug para Staging"
-          ls -lh ./apk
-
-      - name: Criar keystore temporário
-        run: |
-          keytool -genkeypair \
-            -alias androidkey \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass password \
-            -keypass password \
-            -keystore android_temp.keystore \
-            -dname "CN=Android,O=App,C=BR"
-
-      - name: Build Release Assinado
-        run: |
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=android_temp.keystore \
-            -Pandroid.injected.signing.key.alias=androidkey \
-            -Pandroid.injected.signing.store.password=password \
-            -Pandroid.injected.signing.key.password=password \
-            --stacktrace
-
-      - name: Deploy Produção
-        run: |
-          echo "🚀 Deploy do APK Release para Produção"
-          ls -lh app/build/outputs/apk/release/
-
-      - name: Finalizado
-        run: echo "✅ CD completo com sucesso!"
+          name: app-release.apk
+          path: app/build/outputs/apk/release/app-release.apk
