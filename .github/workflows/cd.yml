@@ -71,7 +71,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ⚡ Adicionado para permitir execução do Gradle
+      # ⚡ Garantir execução do Gradle
       - name: Permitir execução do Gradle
         run: chmod +x ./gradlew
 
@@ -100,18 +100,20 @@ jobs:
 
       - name: Configurar assinatura no gradle.properties
         run: |
-          echo "MYAPP_UPLOAD_STORE_FILE=android_temp.keystore" >> gradle.properties
-          echo "MYAPP_UPLOAD_KEY_ALIAS=androidkey" >> gradle.properties
-          echo "MYAPP_UPLOAD_STORE_PASSWORD=password" >> gradle.properties
-          echo "MYAPP_UPLOAD_KEY_PASSWORD=password" >> gradle.properties
+          cat <<EOF >> gradle.properties
+MYAPP_UPLOAD_STORE_FILE=android_temp.keystore
+MYAPP_UPLOAD_KEY_ALIAS=androidkey
+MYAPP_UPLOAD_STORE_PASSWORD=password
+MYAPP_UPLOAD_KEY_PASSWORD=password
+EOF
 
       - name: Build Release Assinado
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Deploy Produção
         run: |
-          echo "Deploy do APK Release para Produção"
+          echo "🚀 Deploy do APK Release para Produção"
           ls -lh app/build/outputs/apk/release/
 
       - name: Finalizado
-        run: echo "Deu bom! CI/CD completo."
+        run: echo "✅ Deu bom! CI/CD completo."
