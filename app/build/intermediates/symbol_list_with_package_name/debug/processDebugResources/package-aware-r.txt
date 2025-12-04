@@ -4103,6 +4103,7 @@ id dragLeft
 id dragRight
 id dragStart
 id dragUp
+id drawerLayout
 id drop_shadow_bottom
 id drop_shadow_top
 id dropdown_menu
@@ -4491,7 +4492,6 @@ id submenuarrow
 id submit_area
 id supportScrollUp
 id surface_view
-id swipeRefresh
 id switchDiscursiva
 id tabMode
 id tag_accessibility_actions

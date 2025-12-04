@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,11 +30,13 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setOnTouchListener((v, event) -> onTouchEvent(event));
+        recyclerView.setOnTouchListener((av, event) -> onTouchEvent(event));
 
         loadVideos();
     }
@@ -63,33 +66,6 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
-                break;
-
-            case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                float deltaX = x2 - x1;
-
-                if (Math.abs(deltaX) > MIN_DISTANCE) {
-                    if (deltaX < 0) {
-                        Intent intent = new Intent(FeedActivity.this, UploadActivity.class);
-                        startActivity(intent);
-
-
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    }
-                }
-                break;
-        }
-        return super.onTouchEvent(event);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

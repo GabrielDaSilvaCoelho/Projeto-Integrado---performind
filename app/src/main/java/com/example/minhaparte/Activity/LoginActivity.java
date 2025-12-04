@@ -31,17 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         editMatricula = findViewById(R.id.editMatricula);
         editSenha = findViewById(R.id.editSenha);
         btnLogin = findViewById(R.id.btnLogin);
-
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
-
         btnLogin.setOnClickListener(v -> realizarLogin());
     }
-
     private void realizarLogin() {
         String matricula = editMatricula.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
@@ -52,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         String senhaHash = sha256Hex(senha);
-
         HashMap<String, String> loginData = new HashMap<>();
         loginData.put("matricula", matricula);
         loginData.put("senha", senhaHash);
@@ -62,14 +57,12 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String encodedMatricula = URLEncoder.encode(loginData.get("matricula"), "UTF-8");
                 String encodedSenha = URLEncoder.encode(loginData.get("senha"), "UTF-8");
-
                 URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios?matricula=eq." + encodedMatricula + "&senha=eq." + encodedSenha + "&select=*");
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
                 conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
                 conn.setRequestProperty("Content-Type", "application/json");
-
                 int responseCode = conn.getResponseCode();
                 if (responseCode == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -77,13 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                     String line;
                     while ((line = br.readLine()) != null) sb.append(line);
                     br.close();
-
                     JSONArray jsonArray = new JSONArray(sb.toString());
                     if (jsonArray.length() > 0) {
-                        // Alterado para long
                         long usuarioId = jsonArray.getJSONObject(0).getLong("id");
 
-                        // Salvar no SharedPreferences como long
                         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
                         prefs.edit().putLong("usuario_id", usuarioId).apply();
 
@@ -112,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
     }
-
     private String sha256Hex(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

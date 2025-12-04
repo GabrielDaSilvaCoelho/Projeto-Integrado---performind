@@ -70,6 +70,7 @@ id btnTrocarSenha
 id btnUpload
 id btnUser
 id btnvideos
+id drawerLayout
 id editAlternativa
 id editDescription
 id editMatricula
@@ -111,7 +112,6 @@ id recyclerVideos
 id recyclerView
 id searchView
 id spTipo
-id swipeRefresh
 id switchDiscursiva
 id thumbImage
 id thumbPreview
