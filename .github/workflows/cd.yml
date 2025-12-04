@@ -1,39 +1,59 @@
-name: Android CD
+name: Android CD Deploy
 
 on:
   workflow_run:
-    workflows: ["Android CI"]
+    workflows: ["Android CI/CD Full"]
     types:
       - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download APK from CI
+      - name: Permitir execução do Gradle
+        run: chmod +x ./gradlew
+
+      - name: Download APK Debug
         uses: actions/download-artifact@v4
         with:
           name: android-apk-debug
           path: ./apk
 
-
-      - name: Set environment
+      - name: Deploy Staging
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            echo "ENV=PRODUCTION" >> $GITHUB_ENV
-          elif [ "${{ github.ref }}" == "refs/heads/develop" ]; then
-            echo "ENV=STAGING" >> $GITHUB_ENV
-          else
-            echo "ENV=UNKNOWN" >> $GITHUB_ENV
+          echo "🚀 Deploy do APK Debug para Staging"
+          ls -lh ./apk
 
-      - name: Show success message
+      - name: Criar keystore temporário
         run: |
-          echo "=============================="
-          echo " CI/CD completed successfully!"
-          echo " Deploy environment: $ENV"
-          echo " APK is available at ./apk/android-apk-debug.apk"
-          echo "=============================="
+          keytool -genkeypair \
+            -alias androidkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass password \
+            -keypass password \
+            -keystore android_temp.keystore \
+            -dname "CN=Android,O=App,C=BR"
+
+      - name: Build Release Assinado
+        run: |
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=android_temp.keystore \
+            -Pandroid.injected.signing.key.alias=androidkey \
+            -Pandroid.injected.signing.store.password=password \
+            -Pandroid.injected.signing.key.password=password \
+            --stacktrace
+
+      - name: Deploy Produção
+        run: |
+          echo "🚀 Deploy do APK Release para Produção"
+          ls -lh app/build/outputs/apk/release/
+
+      - name: Finalizado
+        run: echo "✅ CD completo com sucesso!"
