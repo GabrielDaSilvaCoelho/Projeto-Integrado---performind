@@ -46,4 +46,4 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
 
       - name: Build Success Message
-        run: echo "✅ Build concluído com sucesso! APK gerado e enviado como artifact."
+        run: echo "CD-CONCLUIDO"
