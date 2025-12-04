@@ -1,4 +1,4 @@
-name: Android CD Full
+name: Android CI/CD Full
 
 on:
   push:
@@ -100,12 +100,10 @@ jobs:
 
       - name: Configurar assinatura no gradle.properties
         run: |
-          cat <<EOF >> gradle.properties
-MYAPP_UPLOAD_STORE_FILE=android_temp.keystore
-MYAPP_UPLOAD_KEY_ALIAS=androidkey
-MYAPP_UPLOAD_STORE_PASSWORD=password
-MYAPP_UPLOAD_KEY_PASSWORD=password
-EOF
+          echo "MYAPP_UPLOAD_STORE_FILE=android_temp.keystore" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_ALIAS=androidkey" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_PASSWORD=password" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_PASSWORD=password" >> gradle.properties
 
       - name: Build Release Assinado
         run: ./gradlew assembleRelease --stacktrace
