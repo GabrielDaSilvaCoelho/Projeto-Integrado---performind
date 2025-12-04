@@ -23,14 +23,11 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: 17
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-        with:
-          api-level: 34
-          build-tools: '34.0.0'
+        uses: android-actions/setup-android@v3
 
       - name: Decode keystore
         run: |
@@ -46,4 +43,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: Build Success Message
+        if: success() && always()
+        run: echo "✅ Build concluído com sucesso! APK gerado e enviado como artifact."
