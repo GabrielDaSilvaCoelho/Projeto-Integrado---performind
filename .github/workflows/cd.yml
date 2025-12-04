@@ -17,9 +17,8 @@ jobs:
       - name: Download APK from CI
         uses: actions/download-artifact@v4
         with:
-          name: android-apk-debug
+          name: build-output
           path: ./apk
-
 
       - name: Set environment
         run: |
@@ -35,5 +34,6 @@ jobs:
           echo "=============================="
           echo " CI/CD completed successfully!"
           echo " Deploy environment: $ENV"
-          echo " APK is available at ./apk/android-apk-debug.apk"
+          echo " APK is available at ./apk/app-debug.apk"
           echo "=============================="
+
