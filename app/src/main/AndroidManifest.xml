@@ -21,9 +21,6 @@
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".Activity.UserActivity"
-            android:exported="false" />
         <!-- 🚀 TELA INICIAL DO APP: MainActivity -->
         <activity
             android:name=".Activity.MainActivity"
