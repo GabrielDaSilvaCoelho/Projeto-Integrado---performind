@@ -1,4 +1,4 @@
-name: Android CI/CD Full
+name: Android CD Full
 
 on:
   push:
@@ -15,11 +15,9 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      # 1) Checkout do repositório
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) Setup Java 17
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
@@ -27,43 +25,36 @@ jobs:
           java-version: 17
           cache: gradle
 
-      # 3) Permissão para gradlew
       - name: Permitir execução do Gradle
         run: chmod +x gradlew
 
-      # 4) Lint e checagem
       - name: Gradle Check
         run: ./gradlew check --stacktrace
 
       - name: Android Lint
         run: ./gradlew lint
 
-      # 5) Build Debug e Release
       - name: Build Debug
         run: ./gradlew assembleDebug --stacktrace
 
       - name: Build Release
         run: ./gradlew assembleRelease --stacktrace
 
-      # 6) Testes unitários
       - name: Testes Unitários
         run: ./gradlew testDebugUnitTest --stacktrace
 
-      # 7) Upload de APK Debug
       - name: Upload APK Debug
         uses: actions/upload-artifact@v4
         with:
           name: android-apk-debug
           path: app/build/outputs/apk/debug/*.apk
 
-      # 8) Upload de APK Release (unsigned)
-      - name: Upload APK Release
+      - name: Upload APK Release (unsigned)
         uses: actions/upload-artifact@v4
         with:
           name: android-apk-release
           path: app/build/outputs/apk/release/*.apk
 
-      # 9) Upload relatório de Lint
       - name: Upload Lint Report
         uses: actions/upload-artifact@v4
         with:
@@ -75,26 +66,26 @@ jobs:
   # ===========================
   deploy:
     runs-on: ubuntu-latest
-    needs: build   # depende do build
+    needs: build
     steps:
-      # 1) Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) Download do APK Debug
+      # ⚡ Adicionado para permitir execução do Gradle
+      - name: Permitir execução do Gradle
+        run: chmod +x ./gradlew
+
       - name: Download APK Debug
         uses: actions/download-artifact@v4
         with:
           name: android-apk-debug
           path: ./apk
 
-      # 3) Deploy para Staging (simulado)
       - name: Deploy Staging
         run: |
           echo "🚀 Deploy do APK Debug para Staging"
           ls -lh ./apk
 
-      # 4) Build Release assinado temporário
       - name: Criar keystore temporário
         run: |
           keytool -genkeypair \
@@ -114,16 +105,13 @@ jobs:
           echo "MYAPP_UPLOAD_STORE_PASSWORD=password" >> gradle.properties
           echo "MYAPP_UPLOAD_KEY_PASSWORD=password" >> gradle.properties
 
-      # 5) Build Release assinado
       - name: Build Release Assinado
         run: ./gradlew assembleRelease --stacktrace
 
-      # 6) Deploy para Produção (simulado)
       - name: Deploy Produção
         run: |
-          echo "🚀 Deploy do APK Release para Produção"
+          echo "Deploy do APK Release para Produção"
           ls -lh app/build/outputs/apk/release/
 
-      # 7) Mensagem final
       - name: Finalizado
-        run: echo "✅ Deu bom! CI/CD completo."
+        run: echo "Deu bom! CI/CD completo."
