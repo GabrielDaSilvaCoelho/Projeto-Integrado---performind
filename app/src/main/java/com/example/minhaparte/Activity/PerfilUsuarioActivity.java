@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.minhaparte.R;
-import com.example.minhaparte.view.ScoreGaugeView;
+import com.example.minhaparte.View.ScoreGaugeView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
