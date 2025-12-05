@@ -117,7 +117,7 @@ public class CriarUsuarioActivity extends AppCompatActivity {
                 HashMap<String, Object> jsonMap = new HashMap<>();
                 jsonMap.put("nome", getText(etNome));
                 jsonMap.put("matricula", getText(etMatricula));
-                jsonMap.put("senha", sha256Hex(getText(etSenha))); // hash da senha
+                jsonMap.put("senha", sha256Hex(getText(etSenha)));
                 jsonMap.put("tipo", tipo.name());
                 jsonMap.put("cargo", getText(etCargo));
                 jsonMap.put("setor", getText(etSetor));

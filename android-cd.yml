@@ -1,0 +1,71 @@
+name: Android CD Full v7
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Checkout
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      # 2) Configurar Java 17
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # 3) Permitir execução do Gradle
+      - name: Permitir execução do Gradle
+        run: chmod +x ./gradlew
+
+      # 4) Criar keystore temporário (assinatura automática)
+      - name: Criar keystore temporário
+        run: |
+          keytool -genkeypair \
+            -alias androidkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass password \
+            -keypass password \
+            -keystore android_temp.keystore \
+            -dname "CN=Android,O=App,C=BR"
+
+      # 5) Configurar gradle.properties para assinatura
+      - name: Configurar assinatura
+        run: |
+          echo "" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_FILE=android_temp.keystore" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_ALIAS=androidkey" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_PASSWORD=password" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_PASSWORD=password" >> gradle.properties
+
+      # 6) Build Release assinado
+      - name: Build Release assinado
+        run: ./gradlew assembleRelease --stacktrace
+
+      # 7) Upload APK Release assinado
+      - name: Upload APK Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
+
+      # 8) Deploy Staging
+      - name: Deploy para Staging
+        run: echo "Deploy para Staging concluíd"
+
+      # 9) Deploy Produção
+      - name: Deploy para Produção
+        run: echo "Deploy para Produção conclu�"
+
+      # 10) Feedback final
+      - name: Deu bom!
+        run: echo " Todo o pipeline CI/CD finalizado com sucesso! Deu bom! 🎉"

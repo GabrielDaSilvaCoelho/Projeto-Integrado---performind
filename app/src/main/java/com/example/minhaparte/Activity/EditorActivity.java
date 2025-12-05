@@ -3,6 +3,7 @@ package com.example.minhaparte.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -69,8 +70,9 @@ public class EditorActivity extends AppCompatActivity {
 
         switchDiscursiva = findViewById(R.id.switchDiscursiva);
         layoutAlternativas = findViewById(R.id.layoutAlternativas);
-
-        // Se marcar discursiva → esconde as alternativas
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
+        
         switchDiscursiva.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 layoutAlternativas.setVisibility(View.GONE);
