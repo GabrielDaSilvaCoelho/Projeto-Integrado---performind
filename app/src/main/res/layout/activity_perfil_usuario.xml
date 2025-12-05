@@ -127,7 +127,7 @@
                 android:layout_height="220dp"
                 android:background="@android:color/transparent">
 
-                <com.example.minhaparte.view.ScoreGaugeView
+                <com.example.minhaparte.View.ScoreGaugeView
                     android:id="@+id/gaugeScore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
