@@ -8,13 +8,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Gauge semicircular de 0 a maxScore (padrão 1000).
- * Desenha:
- *  - arco de fundo cinza
- *  - arco colorido (vermelho -> amarelo -> verde) até o score
- *  - bolinha na ponta (ponteiro)
- */
 public class ScoreGaugeView extends View {
 
     private int maxScore = 1000;
