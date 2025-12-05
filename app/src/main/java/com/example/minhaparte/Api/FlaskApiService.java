@@ -6,6 +6,6 @@ import retrofit2.http.POST;
 
 public interface FlaskApiService {
 
-    @POST("avaliar")
+    @POST("/avaliar")
     Call<AvaliacaoResponse> avaliarDesempenho(@Body AvaliacaoRequest request);
 }

@@ -12,7 +12,7 @@ import com.example.minhaparte.R;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnCriarUsuario, btnEditor, btnFeed, btnQuiz, btnUpload, btnEnquete;
-    private Button btnVideos, btnListaUsuarios, btnTrocarSenha, btnRespostaAberta;
+    private Button btnVideos, btnListaUsuarios, btnTrocarSenha, btnPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
         btnEditor = findViewById(R.id.btnEditor);
-        btnRespostaAberta = findViewById(R.id.btnRespostaAberta);
         btnFeed = findViewById(R.id.btnFeed);
         btnQuiz = findViewById(R.id.btnQuiz);
         btnUpload = findViewById(R.id.btnUpload);
@@ -31,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         btnVideos = findViewById(R.id.btnvideos);
         btnListaUsuarios = findViewById(R.id.btnListaUsuarios);
         btnTrocarSenha = findViewById(R.id.btnTrocarSenha);
+        btnPerfil = findViewById(R.id.btnPerfil);
+
+
+        btnPerfil.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, PerfilUsuarioActivity.class)));
 
         btnCriarUsuario.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, CriarUsuarioActivity.class)));
@@ -41,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btnFeed.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, FeedActivity.class)));
 
-        btnRespostaAberta.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, RespostaAbertaActivity.class)));
+
 
         btnQuiz.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, QuizActivity.class)));
