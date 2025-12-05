@@ -96,7 +96,7 @@
             />
 
         <Button
-            android:id="@+id/btnRespostaAberta"
+            android:id="@+id/btnPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

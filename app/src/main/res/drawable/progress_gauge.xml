@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fundo da barra -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="50dp" />
+            <solid android:color="#333333" />
+        </shape>
+    </item>
+
+    <!-- Parte preenchida (gradiente vermelho -> amarelo -> verde) -->
+    <item android:id="@android:id/progress">
+        <shape android:shape="rectangle">
+            <corners android:radius="50dp" />
+            <gradient
+                android:type="linear"
+                android:useLevel="true"
+                android:startColor="#FF4B3A"
+                android:centerColor="#FFC300"
+                android:endColor="#2ECC71" />
+        </shape>
+    </item>
+
+</layer-list>

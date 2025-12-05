@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Permissões -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-
-    <!-- Camera opcional -->
+        android:maxSdkVersion="32" /> <!-- Camera opcional -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -24,77 +21,55 @@
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Activity.PerfilUsuarioActivity"
+            android:exported="false" />
         <!-- 🚀 TELA INICIAL DO APP: MainActivity -->
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Login -->
+        </activity> <!-- Login -->
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="true" />
-
-        <!-- Criar usuário -->
+            android:exported="true" /> <!-- Criar usuário -->
         <activity
             android:name=".Activity.CriarUsuarioActivity"
-            android:exported="true" />
-
-        <!-- Feed de vídeos / conteúdo -->
+            android:exported="true" /> <!-- Feed de vídeos / conteúdo -->
         <activity
             android:name=".Activity.FeedActivity"
-            android:exported="true" />
-
-        <!-- Quiz (múltipla escolha) -->
+            android:exported="true" /> <!-- Quiz (múltipla escolha) -->
         <activity
             android:name=".Activity.QuizActivity"
-            android:exported="true" />
-
-        <!-- Resposta aberta + IA BERT -->
+            android:exported="true" /> <!-- Resposta aberta + IA BERT -->
         <activity
             android:name=".Activity.RespostaAbertaActivity"
-            android:exported="true" />
-
-        <!-- Editor de conteúdo / vídeos -->
+            android:exported="true" /> <!-- Editor de conteúdo / vídeos -->
         <activity
             android:name=".Activity.EditorActivity"
-            android:exported="true" />
-
-        <!-- Upload de vídeos -->
+            android:exported="true" /> <!-- Upload de vídeos -->
         <activity
             android:name=".Activity.UploadActivity"
-            android:exported="true" />
-
-        <!-- Enquetes (admin / criação de questionários) -->
+            android:exported="true" /> <!-- Enquetes (admin / criação de questionários) -->
         <activity
             android:name=".Activity.EnquetesActivity"
-            android:exported="false" />
-
-        <!-- Player de vídeo -->
+            android:exported="false" /> <!-- Player de vídeo -->
         <activity
             android:name=".Activity.PlayerActivity"
-            android:exported="false" />
-
-        <!-- Lista de vídeos -->
+            android:exported="false" /> <!-- Lista de vídeos -->
         <activity
             android:name=".Activity.VideoListActivity"
-            android:exported="true" />
-
-        <!-- Listagem de usuários -->
+            android:exported="true" /> <!-- Listagem de usuários -->
         <activity
             android:name=".Activity.ListarUsuariosActivity"
-            android:exported="true" />
-
-        <!-- Trocar senha -->
+            android:exported="true" /> <!-- Trocar senha -->
         <activity
             android:name=".Activity.TrocarSenhaActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>
