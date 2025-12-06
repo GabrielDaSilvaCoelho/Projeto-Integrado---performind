@@ -3809,6 +3809,7 @@ drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_expand_less_22px
 drawable ic_expand_more_22px
+drawable ic_image_placeholder
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -4012,11 +4013,14 @@ id bounceBoth
 id bounceEnd
 id bounceStart
 id btnCancelar
+id btnCriarEnquete
 id btnCriarUsuario
 id btnDeleteUsuario
 id btnEditor
 id btnEnquete
 id btnEnviarResposta
+id btnExcluirUsuario
+id btnExcluirVideo
 id btnFeed
 id btnListaUsuarios
 id btnLogin
@@ -4031,6 +4035,7 @@ id btnSalvar
 id btnTrocar
 id btnTrocarSenha
 id btnUpload
+id btnUploadVideo
 id btnUser
 id btnvideos
 id buttonPanel
@@ -4061,6 +4066,7 @@ id compress
 id confirm_button
 id constraint
 id container
+id containerInfo
 id content
 id contentPanel
 id contiguous
@@ -4247,6 +4253,7 @@ id ignore
 id ignoreRequest
 id image
 id imageLogo
+id imgLogo
 id immediateStop
 id included
 id indeterminate
@@ -4565,6 +4572,7 @@ id tvResultadoIA
 id tvScoreMax
 id tvScoreValor
 id tvSetor
+id tvTipo
 id tvTitulo
 id tvTituloPerfil
 id tvTituloScore
@@ -4771,11 +4779,13 @@ layout exo_styled_sub_settings_list_item
 layout exo_track_selection_dialog
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout infos_de_usuario
 layout item_alternativa
 layout item_created_question
 layout item_enquete
 layout item_usuario
 layout item_video
+layout layout_menu_lateral
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

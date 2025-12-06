@@ -17,8 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TrocarSenhaActivity extends AppCompatActivity {
     private EditText editMatricula, editSenhaAtual, editNovaSenha;
@@ -41,6 +39,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
 
         btnTrocar.setOnClickListener(v -> trocarSenha());
     }
+
     private void trocarSenha() {
         String matricula = editMatricula.getText().toString().trim();
         String senhaAtual = editSenhaAtual.getText().toString().trim();
@@ -87,11 +86,10 @@ public class TrocarSenhaActivity extends AppCompatActivity {
                                 Toast.makeText(this, "Senha atual incorreta.", Toast.LENGTH_SHORT).show());
                         return;
                     }
-                    HashMap<String, Object> dados = new HashMap<>();
-                    dados.put("senha", sha256Hex(novaSenha)); // String
-                    dados.put("ultimaAlteracao", System.currentTimeMillis()); // Long exemplo
 
-                    JSONObject jsonBody = new JSONObject(dados);
+                    // JSON apenas com a senha
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("senha", sha256Hex(novaSenha));
 
                     URL updateUrl = new URL(SUPABASE_URL + "/rest/v1/usuarios?id=eq." + usuarioId);
                     HttpURLConnection updateConn = (HttpURLConnection) updateUrl.openConnection();
@@ -99,15 +97,16 @@ public class TrocarSenhaActivity extends AppCompatActivity {
                     updateConn.setRequestProperty("apikey", SUPABASE_API_KEY);
                     updateConn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
                     updateConn.setRequestProperty("Content-Type", "application/json");
+                    updateConn.setRequestProperty("Prefer", "return=representation"); // importante
                     updateConn.setDoOutput(true);
 
                     try (OutputStream os = updateConn.getOutputStream()) {
-                        os.write(jsonBody.toString().getBytes());
+                        os.write(jsonBody.toString().getBytes("UTF-8"));
                         os.flush();
                     }
 
                     int updateCode = updateConn.getResponseCode();
-                    if (updateCode == 204) {
+                    if (updateCode == 204 || updateCode == 200) {
                         runOnUiThread(() ->
                                 Toast.makeText(this, "Senha alterada com sucesso!", Toast.LENGTH_SHORT).show());
                     } else {
@@ -130,6 +129,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     private String sha256Hex(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

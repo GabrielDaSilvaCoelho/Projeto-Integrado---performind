@@ -72,20 +72,27 @@ public class LoginActivity extends AppCompatActivity {
                     br.close();
                     JSONArray jsonArray = new JSONArray(sb.toString());
                     if (jsonArray.length() > 0) {
-                        long usuarioId = jsonArray.getJSONObject(0).getLong("id");
 
-                        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
-                        prefs.edit().putLong("usuario_id", usuarioId).apply();
+                        String nome = jsonArray.getJSONObject(0).getString("nome");
+                        String matriculaRetorno = jsonArray.getJSONObject(0).getString("matricula");
+                        String cpf = jsonArray.getJSONObject(0).getString("cpf");
+                        String tipo = jsonArray.getJSONObject(0).getString("tipo");
+
+                        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("nome", nome);
+                        editor.putString("matricula", matriculaRetorno);
+                        editor.putString("cpf", cpf);
+                        editor.putString("tipo", tipo);
+                        editor.apply();
 
                         runOnUiThread(() -> {
                             Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                            // Passando via Intent como long
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("usuarioId", usuarioId);
-                            startActivity(intent);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         });
-                    } else {
+                    }
+                    else {
                         runOnUiThread(() ->
                                 Toast.makeText(this, "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
                     }

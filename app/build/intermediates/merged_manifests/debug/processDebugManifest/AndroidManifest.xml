@@ -7,13 +7,16 @@
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="36" />
-    <!-- Permissões -->
+
+    <!-- 📌 Permissões -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" /> <!-- Camera opcional -->
+        android:maxSdkVersion="32" />
+
+    <!-- 📌 Hardware opcional -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -35,57 +38,89 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.Minhaparte"
         android:usesCleartextTraffic="true" >
+
+        <!-- 🔥 ATIVIDADES DO APP -->
+
+
+        <!-- Tela principal -->
         <activity
-            android:name="com.example.minhaparte.Activity.PerfilUsuarioActivity"
-            android:exported="false" />
-        <!-- 🚀 TELA INICIAL DO APP: MainActivity -->
-        <activity
-            android:name="com.example.minhaparte.Activity.MainActivity"
+            android:name="com.example.minhaparte.Activity.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Login -->
+        </activity>
+
+        <!-- Login -->
         <activity
-            android:name="com.example.minhaparte.Activity.LoginActivity"
-            android:exported="true" /> <!-- Criar usuário -->
+            android:name="com.example.minhaparte.Activity.MainActivity"
+            android:exported="true" />
+
+        <!-- Criar usuário -->
         <activity
             android:name="com.example.minhaparte.Activity.CriarUsuarioActivity"
-            android:exported="true" /> <!-- Feed de vídeos / conteúdo -->
+            android:exported="true" />
+
+        <!-- Feed de conteúdo -->
         <activity
             android:name="com.example.minhaparte.Activity.FeedActivity"
-            android:exported="true" /> <!-- Quiz (múltipla escolha) -->
+            android:exported="true" />
+
+        <!-- Quiz -->
         <activity
             android:name="com.example.minhaparte.Activity.QuizActivity"
-            android:exported="true" /> <!-- Resposta aberta + IA BERT -->
+            android:exported="true" />
+
+        <!-- Pergunta aberta (com IA) -->
         <activity
             android:name="com.example.minhaparte.Activity.RespostaAbertaActivity"
-            android:exported="true" /> <!-- Editor de conteúdo / vídeos -->
+            android:exported="true" />
+
+        <!-- Editor de conteúdo -->
         <activity
             android:name="com.example.minhaparte.Activity.EditorActivity"
-            android:exported="true" /> <!-- Upload de vídeos -->
+            android:exported="true" />
+
+        <!-- Upload de vídeos -->
         <activity
             android:name="com.example.minhaparte.Activity.UploadActivity"
-            android:exported="true" /> <!-- Enquetes (admin / criação de questionários) -->
+            android:exported="true" />
+
+        <!-- Enquetes -->
         <activity
             android:name="com.example.minhaparte.Activity.EnquetesActivity"
-            android:exported="false" /> <!-- Player de vídeo -->
+            android:exported="false" />
+
+        <!-- Player (visualização de vídeo) -->
         <activity
             android:name="com.example.minhaparte.Activity.PlayerActivity"
-            android:exported="false" /> <!-- Lista de vídeos -->
+            android:exported="false" />
+
+        <!-- Lista de vídeos -->
         <activity
             android:name="com.example.minhaparte.Activity.VideoListActivity"
-            android:exported="true" /> <!-- Listagem de usuários -->
+            android:exported="true" />
+
+        <!-- Lista de usuários -->
         <activity
             android:name="com.example.minhaparte.Activity.ListarUsuariosActivity"
-            android:exported="true" /> <!-- Trocar senha -->
+            android:exported="true" />
+
+        <!-- Perfil de usuário -->
+        <activity
+            android:name="com.example.minhaparte.Activity.PerfilUsuarioActivity"
+            android:exported="false" />
+
+        <!-- Trocar senha -->
         <activity
             android:name="com.example.minhaparte.Activity.TrocarSenhaActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.minhaparte.Activity.InfosDeUsuario"
             android:exported="true" />
 
         <provider

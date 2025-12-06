@@ -24,12 +24,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<QuestionModel> questoes = new ArrayList<>();
     private int index = 0;
-    private int acertos = 0; // novo: contador de acertos
-
+    private int acertos = 0;
     private long usuarioId = -1;
     private long questionarioId = -1;
-
-    // pergunta aberta que será usada na tela da IA
     private static final String PERGUNTA_ABERTA_PADRAO =
             "Descreva como você lida com suas atividades, responsabilidades e prazos no dia a dia.";
 
@@ -111,7 +108,6 @@ public class QuizActivity extends AppCompatActivity {
 
             int totalPerguntas = questoes.size();
 
-            // id_conteudo que vamos mandar pra IA (aqui uso o próprio id do questionário)
             String idConteudo = String.valueOf(questionarioId);
 
             Intent intent = new Intent(QuizActivity.this, RespostaAbertaActivity.class);

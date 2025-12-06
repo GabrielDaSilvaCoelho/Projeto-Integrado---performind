@@ -18,13 +18,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Tela de resumo do usuário:
- * - Dados pessoais (id, nome, matrícula, cargo, setor, cpf)
- * - Quantidade de perguntas respondidas (objetivas + discursivas, se estiverem no banco)
- * - Quantidade de acertos (das que têm campo "correta" = true)
- * - Score de desempenho (0–1000) vindo da tabela avaliacoes_desempenho
- */
 public class PerfilUsuarioActivity extends AppCompatActivity {
 
     private TextView tvNome, tvMatricula, tvCargo, tvSetor, tvCpf;

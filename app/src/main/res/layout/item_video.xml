@@ -1,11 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="25dp"
-    android:layout_marginEnd="25dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-
+    android:layout_margin="16dp"
     android:padding="8dp"
     android:background="@drawable/rounded_bg"
     android:elevation="4dp">
@@ -13,33 +11,32 @@
     <ImageView
         android:id="@+id/thumbImage"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:scaleType="centerCrop"
         android:background="@drawable/thumb_rounded"
         android:clipToOutline="true" />
 
-    <!-- Título -->
     <TextView
         android:id="@+id/videoTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbImage"
-        android:layout_marginTop="6dp"
-        android:textSize="15sp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:maxLines="2"
-        android:ellipsize="end" />
+        android:ellipsize="end"
+        android:textColor="@android:color/white" />
 
-    <!-- Descrição -->
     <TextView
         android:id="@+id/videoDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/videoTitle"
         android:layout_marginTop="4dp"
-        android:textSize="11sp"
-        android:textColor="@color/gray_200"
+        android:textSize="13sp"
         android:maxLines="2"
-        android:ellipsize="end" />
+        android:ellipsize="end"
+        android:textColor="@android:color/darker_gray" />
 
 </RelativeLayout>

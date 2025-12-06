@@ -114,7 +114,7 @@ public class UploadActivity extends AppCompatActivity {
                             String videoDesc = description.getText().toString();
                             if (videoDesc.isEmpty()) videoDesc = "Sem descrição";
 
-                            VideoModel model = new VideoModel(0,videoTitle, videoDesc, videoUrl, thumbUrl);
+                            VideoModel model = new VideoModel(null, videoTitle, videoDesc, videoUrl, thumbUrl);
 
                             service.saveVideoData(API_KEY, AUTH, model).enqueue(new Callback<ResponseBody>() {
                                 @Override

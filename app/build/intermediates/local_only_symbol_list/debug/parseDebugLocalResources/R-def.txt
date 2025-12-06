@@ -40,6 +40,7 @@ color white
 color white_50
 drawable dot_circle
 drawable edittext_rounded_bg
+drawable ic_image_placeholder
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_logo
@@ -50,11 +51,14 @@ drawable rounded_bg
 drawable thumb_rounded
 drawable thumb_rounded_b
 id btnCancelar
+id btnCriarEnquete
 id btnCriarUsuario
 id btnDeleteUsuario
 id btnEditor
 id btnEnquete
 id btnEnviarResposta
+id btnExcluirUsuario
+id btnExcluirVideo
 id btnFeed
 id btnListaUsuarios
 id btnLogin
@@ -69,8 +73,10 @@ id btnSalvar
 id btnTrocar
 id btnTrocarSenha
 id btnUpload
+id btnUploadVideo
 id btnUser
 id btnvideos
+id containerInfo
 id editAlternativa
 id editDescription
 id editMatricula
@@ -96,6 +102,7 @@ id etSupervisor
 id etTitulo
 id gaugeScore
 id imageLogo
+id imgLogo
 id layoutAlternativas
 id listEnquetes
 id main
@@ -134,6 +141,7 @@ id tvResultadoIA
 id tvScoreMax
 id tvScoreValor
 id tvSetor
+id tvTipo
 id tvTitulo
 id tvTituloPerfil
 id tvTituloScore
@@ -159,11 +167,13 @@ layout activity_resposta_aberta
 layout activity_trocar_senha
 layout activity_upload
 layout activity_video_list
+layout infos_de_usuario
 layout item_alternativa
 layout item_created_question
 layout item_enquete
 layout item_usuario
 layout item_video
+layout layout_menu_lateral
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
