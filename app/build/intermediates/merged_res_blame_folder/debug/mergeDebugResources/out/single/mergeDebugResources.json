@@ -24,6 +24,10 @@
         "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\activity_upload.xml"
     },
     {
+        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_main.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/layout/activity_main.xml"
+    },
+    {
         "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\drawable_dot_circle.xml.flat",
         "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\drawable\\dot_circle.xml"
     },
@@ -88,12 +92,12 @@
         "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_layout_menu_lateral.xml.flat",
-        "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\layout_menu_lateral.xml"
-    },
-    {
         "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_activity_question.xml.flat",
         "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\activity_question.xml"
+    },
+    {
+        "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_layout_menu_lateral.xml.flat",
+        "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\layout\\layout_menu_lateral.xml"
     },
     {
         "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
@@ -164,8 +168,8 @@
         "source": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-main-45:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.minhaparte.app-debug-43:/layout_activity_feed.xml.flat",
-        "source": "com.example.minhaparte.app-main-45:/layout/activity_feed.xml"
+        "merged": "com.example.minhaparte.app-debug-43:/drawable_edittext_rounded_bg.xml.flat",
+        "source": "com.example.minhaparte.app-main-45:/drawable/edittext_rounded_bg.xml"
     },
     {
         "merged": "C:\\Users\\frede\\.gradle\\daemon\\8.11.1\\com.example.minhaparte.app-debug-43:\\layout_activity_criar_usuario.xml.flat",
