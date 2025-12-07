@@ -1,4 +1,7 @@
 package com.example.minhaparte.Model;
+
+import com.google.gson.annotations.SerializedName;
+
 public class UsuarioModel {
     public long id;
     public String nome;
@@ -9,4 +12,7 @@ public class UsuarioModel {
     public String setor;
     public String cpf;
     public String contato;
+
+    @SerializedName("score_final")
+    public Double score;
 }

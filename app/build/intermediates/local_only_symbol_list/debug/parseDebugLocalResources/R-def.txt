@@ -107,6 +107,7 @@ id layoutAlternativas
 id listEnquetes
 id main
 id progressBar
+id progressBarDesempenhoColab
 id progressBarUsuarios
 id radioGroup
 id rb1
@@ -115,6 +116,7 @@ id rb3
 id rb4
 id rb5
 id rbCorreta
+id recyclerDesempenhoColab
 id recyclerUsuarios
 id recyclerVideos
 id recyclerView
@@ -145,8 +147,13 @@ id tvTipo
 id tvTitulo
 id tvTituloPerfil
 id tvTituloScore
+id txtCargoUsuario
+id txtContatoUsuario
+id txtCpfUsuario
 id txtMatriculaUsuario
 id txtNomeUsuario
+id txtScoreUsuario
+id txtSetorUsuario
 id txtTipoUsuario
 id videoDesc
 id videoPreview
@@ -156,6 +163,8 @@ layout activity_criar_usuario
 layout activity_editor
 layout activity_enquetes
 layout activity_feed
+layout activity_item_desempenho
+layout activity_lista_desempenho_colaboradores
 layout activity_listar_usuarios
 layout activity_login
 layout activity_main
@@ -170,6 +179,7 @@ layout activity_video_list
 layout infos_de_usuario
 layout item_alternativa
 layout item_created_question
+layout item_desempenho_colaborador
 layout item_enquete
 layout item_usuario
 layout item_video
