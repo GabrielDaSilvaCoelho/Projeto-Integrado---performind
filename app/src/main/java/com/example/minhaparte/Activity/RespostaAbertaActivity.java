@@ -89,6 +89,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
         tvResultadoIA.setText("Enviando para IA, aguarde...");
 
         apiService.avaliarDesempenho(request).enqueue(new Callback<AvaliacaoResponse>() {
+
             @Override
             public void onResponse(Call<AvaliacaoResponse> call, Response<AvaliacaoResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -104,10 +105,19 @@ public class RespostaAbertaActivity extends AppCompatActivity {
                             + "Acertos no quiz: " + acertos + "/" + totalPerguntas;
 
                     tvResultadoIA.setText(textoResultado);
+
+                    // Mensagem de sucesso
+                    Toast.makeText(RespostaAbertaActivity.this,
+                            "Avaliação enviada com sucesso!",
+                            Toast.LENGTH_SHORT).show();
+
+                    // 🔥 Fecha esta Activity e retorna para a lista
+                    finish();
                 } else {
                     tvResultadoIA.setText("Erro na resposta da API.");
                 }
             }
+
 
             @Override
             public void onFailure(Call<AvaliacaoResponse> call, Throwable t) {
