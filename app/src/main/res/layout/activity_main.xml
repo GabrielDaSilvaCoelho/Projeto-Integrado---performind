@@ -2,115 +2,91 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#1E1E1E">
+    android:background="#121212"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
+        <!-- Título / Boas-vindas -->
         <TextView
+            android:id="@+id/tvBemVindo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Menu"
-            android:textSize="24sp"
+            android:text="Bem-vindo,"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp" />
+            android:layout_marginBottom="4dp" />
 
-        <Button
-            android:id="@+id/btnCriarUsuario"
+        <TextView
+            android:id="@+id/tvTipoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de usuário:"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Card de ações -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Criar Usuário" />
+            android:orientation="vertical"
+            android:background="#1E1E1E"
+            android:padding="16dp"
+            android:elevation="4dp">
 
-        <Button
-            android:id="@+id/btnEditor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Editor" />
+            <Button
+                android:id="@+id/btnCriarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Criar usuário"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnFeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Feed" />
+            <Button
+                android:id="@+id/btnEditor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editor de vídeos / conteúdo"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Quiz" />
+            <Button
+                android:id="@+id/btnEnquetes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enquetes"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnUpload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Upload" />
+            <Button
+                android:id="@+id/btnFeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Feed"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnEnquete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Enquetes" />
+            <Button
+                android:id="@+id/btnUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload de vídeos"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnvideos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Excluir Vídeo" />
+            <Button
+                android:id="@+id/btnListaDesempenhoColab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lista de desempenho - colaboradores"
+                android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/btnListaUsuarios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Lista de Usuários" />
-
-        <Button
-            android:id="@+id/btnTrocarSenha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trocar Senha"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center" />
-
-        <Button
-            android:id="@+id/btnPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue_500"
-            android:textColor="@color/white"
-            android:text="Resposta Aberta" />
+            <Button
+                android:id="@+id/btnSair"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sair" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

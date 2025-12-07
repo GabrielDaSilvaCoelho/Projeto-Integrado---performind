@@ -2,35 +2,45 @@ package com.example.minhaparte.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.minhaparte.Adapter.VideoAdapter;
 import com.example.minhaparte.Model.VideoModel;
 import com.example.minhaparte.R;
 import com.example.minhaparte.Service.SupabaseApi;
 
-import java.util.*;
-import retrofit2.*;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private VideoAdapter adapter;
+    private SwipeRefreshLayout swipeRefresh;
+
     private float x1, x2;
     private static final int MIN_DISTANCE = 150;
 
@@ -44,40 +54,41 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         Window window = getWindow();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.blue_500));
-        }
+        window.setStatusBarColor(getResources().getColor(R.color.blue_500));
 
         ImageButton btnMenu = findViewById(R.id.btnMenu);
-
-        // Pega o tipo de usuário
-        String tipo = getSharedPreferences("user_data", MODE_PRIVATE)
-                .getString("tipo", "Colaborador");
-
-        // Somente usuários do tipo "RH" ou "Supervisor" veem o menu
-        if ("RH".equalsIgnoreCase(tipo) || "Supervisor".equalsIgnoreCase(tipo)) {
-            btnMenu.setVisibility(View.VISIBLE);
-        } else {
-            btnMenu.setVisibility(View.GONE);
-        }
-
-        btnMenu.setOnClickListener(v -> showMenuLateral());
-
+        ImageButton btnUser = findViewById(R.id.btnUser);
+        swipeRefresh = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.recyclerView);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setOnTouchListener((v, event) -> onTouchEvent(event));
 
-        ImageButton btnUser = findViewById(R.id.btnUser);
+        // Só pra debug: ver o tipo salvo
+        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
+        String tipo = prefs.getString("tipo_usuario", "N/A");
+        Toast.makeText(this, "tipo_usuario no Feed: " + tipo, Toast.LENGTH_SHORT).show();
+
+        // 🔥 FORÇA o botão do menu a aparecer SEM condições
+        btnMenu.setVisibility(View.VISIBLE);
+        btnMenu.setOnClickListener(v -> showMenuLateral());
+
+        // Botão de usuário abre InfosDeUsuario
         btnUser.setOnClickListener(v -> {
             Intent intent = new Intent(FeedActivity.this, InfosDeUsuario.class);
             startActivity(intent);
         });
 
+        // Swipe to refresh: recarrega vídeos
+        swipeRefresh.setOnRefreshListener(this::loadVideos);
+
+        // Carrega vídeos na entrada
         loadVideos();
     }
 
-
     private void loadVideos() {
+        swipeRefresh.setRefreshing(true);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SUPABASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -88,6 +99,8 @@ public class FeedActivity extends AppCompatActivity {
         api.getVideos(API_KEY, AUTH).enqueue(new Callback<List<VideoModel>>() {
             @Override
             public void onResponse(Call<List<VideoModel>> call, Response<List<VideoModel>> response) {
+                swipeRefresh.setRefreshing(false);
+
                 if (response.isSuccessful() && response.body() != null) {
                     adapter = new VideoAdapter(response.body(), FeedActivity.this, video -> {
                         Intent intent = new Intent(FeedActivity.this, PlayerActivity.class);
@@ -100,6 +113,7 @@ public class FeedActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<VideoModel>> call, Throwable t) {
+                swipeRefresh.setRefreshing(false);
                 t.printStackTrace();
             }
         });
@@ -113,6 +127,7 @@ public class FeedActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT));
         drawerLayout.setFitsSystemWindows(true);
 
+        // fundo escurecido
         View dimView = new View(this);
         dimView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -120,6 +135,7 @@ public class FeedActivity extends AppCompatActivity {
         dimView.setBackgroundColor(Color.parseColor("#80000000"));
         drawerLayout.addView(dimView);
 
+        // inflar layout do menu lateral
         View menuView = getLayoutInflater().inflate(R.layout.layout_menu_lateral, drawerLayout, false);
         int menuWidth = (int) (getScreenWidth() * 0.75);
         DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(
@@ -150,40 +166,26 @@ public class FeedActivity extends AppCompatActivity {
             public void onDrawerStateChanged(int newState) {}
         });
 
-        Button btnCriarUsuario = menuView.findViewById(R.id.btnCriarUsuario);
-        Button btnCriarEnquete = menuView.findViewById(R.id.btnCriarEnquete);
-        Button btnExcluirUsuario = menuView.findViewById(R.id.btnExcluirUsuario);
-        Button btnUploadVideo = menuView.findViewById(R.id.btnUploadVideo);
-        Button btnExcluirVideo = menuView.findViewById(R.id.btnExcluirVideo);
+        // Botões do menu lateral
+        Button btnTrocarSenha = menuView.findViewById(R.id.btnTrocarSenha);
+        Button btnInfosUsuario = menuView.findViewById(R.id.btnInfosUsuario);
+        Button btnEnquetes = menuView.findViewById(R.id.btnEnquetes);
 
-
-        btnCriarUsuario.setOnClickListener(v -> {
+        btnTrocarSenha.setOnClickListener(v -> {
             drawerLayout.closeDrawer(Gravity.START);
-            Intent intent = new Intent(FeedActivity.this, CriarUsuarioActivity.class);
+            Intent intent = new Intent(FeedActivity.this, TrocarSenhaActivity.class);
             startActivity(intent);
         });
 
-        btnCriarEnquete.setOnClickListener(v -> {
+        btnInfosUsuario.setOnClickListener(v -> {
             drawerLayout.closeDrawer(Gravity.START);
-            Intent intent = new Intent(FeedActivity.this, EditorActivity.class);
+            Intent intent = new Intent(FeedActivity.this, InfosDeUsuario.class);
             startActivity(intent);
         });
 
-        btnExcluirUsuario.setOnClickListener(v -> {
+        btnEnquetes.setOnClickListener(v -> {
             drawerLayout.closeDrawer(Gravity.START);
-            Intent intent = new Intent(FeedActivity.this, ListarUsuariosActivity.class);
-            startActivity(intent);
-        });
-
-        btnUploadVideo.setOnClickListener(v -> {
-            drawerLayout.closeDrawer(Gravity.START);
-            Intent intent = new Intent(FeedActivity.this, UploadActivity.class);
-            startActivity(intent);
-        });
-
-        btnExcluirVideo.setOnClickListener(v -> {
-            drawerLayout.closeDrawer(Gravity.START);
-            Intent intent = new Intent(FeedActivity.this, VideoListActivity.class);
+            Intent intent = new Intent(FeedActivity.this, EnquetesActivity.class);
             startActivity(intent);
         });
 
@@ -196,6 +198,28 @@ public class FeedActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // se não estiver usando swipe de tela pro lado, pode até remover isso
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+                if (Math.abs(deltaX) > MIN_DISTANCE) {
+                    if (deltaX > 0) {
+                        // swipe right
+                    } else {
+                        // swipe left
+                    }
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override

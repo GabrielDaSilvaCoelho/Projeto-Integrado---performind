@@ -154,12 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Redireciona conforme o tipo:
-     * - colaborador -> FeedActivity
-     * - rh          -> MainActivity
-     * - supervisor  -> ListaDesempenhoActivity
-     */
     private void redirecionarPorTipo(String tipoUsuarioRaw) {
         String tipo = "";
         if (tipoUsuarioRaw != null) {
