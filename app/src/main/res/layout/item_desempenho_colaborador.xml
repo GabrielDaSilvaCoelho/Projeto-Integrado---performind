@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,6 +33,39 @@
         android:layout_marginTop="2dp" />
 
     <TextView
+        android:id="@+id/txtCargoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cargo debug"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/txtSetorUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setor debug"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/txtCpfUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CPF debug"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/txtContatoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contato debug"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="2dp" />
+
+    <!-- Score do usuário -->
+    <TextView
         android:id="@+id/txtScoreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,14 +73,5 @@
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_light"
         android:layout_marginTop="6dp" />
-
-    <ImageButton
-        android:id="@+id/btnDeleteUsuario"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:src="@android:drawable/ic_menu_delete"
-        android:background="@android:color/transparent"
-        app:tint="@android:color/holo_red_light" />
 
 </LinearLayout>

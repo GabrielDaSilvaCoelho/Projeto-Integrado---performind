@@ -8,9 +8,14 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.minhaparte.R;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -31,13 +36,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         editMatricula = findViewById(R.id.editMatricula);
         editSenha = findViewById(R.id.editSenha);
         btnLogin = findViewById(R.id.btnLogin);
+
         Window window = getWindow();
         window.setStatusBarColor(getColor(R.color.blue_500));
+
         btnLogin.setOnClickListener(v -> realizarLogin());
     }
+
     private void realizarLogin() {
         String matricula = editMatricula.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
@@ -48,6 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         String senhaHash = sha256Hex(senha);
+        if (senhaHash == null) {
+            Toast.makeText(this, "Erro ao gerar hash da senha.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         HashMap<String, String> loginData = new HashMap<>();
         loginData.put("matricula", matricula);
         loginData.put("senha", senhaHash);
@@ -57,12 +71,19 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String encodedMatricula = URLEncoder.encode(loginData.get("matricula"), "UTF-8");
                 String encodedSenha = URLEncoder.encode(loginData.get("senha"), "UTF-8");
-                URL url = new URL(SUPABASE_URL + "/rest/v1/usuarios?matricula=eq." + encodedMatricula + "&senha=eq." + encodedSenha + "&select=*");
+
+                String urlStr = SUPABASE_URL
+                        + "/rest/v1/usuarios?matricula=eq." + encodedMatricula
+                        + "&senha=eq." + encodedSenha
+                        + "&select=*";
+
+                URL url = new URL(urlStr);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
                 conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
                 conn.setRequestProperty("Content-Type", "application/json");
+
                 int responseCode = conn.getResponseCode();
                 if (responseCode == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -70,45 +91,54 @@ public class LoginActivity extends AppCompatActivity {
                     String line;
                     while ((line = br.readLine()) != null) sb.append(line);
                     br.close();
+
                     JSONArray jsonArray = new JSONArray(sb.toString());
                     if (jsonArray.length() > 0) {
+                        JSONObject obj = jsonArray.getJSONObject(0);
 
-                        String nome = jsonArray.getJSONObject(0).getString("nome");
-                        String matriculaRetorno = jsonArray.getJSONObject(0).getString("matricula");
-                        String cpf = jsonArray.getJSONObject(0).getString("cpf");
-                        String tipo = jsonArray.getJSONObject(0).getString("tipo");
+                        long id = obj.getLong("id");
+                        String nome = obj.optString("nome", "-");
+                        String matriculaRetorno = obj.optString("matricula", "-");
+                        String cpf = obj.optString("cpf", "-");
+                        String tipo = obj.optString("tipo", ""); // COLABORADOR / RH / SUPERVISOR
 
-                        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+                        // Salva dados em SharedPreferences (mesmo usado em outras telas)
+                        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
+                        editor.putLong("usuario_id", id);
                         editor.putString("nome", nome);
                         editor.putString("matricula", matriculaRetorno);
                         editor.putString("cpf", cpf);
-                        editor.putString("tipo", tipo);
+                        editor.putString("tipo_usuario", tipo);
                         editor.apply();
 
                         runOnUiThread(() -> {
-                            Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            Toast.makeText(LoginActivity.this,
+                                    "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                            redirecionarPorTipo(tipo);
                         });
-                    }
-                    else {
+
+                    } else {
                         runOnUiThread(() ->
-                                Toast.makeText(this, "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
+                                Toast.makeText(LoginActivity.this,
+                                        "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
                     }
                 } else {
                     runOnUiThread(() ->
-                            Toast.makeText(this, "Erro HTTP: " + responseCode, Toast.LENGTH_SHORT).show());
+                            Toast.makeText(LoginActivity.this,
+                                    "Erro HTTP: " + responseCode, Toast.LENGTH_SHORT).show());
                 }
             } catch (Exception e) {
                 Log.e("LOGIN", "Erro ao logar", e);
                 runOnUiThread(() ->
-                        Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        Toast.makeText(LoginActivity.this,
+                                "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             } finally {
                 if (conn != null) conn.disconnect();
             }
         }).start();
     }
+
     private String sha256Hex(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -122,5 +152,46 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("HASH_ERROR", "Erro ao gerar hash", e);
             return null;
         }
+    }
+
+    /**
+     * Redireciona conforme o tipo:
+     * - colaborador -> FeedActivity
+     * - rh          -> MainActivity
+     * - supervisor  -> ListaDesempenhoActivity
+     */
+    private void redirecionarPorTipo(String tipoUsuarioRaw) {
+        String tipo = "";
+        if (tipoUsuarioRaw != null) {
+            tipo = tipoUsuarioRaw.trim().toLowerCase();
+        }
+
+        // Opcional: debug pra você ver o que está vindo
+        Log.d("LOGIN", "Tipo do usuário: " + tipo);
+        Toast.makeText(this, "Tipo do usuário: " + tipo, Toast.LENGTH_SHORT).show();
+
+        Intent intent;
+
+        switch (tipo) {
+            case "colaborador":
+                intent = new Intent(LoginActivity.this, FeedActivity.class);
+                break;
+
+            case "rh":
+                intent = new Intent(LoginActivity.this, MainActivity.class);
+                break;
+
+            case "supervisor":
+                intent = new Intent(LoginActivity.this, ListaDesempenhoActivity.class);
+                break;
+
+            default:
+                // fallback: se vier algo inesperado, manda pro Feed
+                intent = new Intent(LoginActivity.this, FeedActivity.class);
+                break;
+        }
+
+        startActivity(intent);
+        finish();
     }
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,55 +22,45 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder> {
-
-    public interface OnUsuarioClickListener {
-        void onDeleteClick(UsuarioModel usuario);
-    }
+public class DesempenhoColaboradorAdapter extends RecyclerView.Adapter<DesempenhoColaboradorAdapter.ViewHolder> {
 
     private final List<UsuarioModel> usuarios;
-    private final OnUsuarioClickListener listener;
     private final Context context;
 
-    // Mesmo Supabase da sua PerfilUsuarioActivity
     private static final String SUPABASE_URL =
             "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
     private static final String SUPABASE_API_KEY =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
-    public UsuarioAdapter(Context context, List<UsuarioModel> usuarios, OnUsuarioClickListener listener) {
+    public DesempenhoColaboradorAdapter(Context context, List<UsuarioModel> usuarios) {
         this.context = context;
         this.usuarios = usuarios;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DesempenhoColaboradorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_usuario, parent, false);
-        return new UsuarioViewHolder(v);
+                .inflate(R.layout.item_desempenho_colaborador, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DesempenhoColaboradorAdapter.ViewHolder holder, int position) {
         UsuarioModel usuario = usuarios.get(position);
 
-        holder.txtNome.setText(usuario.nome);
-        holder.txtMatricula.setText("Matrícula: " + usuario.matricula);
-        holder.txtTipo.setText("Tipo: " + usuario.tipo);
+        holder.txtNome.setText(usuario.nome != null ? usuario.nome : "-");
+        holder.txtMatricula.setText("Matrícula: " + (usuario.matricula != null ? usuario.matricula : "-"));
+        holder.txtTipo.setText("Tipo: " + (usuario.tipo != null ? usuario.tipo : "-"));
+        holder.txtCargo.setText("Cargo: " + (usuario.cargo != null ? usuario.cargo : "-"));
+        holder.txtSetor.setText("Setor: " + (usuario.setor != null ? usuario.setor : "-"));
+        holder.txtCpf.setText("CPF: " + (usuario.cpf != null ? usuario.cpf : "-"));
+        holder.txtContato.setText("Contato: " + (usuario.contato != null ? usuario.contato : "-"));
 
-        // valor inicial enquanto busca
-        holder.txtScore.setText("Score: --/1000");
+        holder.txtScore.setText("Score: --/1000"); // valor inicial
 
-        // busca o score desse usuário na tabela avaliacoes_desempenho
+        // Busca o score_final mais recente para esse usuário
         carregarScoreFinal(usuario.id, holder);
-
-        holder.btnDelete.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onDeleteClick(usuario);
-            }
-        });
     }
 
     @Override
@@ -79,25 +68,28 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         return usuarios != null ? usuarios.size() : 0;
     }
 
-    static class UsuarioViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNome, txtMatricula, txtTipo, txtScore;
-        ImageButton btnDelete;
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public UsuarioViewHolder(@NonNull View itemView) {
+        TextView txtNome, txtMatricula, txtTipo, txtCargo, txtSetor, txtCpf, txtContato, txtScore;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNome = itemView.findViewById(R.id.txtNomeUsuario);
             txtMatricula = itemView.findViewById(R.id.txtMatriculaUsuario);
             txtTipo = itemView.findViewById(R.id.txtTipoUsuario);
+            txtCargo = itemView.findViewById(R.id.txtCargoUsuario);
+            txtSetor = itemView.findViewById(R.id.txtSetorUsuario);
+            txtCpf = itemView.findViewById(R.id.txtCpfUsuario);
+            txtContato = itemView.findViewById(R.id.txtContatoUsuario);
             txtScore = itemView.findViewById(R.id.txtScoreUsuario);
-            btnDelete = itemView.findViewById(R.id.btnDeleteUsuario);
         }
     }
 
     /**
-     * Mesma lógica do PerfilUsuarioActivity.carregarScoreFinal(),
-     * mas agora por usuário da lista (id do usuário).
+     * Mesma lógica do PerfilUsuarioActivity.carregarScoreFinal,
+     * mas agora para cada usuário da lista.
      */
-    private void carregarScoreFinal(long usuarioId, UsuarioViewHolder holder) {
+    private void carregarScoreFinal(long usuarioId, ViewHolder holder) {
         new Thread(() -> {
             HttpURLConnection conn = null;
             try {
@@ -113,7 +105,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
                 int code = conn.getResponseCode();
                 if (code / 100 != 2) {
-                    // erro HTTP – não atualiza o score
                     return;
                 }
 
@@ -125,7 +116,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
                 JSONArray arr = new JSONArray(sb.toString());
                 if (arr.length() == 0) {
-                    // Sem score ainda
                     ((Activity) context).runOnUiThread(() ->
                             holder.txtScore.setText("Score: 0/1000")
                     );
@@ -146,7 +136,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
             } catch (Exception e) {
                 e.printStackTrace();
-                // em caso de erro, não quebra a tela – só deixa "--"
             } finally {
                 if (conn != null) conn.disconnect();
             }
