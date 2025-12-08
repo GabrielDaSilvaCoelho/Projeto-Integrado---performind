@@ -56,26 +56,16 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String senhaHash = sha256Hex(senha);
-        if (senhaHash == null) {
-            Toast.makeText(this, "Erro ao gerar hash da senha.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        HashMap<String, String> loginData = new HashMap<>();
-        loginData.put("matricula", matricula);
-        loginData.put("senha", senhaHash);
-
         new Thread(() -> {
             HttpURLConnection conn = null;
             try {
-                String encodedMatricula = URLEncoder.encode(loginData.get("matricula"), "UTF-8");
-                String encodedSenha = URLEncoder.encode(loginData.get("senha"), "UTF-8");
+                String encodedMatricula = URLEncoder.encode(matricula, "UTF-8");
 
                 String urlStr = SUPABASE_URL
                         + "/rest/v1/usuarios?matricula=eq." + encodedMatricula
-                        + "&senha=eq." + encodedSenha
                         + "&select=*";
+
+                Log.d("LOGIN", "URL GERADA: " + urlStr);
 
                 URL url = new URL(urlStr);
                 conn = (HttpURLConnection) url.openConnection();
@@ -83,51 +73,66 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setRequestProperty("apikey", SUPABASE_API_KEY);
                 conn.setRequestProperty("Authorization", "Bearer " + SUPABASE_API_KEY);
                 conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
 
                 int responseCode = conn.getResponseCode();
-                if (responseCode == 200) {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) sb.append(line);
-                    br.close();
-
-                    JSONArray jsonArray = new JSONArray(sb.toString());
-                    if (jsonArray.length() > 0) {
-                        JSONObject obj = jsonArray.getJSONObject(0);
-
-                        long id = obj.getLong("id");
-                        String nome = obj.optString("nome", "-");
-                        String matriculaRetorno = obj.optString("matricula", "-");
-                        String cpf = obj.optString("cpf", "-");
-                        String tipo = obj.optString("tipo", ""); // COLABORADOR / RH / SUPERVISOR
-
-                        // Salva dados em SharedPreferences (mesmo usado em outras telas)
-                        SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putLong("usuario_id", id);
-                        editor.putString("nome", nome);
-                        editor.putString("matricula", matriculaRetorno);
-                        editor.putString("cpf", cpf);
-                        editor.putString("tipo_usuario", tipo);
-                        editor.apply();
-
-                        runOnUiThread(() -> {
-                            Toast.makeText(LoginActivity.this,
-                                    "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                            redirecionarPorTipo(tipo);
-                        });
-
-                    } else {
-                        runOnUiThread(() ->
-                                Toast.makeText(LoginActivity.this,
-                                        "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
-                    }
-                } else {
+                if (responseCode != 200) {
+                    int finalResponseCode = responseCode;
                     runOnUiThread(() ->
                             Toast.makeText(LoginActivity.this,
-                                    "Erro HTTP: " + responseCode, Toast.LENGTH_SHORT).show());
+                                    "Erro HTTP: " + finalResponseCode, Toast.LENGTH_SHORT).show());
+                    return;
                 }
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) sb.append(line);
+                br.close();
+
+                JSONArray jsonArray = new JSONArray(sb.toString());
+                if (jsonArray.length() == 0) {
+                    runOnUiThread(() ->
+                            Toast.makeText(LoginActivity.this,
+                                    "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+
+                JSONObject obj = jsonArray.getJSONObject(0);
+
+                // senha que veio do banco (precisa estar em SHA-256 também)
+                String senhaHashBanco = obj.optString("senha", null);
+                String senhaHashDigitada = sha256Hex(senha);
+
+                if (senhaHashBanco == null || senhaHashDigitada == null
+                        || !senhaHashBanco.equalsIgnoreCase(senhaHashDigitada)) {
+                    runOnUiThread(() ->
+                            Toast.makeText(LoginActivity.this,
+                                    "Matrícula ou senha incorretas.", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+
+                long id = obj.getLong("id");
+                String nome = obj.optString("nome", "-");
+                String matriculaRetorno = obj.optString("matricula", "-");
+                String cpf = obj.optString("cpf", "-");
+                String tipo = obj.optString("tipo", "");
+
+                SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("usuario_id", id);
+                editor.putString("nome", nome);
+                editor.putString("matricula", matriculaRetorno);
+                editor.putString("cpf", cpf);
+                editor.putString("tipo_usuario", tipo);
+                editor.apply();
+
+                runOnUiThread(() -> {
+                    Toast.makeText(LoginActivity.this,
+                            "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                    redirecionarPorTipo(tipo);
+                });
+
             } catch (Exception e) {
                 Log.e("LOGIN", "Erro ao logar", e);
                 runOnUiThread(() ->
@@ -138,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 
     private String sha256Hex(String senha) {
         try {

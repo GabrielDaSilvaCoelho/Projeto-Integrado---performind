@@ -5,7 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://192.168.1.6:5000"; // seu IP/localhost
+    // EMULADOR Android Studio -> usa 10.0.2.2 para enxergar o PC
+    private static final String BASE_URL = "http://10.0.2.2:5000/"; // <-- barra no final!
+
     private static FlaskApiService apiService;
 
     public static FlaskApiService getApiService() {
