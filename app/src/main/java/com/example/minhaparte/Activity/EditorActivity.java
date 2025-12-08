@@ -198,7 +198,7 @@ public class EditorActivity extends AppCompatActivity {
         new Thread(() -> {
             HttpURLConnection conn = null;
             try {
-                long usuarioId = buscarUsuarioId("admins");
+                long usuarioId = buscarUsuarioId("RH");
                 if (usuarioId == -1) {
                     runOnUiThread(() ->
                             Toast.makeText(EditorActivity.this,

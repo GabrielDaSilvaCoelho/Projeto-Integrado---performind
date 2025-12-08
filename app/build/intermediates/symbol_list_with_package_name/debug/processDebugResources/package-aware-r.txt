@@ -4021,6 +4021,7 @@ id btnDeleteUsuario
 id btnEditor
 id btnEnquetes
 id btnEnviarResposta
+id btnExcluirUsuario
 id btnFeed
 id btnInfosUsuario
 id btnListaDesempenhoColab
@@ -4036,6 +4037,7 @@ id btnTrocar
 id btnTrocarSenha
 id btnUpload
 id btnUser
+id btnVideolist
 id buttonPanel
 id cache_measures
 id callMeasure

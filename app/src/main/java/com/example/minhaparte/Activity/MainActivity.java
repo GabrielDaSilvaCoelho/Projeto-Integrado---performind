@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.btnUpload);
         btnListaDesempenho = findViewById(R.id.btnListaDesempenhoColab);
         btnSair = findViewById(R.id.btnSair);
+        View btnVideolist = findViewById(R.id.btnVideolist);
+        View btnExcluirUsuario = findViewById(R.id.btnExcluirUsuario);
 
-        // Lê dados salvos no login
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         long usuarioId = prefs.getLong("usuario_id", -1L);
         String nome = prefs.getString("nome", "-");
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("MAIN", "usuarioId=" + usuarioId + " tipo=" + tipo);
 
-        // Se não tiver usuário logado, volta pro login
         if (usuarioId == -1L || tipo.isEmpty()) {
             Toast.makeText(this, "Sessão inválida. Faça login novamente.", Toast.LENGTH_LONG).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -55,49 +56,49 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Mostra infos básicas
         tvBemVindo.setText("Bem-vindo, " + nome);
         tvTipo.setText("Tipo de usuário: " + tipo);
 
-
-        // Criar usuário
         btnCriarUsuario.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, CriarUsuarioActivity.class);
             startActivity(i);
         });
 
-        // Editor (vídeos / conteúdo)
         btnEditor.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, EditorActivity.class);
             startActivity(i);
         });
 
-        // Enquetes
         btnEnquetes.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, EnquetesActivity.class);
             startActivity(i);
         });
 
-        // Feed
         btnFeed.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, FeedActivity.class);
             startActivity(i);
         });
 
-        // Upload
         btnUpload.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, UploadActivity.class);
             startActivity(i);
         });
 
-        // Lista de desempenho dos colaboradores
-        // (Activity que você criou para listar apenas "Colaborador")
         btnListaDesempenho.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, ListaDesempenhoActivity.class);
             startActivity(i);
         });
 
-        // Sair (logout)
+        btnVideolist.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, VideoListActivity.class);
+            startActivity(i);
+        });
+
+        btnExcluirUsuario.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, ListarUsuariosActivity.class);
+            startActivity(i);
+        });
+
         btnSair.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
