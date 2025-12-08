@@ -87,7 +87,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // JSON apenas com a senha
+
                     JSONObject jsonBody = new JSONObject();
                     jsonBody.put("senha", sha256Hex(novaSenha));
 

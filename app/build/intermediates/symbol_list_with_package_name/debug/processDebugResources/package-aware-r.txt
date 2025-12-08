@@ -1601,6 +1601,7 @@ color bright_foreground_material_dark
 color bright_foreground_material_light
 color button_material_dark
 color button_material_light
+color button_ripple_gray
 color call_notification_answer_color
 color call_notification_decline_color
 color cardview_dark_background
@@ -3710,6 +3711,8 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable button_menu_bg
+drawable button_menu_ripple
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off

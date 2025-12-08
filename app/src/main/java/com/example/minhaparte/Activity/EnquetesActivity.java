@@ -26,7 +26,7 @@ public class EnquetesActivity extends AppCompatActivity {
     private ArrayList<String> enqueteTitulos = new ArrayList<>();
 
     private static final String SUPABASE_URL = "https://pbpkxbkwfpznkkuwcxjl.supabase.co";
-    private static final String SUPABASE_API_KEY = "SUA_API_KEY";
+    private static final String SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicGt4Ymt3ZnB6bmtrdXdjeGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMzAzMzYsImV4cCI6MjA3NjkwNjMzNn0.pg-ZC6GAXr0sXIDjetecT8QVL11ZSABhlunerXFwqSM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +54,7 @@ public class EnquetesActivity extends AppCompatActivity {
 
             try {
 
-                // =====================================================
-                // 1️⃣ PEGAR ID DO USUÁRIO LOGADO
-                // =====================================================
+
                 SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
                 long usuarioId = prefs.getLong("usuario_id", -1);
 
@@ -66,10 +64,7 @@ public class EnquetesActivity extends AppCompatActivity {
                     return;
                 }
 
-                // =====================================================
-                // 2️⃣ BUSCAR ENQUETES QUE O USUÁRIO JÁ RESPONDEU
-                //    tabela: avaliacoes_desempenho
-                // =====================================================
+
                 HashSet<Long> respondidas = new HashSet<>();
 
                 URL urlResp = new URL(
@@ -96,9 +91,7 @@ public class EnquetesActivity extends AppCompatActivity {
                     respondidas.add(obj.getLong("id_conteudo"));
                 }
 
-                // =====================================================
-                // 3️⃣ BUSCAR TODAS AS ENQUETES DISPONÍVEIS
-                // =====================================================
+
                 URL url = new URL(
                         SUPABASE_URL + "/rest/v1/questionarios?select=id,titulo"
                 );
@@ -119,16 +112,13 @@ public class EnquetesActivity extends AppCompatActivity {
                 enqueteIds.clear();
                 enqueteTitulos.clear();
 
-                // =====================================================
-                // 4️⃣ FILTRAR — REMOVER ENQUETES JÁ RESPONDIDAS
-                // =====================================================
+
                 for (int i = 0; i < arr.length(); i++) {
 
                     JSONObject obj = arr.getJSONObject(i);
 
                     long idConteudo = obj.getLong("id");
 
-                    // 🛑 Se já respondeu, não adiciona na lista
                     if (respondidas.contains(idConteudo)) {
                         continue;
                     }
@@ -137,9 +127,7 @@ public class EnquetesActivity extends AppCompatActivity {
                     enqueteTitulos.add(obj.getString("titulo"));
                 }
 
-                // =====================================================
-                // 5️⃣ ATUALIZAR UI
-                // =====================================================
+
                 runOnUiThread(() -> {
 
                     if (enqueteIds.isEmpty()) {

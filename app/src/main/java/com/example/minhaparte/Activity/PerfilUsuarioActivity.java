@@ -48,7 +48,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         gaugeScore = findViewById(R.id.gaugeScore);
         gaugeScore.setMaxScore(1000);
 
-        // Pega o ID do usuário logado (mesma lógica que você já usa no QuizActivity)
+
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         usuarioId = prefs.getLong("usuario_id", -1L);
 
@@ -60,12 +60,10 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         carregarDadosUsuario();
         carregarEstatisticas();
-        carregarScoreFinal(); // ← busca o score na tabela avaliacoes_desempenho
+        carregarScoreFinal();
     }
 
-    /**
-     * Busca dados do usuário na tabela "usuarios"
-     */
+
     private void carregarDadosUsuario() {
         new Thread(() -> {
             HttpURLConnection conn = null;
@@ -79,7 +77,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
                 int code = conn.getResponseCode();
                 if (code / 100 != 2) {
-                    // erro HTTP
+
                     BufferedReader errReader = new BufferedReader(
                             new InputStreamReader(conn.getErrorStream())
                     );

@@ -9,6 +9,8 @@
     <color name="gray_500">#9E9E9E</color>
     <color name="gray_700">#616161</color> <!-- nova -->
     <color name="gray_900">#212121</color>
+    <color name="button_ripple_gray">#33FFFFFF</color> <!-- branco bem translúcido -->
+
 
     <!-- Primárias -->
     <color name="red_300">#E57373</color> <!-- nova -->

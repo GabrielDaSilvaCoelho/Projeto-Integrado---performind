@@ -64,25 +64,25 @@ public class FeedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setOnTouchListener((v, event) -> onTouchEvent(event));
 
-        // Só pra debug: ver o tipo salvo
+
         SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
         String tipo = prefs.getString("tipo_usuario", "N/A");
         Toast.makeText(this, "tipo_usuario no Feed: " + tipo, Toast.LENGTH_SHORT).show();
 
-        // 🔥 FORÇA o botão do menu a aparecer SEM condições
+
         btnMenu.setVisibility(View.VISIBLE);
         btnMenu.setOnClickListener(v -> showMenuLateral());
 
-        // Botão de usuário abre InfosDeUsuario
+
         btnUser.setOnClickListener(v -> {
             Intent intent = new Intent(FeedActivity.this, InfosDeUsuario.class);
             startActivity(intent);
         });
 
-        // Swipe to refresh: recarrega vídeos
+
         swipeRefresh.setOnRefreshListener(this::loadVideos);
 
-        // Carrega vídeos na entrada
+
         loadVideos();
     }
 
@@ -202,7 +202,7 @@ public class FeedActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // se não estiver usando swipe de tela pro lado, pode até remover isso
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
@@ -212,9 +212,9 @@ public class FeedActivity extends AppCompatActivity {
                 float deltaX = x2 - x1;
                 if (Math.abs(deltaX) > MIN_DISTANCE) {
                     if (deltaX > 0) {
-                        // swipe right
+
                     } else {
-                        // swipe left
+
                     }
                 }
                 break;
