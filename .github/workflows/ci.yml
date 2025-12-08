@@ -9,32 +9,52 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: 17
           cache: gradle
 
       - name: Permitir execução do Gradle
         run: chmod +x gradlew
 
-      - name: Gradle Check
-        run: ./gradlew check --stacktrace
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 33
+          build-tools: 33.0.2
+
+      - name: Run Lint
+        run: ./gradlew lint
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Run Instrumented Tests
+        run: ./gradlew connectedAndroidTest
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload do APK
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk-release
+          path: app/build/outputs/apk/release/app-release.apk
 
