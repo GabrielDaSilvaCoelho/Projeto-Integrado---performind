@@ -19,13 +19,14 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Set up Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 33
-          build-tools: 33.0.2
-          cmake: 3.22.1
-          ndk: 25.1.8937393
+          cmdline-tools-version: 9.1.0
+          packages: |
+            platform-tools
+            platforms;android-33
+            build-tools;33.0.2
 
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
