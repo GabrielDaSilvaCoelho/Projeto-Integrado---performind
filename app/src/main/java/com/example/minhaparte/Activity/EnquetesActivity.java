@@ -58,7 +58,7 @@ public class EnquetesActivity extends AppCompatActivity {
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     enqueteIds.add(obj.getLong("id"));
-                    enqueteTitulos.add(obj.getString("titulo"));
+                    enqueteTitulos.add(obj.getString("Titulo"));
                 }
 
                 runOnUiThread(() -> {
