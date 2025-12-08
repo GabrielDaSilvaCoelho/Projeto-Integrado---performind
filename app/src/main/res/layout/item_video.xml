@@ -6,7 +6,9 @@
     android:layout_margin="16dp"
     android:padding="8dp"
     android:background="@drawable/rounded_bg"
+    android:backgroundTint="@color/blue_500"
     android:elevation="4dp">
+
 
     <ImageView
         android:id="@+id/thumbImage"

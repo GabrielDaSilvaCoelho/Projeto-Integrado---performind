@@ -4020,6 +4020,7 @@ int id btnDeleteUsuario 0x7f0a006c
 int id btnEditor 0x7f0a006d
 int id btnEnquetes 0x7f0a006e
 int id btnEnviarResposta 0x7f0a006f
+int id btnExcluirUsuario 0x7f0a02c8
 int id btnFeed 0x7f0a0070
 int id btnInfosUsuario 0x7f0a0071
 int id btnListaDesempenhoColab 0x7f0a0072
@@ -4035,6 +4036,7 @@ int id btnTrocar 0x7f0a007b
 int id btnTrocarSenha 0x7f0a007c
 int id btnUpload 0x7f0a007d
 int id btnUser 0x7f0a007e
+int id btnVideolist 0x7f0a02c7
 int id buttonPanel 0x7f0a007f
 int id cache_measures 0x7f0a0080
 int id callMeasure 0x7f0a0081

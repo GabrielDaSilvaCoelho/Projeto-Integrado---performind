@@ -2,25 +2,30 @@ package com.example.minhaparte.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.minhaparte.R;
 
 public class InfosDeUsuario extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "APP_PREFS";
+
+    private static final String PREFS_NAME = "user_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.infos_de_usuario);
 
-
         TextView tvNome = findViewById(R.id.tvNome);
         TextView tvMatricula = findViewById(R.id.tvMatricula);
         TextView tvCpf = findViewById(R.id.tvCpf);
         TextView tvTipo = findViewById(R.id.tvTipo);
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.blue_500));
 
 
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -28,8 +33,7 @@ public class InfosDeUsuario extends AppCompatActivity {
         String nome = prefs.getString("nome", "Não disponível");
         String matricula = prefs.getString("matricula", "Não informado");
         String cpf = prefs.getString("cpf", "Não informado");
-        String tipo = prefs.getString("tipo_usuario", "Não informado");
-
+        String tipo = prefs.getString("tipo", "Não informado");
 
         tvNome.setText("Nome: " + nome);
         tvMatricula.setText("Matrícula: " + matricula);
@@ -38,7 +42,6 @@ public class InfosDeUsuario extends AppCompatActivity {
 
         Button btnTrocarSenha = findViewById(R.id.btnTrocarSenha);
         btnTrocarSenha.setOnClickListener(v -> {
-
         });
     }
 }

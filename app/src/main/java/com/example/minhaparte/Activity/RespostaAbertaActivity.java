@@ -60,7 +60,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             tvPerguntaAberta.setText(perguntaAberta);
         }
 
-        apiService = ApiClient.getApiService();
+        apiService = ApiClient.getFlaskApiService();
 
         btnEnviar.setOnClickListener(v -> enviarParaIA());
     }
