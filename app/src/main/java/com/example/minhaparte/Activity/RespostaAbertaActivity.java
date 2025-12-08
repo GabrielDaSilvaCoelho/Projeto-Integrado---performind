@@ -3,17 +3,16 @@ package com.example.minhaparte.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// IMPORTS CORRETOS
 import com.example.minhaparte.Api.ApiClient;
 import com.example.minhaparte.Api.FlaskApiService;
 import com.example.minhaparte.Api.AvaliacaoRequest;
 import com.example.minhaparte.Api.AvaliacaoResponse;
-
 import com.example.minhaparte.R;
 
 import retrofit2.Call;
@@ -38,7 +37,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
     private int acertos;
     private String perguntaAberta;
 
-    // TIPO CORRETO
     private FlaskApiService apiService;
 
     @Override
@@ -51,7 +49,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
         tvPerguntaAberta = findViewById(R.id.tvPerguntaAberta);
         Button btnEnviar = findViewById(R.id.btnEnviarResposta);
 
-        // Recupera dados vindos do QuizActivity
+
         idUsuario = getIntent().getStringExtra(EXTRA_ID_USUARIO);
         idConteudo = getIntent().getStringExtra(EXTRA_ID_CONTEUDO);
         totalPerguntas = getIntent().getIntExtra(EXTRA_TOTAL_PERGUNTAS, 0);
@@ -62,7 +60,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             tvPerguntaAberta.setText(perguntaAberta);
         }
 
-        // AQUI ESTAVA O ERRO — CORRIGIDO
         apiService = ApiClient.getApiService();
 
         btnEnviar.setOnClickListener(v -> enviarParaIA());
@@ -76,7 +73,12 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             return;
         }
 
-        // Monta o JSON da requisição
+
+        Log.d("RESPOSTA_ABERTA", "idUsuario=" + idUsuario
+                + ", idConteudo=" + idConteudo
+                + ", totalPerguntas=" + totalPerguntas
+                + ", acertos=" + acertos);
+
         AvaliacaoRequest request = new AvaliacaoRequest(
                 idUsuario,
                 idConteudo,
@@ -106,23 +108,37 @@ public class RespostaAbertaActivity extends AppCompatActivity {
 
                     tvResultadoIA.setText(textoResultado);
 
-                    // Mensagem de sucesso
                     Toast.makeText(RespostaAbertaActivity.this,
                             "Avaliação enviada com sucesso!",
                             Toast.LENGTH_SHORT).show();
 
-                    // 🔥 Fecha esta Activity e retorna para a lista
+
                     finish();
+
                 } else {
-                    tvResultadoIA.setText("Erro na resposta da API.");
+
+                    String msg = "Erro na resposta da API. Código: " + response.code();
+                    try {
+                        if (response.errorBody() != null) {
+                            msg += " - " + response.errorBody().string();
+                        }
+                    } catch (Exception ignored) {}
+
+                    Log.e("RESPOSTA_ABERTA", msg);
+                    tvResultadoIA.setText(msg);
+                    Toast.makeText(RespostaAbertaActivity.this,
+                            msg, Toast.LENGTH_LONG).show();
                 }
             }
-
 
             @Override
             public void onFailure(Call<AvaliacaoResponse> call, Throwable t) {
                 t.printStackTrace();
-                tvResultadoIA.setText("Falha ao comunicar com a API.");
+                String erro = "Falha ao comunicar com a API: " + t.getMessage();
+                Log.e("RESPOSTA_ABERTA", erro, t);
+                tvResultadoIA.setText(erro);
+                Toast.makeText(RespostaAbertaActivity.this,
+                        erro, Toast.LENGTH_LONG).show();
             }
         });
     }

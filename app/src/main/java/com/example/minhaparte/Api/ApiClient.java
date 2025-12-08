@@ -5,14 +5,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    // 🔥 PC rodando Flask na rede local
-    private static final String BASE_URL = "http://192.168.1.9:5000/";
+
+    private static final String BASE_URL = "http://127.0.0.1:5000/";
+
     private static FlaskApiService apiService;
 
     public static FlaskApiService getApiService() {
         if (apiService == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)  // PRECISA terminar com /
+                    .baseUrl(BASE_URL)              
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

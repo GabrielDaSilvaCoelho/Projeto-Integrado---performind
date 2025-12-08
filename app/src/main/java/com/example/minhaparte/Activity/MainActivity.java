@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         tvBemVindo.setText("Bem-vindo, " + nome);
         tvTipo.setText("Tipo de usuário: " + tipo);
 
-        // Navegação para cada Activity
 
         // Criar usuário
         btnCriarUsuario.setOnClickListener(v -> {

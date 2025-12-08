@@ -31,11 +31,11 @@ public class EditorActivity extends AppCompatActivity {
     private Switch switchDiscursiva;
     private LinearLayout layoutAlternativas;
 
-    // Modelo interno para não depender de QuestionModel
+
     private static class LocalQuestion {
         String enunciado;
         ArrayList<String> alternativas;
-        int indiceCorreta; // -1 para discursiva
+        int indiceCorreta;
         boolean discursiva;
 
         LocalQuestion(String enunciado, ArrayList<String> alternativas, int indiceCorreta, boolean discursiva) {
@@ -95,7 +95,7 @@ public class EditorActivity extends AppCompatActivity {
         boolean isDiscursiva = switchDiscursiva.isChecked();
 
         if (isDiscursiva) {
-            // Questão discursiva: sem alternativas, índice correto -1
+
             ArrayList<String> alternativasVazias = new ArrayList<>();
             int indiceCorreta = -1;
 
@@ -108,7 +108,7 @@ public class EditorActivity extends AppCompatActivity {
             return;
         }
 
-        // Questão objetiva (múltipla escolha)
+        // Questão objetiva
         ArrayList<String> alternativas = new ArrayList<>();
         alternativas.add(etAlt1.getText().toString().trim());
         alternativas.add(etAlt2.getText().toString().trim());
@@ -244,7 +244,7 @@ public class EditorActivity extends AppCompatActivity {
 
                 int sucesso = 0;
                 for (LocalQuestion q : listaQuestoes) {
-                    // Para discursiva: alternativas vazias e indiceCorreta = -1
+
                     boolean ok = QuestaoService.salvarQuestaoComQuestionario(
                             questionarioId,
                             usuarioId,

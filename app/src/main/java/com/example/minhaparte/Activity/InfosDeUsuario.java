@@ -9,20 +9,20 @@ import com.example.minhaparte.R;
 
 public class InfosDeUsuario extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "APP_PREFS"; // mesmo nome usado no LoginActivity
+    private static final String PREFS_NAME = "APP_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.infos_de_usuario);
 
-        // TextViews do layout
+
         TextView tvNome = findViewById(R.id.tvNome);
         TextView tvMatricula = findViewById(R.id.tvMatricula);
         TextView tvCpf = findViewById(R.id.tvCpf);
         TextView tvTipo = findViewById(R.id.tvTipo);
 
-        // Carregar SharedPreferences
+
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         String nome = prefs.getString("nome", "Não disponível");
@@ -30,7 +30,7 @@ public class InfosDeUsuario extends AppCompatActivity {
         String cpf = prefs.getString("cpf", "Não informado");
         String tipo = prefs.getString("tipo_usuario", "Não informado");
 
-        // Preencher TextViews
+
         tvNome.setText("Nome: " + nome);
         tvMatricula.setText("Matrícula: " + matricula);
         tvCpf.setText("CPF: " + cpf);
@@ -38,7 +38,7 @@ public class InfosDeUsuario extends AppCompatActivity {
 
         Button btnTrocarSenha = findViewById(R.id.btnTrocarSenha);
         btnTrocarSenha.setOnClickListener(v -> {
-            // abrir futuro trocar senha
+
         });
     }
 }

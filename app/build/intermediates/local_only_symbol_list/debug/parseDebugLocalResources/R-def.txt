@@ -10,6 +10,7 @@ color blue_100
 color blue_300
 color blue_500
 color blue_700
+color button_ripple_gray
 color error_red
 color gray_100
 color gray_200
@@ -38,6 +39,8 @@ color text_secondary
 color warning_amber
 color white
 color white_50
+drawable button_menu_bg
+drawable button_menu_ripple
 drawable dot_circle
 drawable edittext_rounded_bg
 drawable ic_image_placeholder
