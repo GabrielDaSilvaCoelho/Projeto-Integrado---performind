@@ -4,34 +4,40 @@ on:
   push:
     branches:
       - main
-      - develop  # para Staging
 
 jobs:
   build:
     name: Build Release APK
     runs-on: ubuntu-latest
+
     env:
       ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
       ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
       ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+
       - name: Decode keystore
         run: |
           echo $ANDROID_KEYSTORE_BASE64 | base64 --decode > release.keystore
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
+
       - name: Build Release APK
         run: ./gradlew clean assembleRelease
+
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
@@ -42,48 +48,50 @@ jobs:
     name: Run Automated Tests
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
+
       - name: Run Unit Tests
         run: ./gradlew test
+        
       - name: Run Android Lint
         run: ./gradlew lint
-
+ 
   deploy-staging:
     name: Deploy Staging
     runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/develop'
+    needs: test 
     steps:
       - name: Download APK
         uses: actions/download-artifact@v4
         with:
           name: release-apk
           path: ./app-release
+
       - name: Deploy to Staging
         run: |
           echo "Deploy para Staging iniciado"
           echo "Deploy para Staging concluído"
-
   deploy-production:
     name: Deploy Produção
     runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'
+    needs: test 
     steps:
       - name: Download APK
         uses: actions/download-artifact@v4
         with:
           name: release-apk
           path: ./app-release
+
       - name: Deploy to Production
         run: |
           echo "Deploy para Produção iniciado"
           echo "Deploy para Produção concluído"
-
   final-message:
     name: Build & Deploy Success
     runs-on: ubuntu-latest
