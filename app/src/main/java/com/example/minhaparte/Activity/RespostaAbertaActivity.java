@@ -1,20 +1,18 @@
 package com.example.minhaparte.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.minhaparte.Api.ApiClient;
-import com.example.minhaparte.Api.FlaskApiService;
 import com.example.minhaparte.Api.AvaliacaoRequest;
 import com.example.minhaparte.Api.AvaliacaoResponse;
+import com.example.minhaparte.Api.FlaskApiService;
 import com.example.minhaparte.R;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +28,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
     private EditText etRespostaAberta;
     private TextView tvResultadoIA;
     private TextView tvPerguntaAberta;
+    private Button btnEnviar;
 
     private String idUsuario;
     private String idConteudo;
@@ -47,8 +46,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
         etRespostaAberta = findViewById(R.id.etRespostaAberta);
         tvResultadoIA = findViewById(R.id.tvResultadoIA);
         tvPerguntaAberta = findViewById(R.id.tvPerguntaAberta);
-        Button btnEnviar = findViewById(R.id.btnEnviarResposta);
-
+        btnEnviar = findViewById(R.id.btnEnviarResposta);
 
         idUsuario = getIntent().getStringExtra(EXTRA_ID_USUARIO);
         idConteudo = getIntent().getStringExtra(EXTRA_ID_CONTEUDO);
@@ -60,7 +58,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             tvPerguntaAberta.setText(perguntaAberta);
         }
 
-        apiService = ApiClient.getFlaskApiService();
+        apiService = ApiClient.getApiService();
 
         btnEnviar.setOnClickListener(v -> enviarParaIA());
     }
@@ -72,12 +70,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             Toast.makeText(this, "Digite sua resposta.", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-        Log.d("RESPOSTA_ABERTA", "idUsuario=" + idUsuario
-                + ", idConteudo=" + idConteudo
-                + ", totalPerguntas=" + totalPerguntas
-                + ", acertos=" + acertos);
 
         AvaliacaoRequest request = new AvaliacaoRequest(
                 idUsuario,
@@ -91,7 +83,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
         tvResultadoIA.setText("Enviando para IA, aguarde...");
 
         apiService.avaliarDesempenho(request).enqueue(new Callback<AvaliacaoResponse>() {
-
             @Override
             public void onResponse(Call<AvaliacaoResponse> call, Response<AvaliacaoResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -108,38 +99,30 @@ public class RespostaAbertaActivity extends AppCompatActivity {
 
                     tvResultadoIA.setText(textoResultado);
 
-                    Toast.makeText(RespostaAbertaActivity.this,
-                            "Avaliação enviada com sucesso!",
-                            Toast.LENGTH_SHORT).show();
+                    marcarQuestionarioComoRespondido();
+                    Toast.makeText(RespostaAbertaActivity.this, "Questionário enviado com sucesso!", Toast.LENGTH_SHORT).show();
 
-
+                    Intent intent = new Intent(RespostaAbertaActivity.this, FeedActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     finish();
-
                 } else {
-
-                    String msg = "Erro na resposta da API. Código: " + response.code();
-                    try {
-                        if (response.errorBody() != null) {
-                            msg += " - " + response.errorBody().string();
-                        }
-                    } catch (Exception ignored) {}
-
-                    Log.e("RESPOSTA_ABERTA", msg);
-                    tvResultadoIA.setText(msg);
-                    Toast.makeText(RespostaAbertaActivity.this,
-                            msg, Toast.LENGTH_LONG).show();
+                    tvResultadoIA.setText("Erro na resposta da API.");
                 }
             }
 
             @Override
             public void onFailure(Call<AvaliacaoResponse> call, Throwable t) {
                 t.printStackTrace();
-                String erro = "Falha ao comunicar com a API: " + t.getMessage();
-                Log.e("RESPOSTA_ABERTA", erro, t);
-                tvResultadoIA.setText(erro);
-                Toast.makeText(RespostaAbertaActivity.this,
-                        erro, Toast.LENGTH_LONG).show();
+                tvResultadoIA.setText("Falha ao comunicar com a API.");
             }
         });
+    }
+
+    private void marcarQuestionarioComoRespondido() {
+        if (idUsuario == null || idConteudo == null) return;
+        SharedPreferences prefs = getSharedPreferences("questionarios", MODE_PRIVATE);
+        String chave = "respondido_" + idUsuario + "_" + idConteudo;
+        prefs.edit().putBoolean(chave, true).apply();
     }
 }
