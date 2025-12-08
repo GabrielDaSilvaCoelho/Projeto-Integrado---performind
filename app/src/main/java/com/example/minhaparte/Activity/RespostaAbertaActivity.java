@@ -1,21 +1,18 @@
 package com.example.minhaparte.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-// IMPORTS CORRETOS
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.minhaparte.Api.ApiClient;
-import com.example.minhaparte.Api.FlaskApiService;
 import com.example.minhaparte.Api.AvaliacaoRequest;
 import com.example.minhaparte.Api.AvaliacaoResponse;
-
+import com.example.minhaparte.Api.FlaskApiService;
 import com.example.minhaparte.R;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +28,7 @@ public class RespostaAbertaActivity extends AppCompatActivity {
     private EditText etRespostaAberta;
     private TextView tvResultadoIA;
     private TextView tvPerguntaAberta;
+    private Button btnEnviar;
 
     private String idUsuario;
     private String idConteudo;
@@ -38,7 +36,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
     private int acertos;
     private String perguntaAberta;
 
-    // TIPO CORRETO
     private FlaskApiService apiService;
 
     @Override
@@ -49,9 +46,8 @@ public class RespostaAbertaActivity extends AppCompatActivity {
         etRespostaAberta = findViewById(R.id.etRespostaAberta);
         tvResultadoIA = findViewById(R.id.tvResultadoIA);
         tvPerguntaAberta = findViewById(R.id.tvPerguntaAberta);
-        Button btnEnviar = findViewById(R.id.btnEnviarResposta);
+        btnEnviar = findViewById(R.id.btnEnviarResposta);
 
-        // Recupera dados vindos do QuizActivity
         idUsuario = getIntent().getStringExtra(EXTRA_ID_USUARIO);
         idConteudo = getIntent().getStringExtra(EXTRA_ID_CONTEUDO);
         totalPerguntas = getIntent().getIntExtra(EXTRA_TOTAL_PERGUNTAS, 0);
@@ -62,7 +58,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             tvPerguntaAberta.setText(perguntaAberta);
         }
 
-        // AQUI ESTAVA O ERRO — CORRIGIDO
         apiService = ApiClient.getApiService();
 
         btnEnviar.setOnClickListener(v -> enviarParaIA());
@@ -76,7 +71,6 @@ public class RespostaAbertaActivity extends AppCompatActivity {
             return;
         }
 
-        // Monta o JSON da requisição
         AvaliacaoRequest request = new AvaliacaoRequest(
                 idUsuario,
                 idConteudo,
@@ -104,6 +98,14 @@ public class RespostaAbertaActivity extends AppCompatActivity {
                             + "Acertos no quiz: " + acertos + "/" + totalPerguntas;
 
                     tvResultadoIA.setText(textoResultado);
+
+                    marcarQuestionarioComoRespondido();
+                    Toast.makeText(RespostaAbertaActivity.this, "Questionário enviado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(RespostaAbertaActivity.this, FeedActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
                 } else {
                     tvResultadoIA.setText("Erro na resposta da API.");
                 }
@@ -115,5 +117,12 @@ public class RespostaAbertaActivity extends AppCompatActivity {
                 tvResultadoIA.setText("Falha ao comunicar com a API.");
             }
         });
+    }
+
+    private void marcarQuestionarioComoRespondido() {
+        if (idUsuario == null || idConteudo == null) return;
+        SharedPreferences prefs = getSharedPreferences("questionarios", MODE_PRIVATE);
+        String chave = "respondido_" + idUsuario + "_" + idConteudo;
+        prefs.edit().putBoolean(chave, true).apply();
     }
 }
